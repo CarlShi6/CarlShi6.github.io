@@ -1,0 +1,39 @@
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal][data-reveal-state="hidden"] {
+  opacity: 0;
+  transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 26px), 0);
+  will-change: opacity, transform;
+}
+
+[data-reveal][data-reveal-state="visible"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity var(--reveal-duration, var(--motion-reveal)) var(--reveal-easing) var(--reveal-delay, 0ms),
+    transform var(--reveal-duration, var(--motion-reveal)) var(--reveal-easing) var(--reveal-delay, 0ms);
+}
+
+@media (max-width: 760px) {
+  [data-reveal][data-reveal-state="hidden"] {
+    transform: translate3d(var(--reveal-mobile-x, 0), var(--reveal-mobile-y, 16px), 0);
+  }
+
+  [data-reveal][data-reveal-state="visible"] {
+    transition-duration: var(--reveal-mobile-duration, var(--motion-reveal-mobile));
+    transition-delay: var(--reveal-mobile-delay, 0ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal][data-reveal-state="hidden"],
+  [data-reveal][data-reveal-state="visible"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

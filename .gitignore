@@ -1,0 +1,6 @@
+/source-snapshot.tar
+/source/node_modules/
+/source/dist/
+/source/.vinext/
+/source/.wrangler/
+/source/outputs/
