@@ -74,6 +74,8 @@
   background: rgba(191, 232, 251, 0.07);
 }
 
+.themeCenter { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; align-items:center; }
+
 .navLinks {
   display: flex;
   align-items: center;

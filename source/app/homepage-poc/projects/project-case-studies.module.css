@@ -5,6 +5,7 @@
   --bright-line: #2d414b;
   --text: #e8edf0;
   --copy-rgb: 232, 237, 240;
+  --rail-muted: #a5b6c0;
   position: relative;
   min-height: 100vh;
   padding-top: 58px;
@@ -24,9 +25,11 @@
 .projectNavLinks a::after { position: absolute; right: 0; bottom: 13px; left: 0; height: 1px; background: #dcecf1; content: ""; opacity: 0; transform: scaleX(0.25); transition: opacity 220ms ease, transform 320ms ease; }
 .projectNavLinks a:hover, .projectNavLinks a[data-active="true"] { color: var(--text); }
 .projectNavLinks a[data-active="true"]::after { opacity: 1; transform: scaleX(1); }
-.indexLink { justify-self: end; color: rgba(var(--copy-rgb), 0.55); font: 500 10.5px/1 var(--font-geist-mono), monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+.indexLink { justify-self: end; min-height:40px; padding:9px 14px; border:1px solid var(--bright-line); border-radius:4px; color:var(--text); background:var(--raised); font:500 14px/1.2 var(--font-geist-mono),monospace; letter-spacing:.01em; text-transform:none; white-space:nowrap; transition:background 200ms ease,border-color 200ms ease; }
+.indexLink:hover { border-color:var(--text); background:var(--bg); }
+.indexLink:focus-visible { outline:2px solid var(--text); outline-offset:3px; }
 .indexLink:hover, .homeLink:hover { color: var(--text); }
-.indexLink { display: inline-flex; align-items: center; gap: 8px; }
+.indexLink { grid-column:3; display: inline-flex; align-items: center; gap: 8px; }
 .indexLink svg { width: 16px; height: 16px; flex: none; }
 
 .caseArchiveHero, .caseChapter, .caseFooter { position: relative; z-index: 2; width: min(100% - 48px, 1220px); margin: 0 auto; }
@@ -166,11 +169,11 @@
 
 @media (max-width: 760px) {
   .casesPage { padding-top: 98px; }
-  .caseNav { grid-template-columns: 1fr auto; min-height: 54px; padding: 0 17px; }
+  .caseNav { grid-template-columns:1fr auto 1fr; min-height:54px; padding:0 17px; }
   .projectNavLinks { position: fixed; z-index: 39; top: 54px; right: 0; left: 0; justify-content: space-around; gap: 0; padding: 0 9px; border-bottom: 1px solid rgba(38, 51, 61, 0.62); background: rgba(5, 8, 11, 0.93); backdrop-filter: blur(18px); }
   .projectNavLinks a { padding: 15px 4px; font-size: 9px; }
   .projectNavLinks a::after { bottom: 8px; }
-  .indexLink { font-size: 9px; }
+  .indexLink { font-size:14px; padding:8px 12px; }
   .caseArchiveHero, .caseChapter, .caseFooter { width: min(100% - 32px, 1220px); }
   .caseArchiveHero { min-height: 720px; padding: 150px 0 90px; }
   .caseArchiveHero h1 { font-size: clamp(54px, 16vw, 76px); }
@@ -209,7 +212,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .casesPage { scroll-behavior: auto; }
-  .projectNavLinks a::after, .outcomeSection a i { transition: none; }
+  .projectNavLinks a::after, .outcomeSection a i, .indexLink { transition: none; }
 }
 /* Case-study surfaces follow the same Ivory Cosmos preference. */
 :global(html[data-portfolio-theme="light"]) .casesPage {
@@ -230,3 +233,45 @@
 :global(html[data-portfolio-theme="light"]) .caseIndex i { background: linear-gradient(90deg, transparent, #7e9ab8); }
 :global(html[data-portfolio-theme="light"]) .operationsNarrative > a { color: #365d7b; }
 :global(html[data-portfolio-theme="light"]) .operationsNarrative > a:hover { color: #182033; }
+
+/* A reading map, rather than separate-page tabs. */
+.readingContext { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; color:var(--rail-muted); font-size:13px; }
+.readingRail { position:fixed; z-index:30; left:24px; top:50%; transform:translateY(-50%); width:176px; max-height:calc(100svh - 120px); overflow-y:auto; padding:14px 4px; }
+.railEyebrow { margin:0 0 16px; color:var(--rail-muted); font:500 12px/1.4 var(--font-geist-mono),monospace; }
+.readingRail :global(.line-sidebar__item::before) { inset:-5px -4px; pointer-events:none; }
+.readingRail :global(.line-sidebar__link) { min-height:28px; align-items:center; line-height:1.4; }
+.readingRail :global(.line-sidebar__index) { font-family:var(--font-geist-mono),monospace; }
+.readingRail :global(.line-sidebar__link:focus-visible) { outline:2px solid var(--text); outline-offset:4px; }
+.readingProgress { margin-top:24px; padding-top:18px; border-top:1px solid var(--line); color:var(--rail-muted); }
+.readingProgress>span { display:flex; justify-content:space-between; font-size:12px; }
+.readingProgress b { color:var(--text); font-weight:500; font-variant-numeric:tabular-nums; }
+.readingProgress progress { display:block; appearance:none; width:100%; height:2px; margin:12px 0; border:0; background:var(--line); color:var(--text); }
+.readingProgress progress::-webkit-progress-bar { background:var(--line); }
+.readingProgress progress::-webkit-progress-value { background:var(--text); }
+.readingProgress progress::-moz-progress-bar { background:var(--text); }
+.readingProgress small { font:12px/1.4 var(--font-geist-mono),monospace; }
+.mobileReadingNav { display:none; }
+:global(html[data-portfolio-theme="light"]) .casesPage { --rail-muted:#53677e; }
+@media(min-width:1100px) {
+  .casesPage { padding-left:220px; }
+  .caseTitleBlock h2 { font-size:clamp(54px,6.3vw,104px); }
+}
+@media(max-width:1099px) {
+  .readingRail { display:none; }
+  .casesPage { padding-top:102px; }
+  .caseChapter { scroll-margin-top:110px; }
+  .mobileReadingNav { position:fixed; z-index:35; top:58px; left:0; right:0; display:flex; align-items:center; gap:12px; min-height:44px; padding:4px 24px; border-bottom:1px solid var(--line); background:var(--bg); color:var(--rail-muted); }
+  .mobileReadingNav label,.mobileReadingNav>span { font-size:12px; white-space:nowrap; }
+  .mobileReadingNav select { flex:1; min-width:0; max-width:280px; min-height:34px; border:1px solid var(--bright-line); border-radius:4px; padding:4px 8px; background:var(--raised); color:var(--text); font:inherit; font-size:14px; }
+  .mobileReadingNav select:focus-visible { outline:2px solid var(--text); outline-offset:2px; }
+  .mobileReadingNav>span { margin-left:auto; font-variant-numeric:tabular-nums; }
+}
+@media(max-width:760px) {
+  .readingContext { display:flex; }
+  .casesPage { padding-top:98px; }
+  .mobileReadingNav { top:54px; padding-inline:17px; gap:8px; }
+}
+@media(max-width:480px) {
+  .indexLink { font-size:11px; padding:8px; gap:5px; }
+  .indexLink svg { width:13px; height:13px; }
+}

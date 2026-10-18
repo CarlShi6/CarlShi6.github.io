@@ -9,6 +9,8 @@ import type { KeyboardEvent, PointerEvent as ReactPointerEvent, WheelEvent } fro
 import { AccordionGallery } from "./accordion-gallery";
 import { CursorHint } from "./cursor-hint";
 import { CsLogo } from "./cs-logo";
+import { ThemeSwitch } from "./theme-switch";
+import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
 import { LivingNetworkScene, type SpatialBranch } from "./spatial-scenes";
 import styles from "./unified-detail.module.css";
 
@@ -188,6 +190,7 @@ const details: Record<SpatialBranch, BranchDetail> = {
 };
 
 const branchOrder: SpatialBranch[] = ["projects", "skills", "about"];
+const sectionLinks = branchOrder.map((item) => ({ href: `#${item}`, label: item.charAt(0).toUpperCase() + item.slice(1) }));
 const skillIcons = ["</>", "AI", "↗", "✎", "⚙"] as const;
 const aboutIcons = ["product", "technical", "experience", "location"] as const;
 
@@ -321,10 +324,7 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
       window.cancelAnimationFrame(updateFrame);
       updateFrame = window.requestAnimationFrame(() => {
         const anchor = window.innerHeight * 0.2;
-        const visible = sections.find((section) => {
-          const bounds = section.getBoundingClientRect();
-          return bounds.top <= anchor && bounds.bottom > anchor;
-        });
+        const visible = [...sections].reverse().find((section) => section.getBoundingClientRect().top <= anchor) ?? sections[0];
         if (visible) setActiveBranch(visible.id as SpatialBranch);
       });
     };
@@ -369,6 +369,14 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
     return () => context.revert();
   }, [reducedMotion]);
 
+  const jumpToSection = (index: number) => {
+    const target = branchOrder[index];
+    if (!target) return;
+    setActiveBranch(target);
+    window.history.replaceState(null, "", `#${target}`);
+    document.getElementById(target)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+  };
+
   return (
     <main
       ref={root}
@@ -392,17 +400,21 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
       </div>
 
       <nav className={styles.detailNav} aria-label="Neural portfolio navigation">
-        <Link className={styles.homePageLink} href="/" aria-label="Carl Shi — Home">
+        <Link className={styles.homePageLink} href="/" aria-label="Carl Shi — Home" data-cursor-hint="Main">
           <span className={styles.navBrandMark} aria-hidden="true"><CsLogo /></span>
         </Link>
-        <div className={styles.branchNav}>
-          {branchOrder.map((item) => (
-            <Link href={`#${item}`} data-active={item === activeBranch} aria-current={item === activeBranch ? "location" : undefined} key={item}>
-              {item}
-            </Link>
-          ))}
-        </div>
-        <span className={styles.navBalance} aria-hidden="true" />
+        <div className={styles.navBalance}><ThemeSwitch /></div>
+      </nav>
+
+      <aside className={styles.sectionRail}>
+        <p className={styles.railEyebrow}>On this page</p>
+        <LineSidebar ariaLabel="Portfolio section navigation" items={sectionLinks} activeIndex={branchOrder.indexOf(activeBranch)} accentColor="var(--text)" textColor="var(--rail-muted)" markerColor="var(--line-bright)" markerLength={22} markerGap={10} maxShift={4} itemGap={18} fontSize={0.875} proximityRadius={65} smoothing={130} onItemClick={jumpToSection} />
+      </aside>
+      <nav className={styles.mobileSectionNav} aria-label="Portfolio section navigation">
+        <label htmlFor="portfolio-section">On this page</label>
+        <select id="portfolio-section" value={activeBranch} onChange={(event) => jumpToSection(branchOrder.indexOf(event.target.value as SpatialBranch))}>
+          {sectionLinks.map((item, index) => <option key={item.href} value={branchOrder[index]}>{String(index + 1).padStart(2, "0")} · {item.label}</option>)}
+        </select>
       </nav>
 
       <header className={styles.archiveHero}>

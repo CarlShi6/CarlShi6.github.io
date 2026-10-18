@@ -12,6 +12,7 @@ export type LineSidebarItem = {
 };
 
 type LineSidebarProps = {
+  ariaLabel?: string;
   items: LineSidebarItem[];
   activeIndex: number;
   accentColor?: string;
@@ -39,6 +40,7 @@ const falloffCurves: Record<Falloff, (progress: number) => number> = {
 };
 
 export function LineSidebar({
+  ariaLabel = "Case study navigation",
   items,
   activeIndex,
   accentColor = "#7ea47a",
@@ -138,7 +140,7 @@ export function LineSidebar({
       className={`line-sidebar${showMarker ? " line-sidebar--markers" : ""}${
         scaleTick ? " line-sidebar--scale-tick" : ""
       }`}
-      aria-label="Case study navigation"
+      aria-label={ariaLabel}
       style={
         {
           "--accent-color": accentColor,

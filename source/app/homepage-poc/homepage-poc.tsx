@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { CursorHint } from "./cursor-hint";
 import { CsLogo } from "./cs-logo";
-import { IvoryHome } from "./ivory-home";
+import { IvoryHome, DarkPortfolioIdentity } from "./ivory-home";
+import { ThemeSwitch, usePortfolioTheme } from "./theme-switch";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LivingNetworkScene, type SpatialBranch } from "./spatial-scenes";
 import styles from "./homepage-poc.module.css";
@@ -176,26 +177,12 @@ export function HomepagePoc() {
   const cursor = useRef({ x: 0.5, y: 0.5, active: false });
   const previewActive = useRef<Branch | null>(null);
   const [hoveredBranch, setHoveredBranch] = useState<Branch | null>(null);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme] = usePortfolioTheme();
   const reducedMotion = useReducedMotion();
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("carl-portfolio-home-theme");
-      if (saved === "light" || saved === "dark") {
-        setTheme(saved);
-        document.documentElement.dataset.portfolioTheme = saved;
-      }
-    } catch { /* The switch also works when storage is unavailable. */ }
-  }, []);
-
-  const switchTheme = () => {
-    const next = theme === "light" ? "dark" : "light";
+  const resetPreview = () => {
     setHoveredBranch(null);
     previewActive.current = null;
-    setTheme(next);
-    document.documentElement.dataset.portfolioTheme = next;
-    try { localStorage.setItem("carl-portfolio-home-theme", next); } catch { /* Optional preference. */ }
   };
 
   useLayoutEffect(() => {
@@ -216,16 +203,13 @@ export function HomepagePoc() {
       <CursorHint theme={theme} />
       <h1 className={styles.srOnly}>Carl Shi — Technical Product, Technical Program, and AI Product</h1>
       <nav className={styles.pocNav} aria-label="Primary navigation">
-        <Link className={styles.identity} href="/" aria-label="Carl Shi — Home">
+        <Link className={styles.identity} href="/" aria-label="Carl Shi — Home" data-cursor-hint="Main">
           <span className={styles.identityMark}><CsLogo /></span>
         </Link>
+        <div className={styles.themeCenter}><ThemeSwitch onToggle={resetPreview} /></div>
         <div className={styles.navLinks}>
           <Link href="/homepage-poc/projects#projects">Projects</Link>
           <Link href="/homepage-poc/projects#about">About</Link>
-          <button className={styles.cosmosSwitch} onClick={switchTheme} aria-label={theme === "light" ? "Visit another world — switch to dark theme" : "Visit another world — switch to Ivory Cosmos"} aria-pressed={theme === "light"} title="Visit another world">
-            <svg viewBox="0 0 48 26" aria-hidden="true" fill="none"><ellipse cx="24" cy="13" rx="21" ry="8" /><circle className={styles.switchPlanet} cx="12" cy="13" r="4" /><circle cx="39" cy="8" r="1" /></svg>
-            <span className={styles.switchCaption}>Visit another world</span>
-          </button>
         </div>
       </nav>
 
@@ -265,13 +249,7 @@ export function HomepagePoc() {
           <span>AI · Product · Design</span>
         </div>
 
-        <div className={styles.identityCore}>
-          <strong>Carl Shi</strong>
-          <p className={styles.identityIntro}>I build at the intersection of AI, product, design, and technology. Currently exploring Product, Technical PM, and AI Product opportunities.</p>
-          <div className={styles.identityActions}>
-            <a href="/carl-shi-resume.pdf" target="_blank" rel="noopener noreferrer">Résumé <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
+        <DarkPortfolioIdentity hidden={hoveredBranch === "skills" || hoveredBranch === "projects"} />
 
         <div className={styles.archiveNodes}>
           {branches.map((branch) => (

@@ -3,7 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CsLogo } from "../cs-logo";
+import { CursorHint } from "../cursor-hint";
+import { ThemeSwitch } from "../theme-switch";
 import { useEffect, useState } from "react";
+import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
 import styles from "./project-case-studies.module.css";
 
 const projectCases = [
@@ -161,6 +164,7 @@ const projectCases = [
 ] as const;
 
 const projectIds = projectCases.map((project) => project.slug);
+const readingItems = projectCases.map((project) => ({ href: `#${project.slug}`, label: project.navLabel }));
 
 function BuildHopeCaseContent() {
   const operatingModel = [
@@ -242,6 +246,14 @@ function BuildHopeCaseContent() {
 
 export function ProjectCaseStudiesPage() {
   const [activeProject, setActiveProject] = useState<string>(projectCases[0].slug);
+  const [chapterProgress, setChapterProgress] = useState(0);
+  const activeIndex = projectIds.findIndex((id) => id === activeProject);
+  const jumpToProject = (index: number) => {
+    const id = projectIds[index];
+    if (!id) return;
+    window.history.pushState(null, "", `#${id}`);
+    document.getElementById(id)?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+  };
 
   useEffect(() => {
     const requested = window.location.hash.slice(1);
@@ -274,7 +286,18 @@ export function ProjectCaseStudiesPage() {
           const bounds = section.getBoundingClientRect();
           return bounds.top <= anchor && bounds.bottom > anchor;
         });
-        if (visible) setActiveProject(visible.id);
+        if (visible) {
+          setActiveProject(visible.id);
+          const bounds = visible.getBoundingClientRect();
+          const distance = Math.max(1, bounds.height - (window.innerHeight - anchor));
+          setChapterProgress(Math.round(Math.min(1, Math.max(0, (anchor - bounds.top) / distance)) * 100));
+        } else if (sections[0] && sections[0].getBoundingClientRect().top > anchor) {
+          setActiveProject(sections[0].id);
+          setChapterProgress(0);
+        } else if (sections.length) {
+          setActiveProject(sections[sections.length - 1].id);
+          setChapterProgress(100);
+        }
       });
     };
     updateActiveProject();
@@ -291,21 +314,33 @@ export function ProjectCaseStudiesPage() {
 
   return (
     <main className={styles.casesPage}>
+      <CursorHint />
       <div className={styles.caseBackdrop} aria-hidden="true" />
 
       <nav className={styles.caseNav} aria-label="Project case study navigation">
-        <Link className={styles.homeLink} href="/" aria-label="Carl Shi — Home">
+        <Link className={styles.homeLink} href="/" aria-label="Carl Shi — Home" data-cursor-hint="Main">
           <span className={styles.homeIcon} aria-hidden="true"><CsLogo /></span>
         </Link>
-        <div className={styles.projectNavLinks}>
-          {projectCases.map((project) => (
-            <Link href={`#${project.slug}`} data-active={activeProject === project.slug} aria-current={activeProject === project.slug ? "location" : undefined} key={project.slug}>
-              {project.navLabel}
-            </Link>
-          ))}
-        </div>
-        <Link className={styles.indexLink} href="/homepage-poc/projects#projects">Projects <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M16 4v6a3 3 0 0 1-3 3H4m4-4-4 4 4 4" strokeLinecap="round" strokeLinejoin="round" /></svg></Link>
+        <div className={styles.readingContext}><ThemeSwitch /></div>
+        <Link className={styles.indexLink} href="/homepage-poc/projects#projects"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5" strokeLinecap="round" strokeLinejoin="round" /></svg>All Projects</Link>
       </nav>
+
+      <aside className={styles.readingRail} aria-label="On this page">
+        <p className={styles.railEyebrow}>On this page</p>
+        <LineSidebar items={readingItems} activeIndex={activeIndex} accentColor="var(--text)" textColor="var(--rail-muted)" markerColor="var(--bright-line)" markerLength={22} markerGap={10} maxShift={4} itemGap={18} fontSize={0.875} proximityRadius={65} smoothing={130} onItemClick={jumpToProject} />
+        <div className={styles.readingProgress}>
+          <span>This project <b>{chapterProgress}%</b></span>
+          <progress max={100} value={chapterProgress} aria-label={`${projectCases[activeIndex]?.navLabel ?? "Project"} reading progress`} />
+          <small>{String(activeIndex + 1).padStart(2, "0")} / {String(projectCases.length).padStart(2, "0")}</small>
+        </div>
+      </aside>
+      <div className={styles.mobileReadingNav}>
+        <label htmlFor="case-reading-project">On this page</label>
+        <select id="case-reading-project" value={activeIndex} onChange={(event) => jumpToProject(Number(event.target.value))}>
+          {projectCases.map((project, index) => <option value={index} key={project.slug}>{String(index + 1).padStart(2, "0")} · {project.navLabel}</option>)}
+        </select>
+        <span>{chapterProgress}%</span>
+      </div>
 
       <header className={styles.caseArchiveHero}>
         <span>Third layer · Project case studies</span>

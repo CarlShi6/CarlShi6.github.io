@@ -13,7 +13,9 @@
 .name { color:var(--navy); font-size:clamp(58px,6.2vw,84px); font-weight:580; letter-spacing:-.065em; line-height:1.04; }
 .hero p { position:relative; isolation:isolate; margin:22px 0 0; color:#223449; font-size:16px; font-weight:500; line-height:1.65; text-wrap:pretty; }
 .hero p::before { position:absolute; z-index:-1; inset:-7px -10px; border-radius:14px; background:rgba(246,242,232,.9); filter:blur(9px); pointer-events:none; content:""; }
-.resume { margin-top:13px; padding:8px; color:var(--slate); font-size:12px; text-decoration:underline; text-decoration-color:var(--sand); text-underline-offset:5px; }
+.hero .resume { margin-top:13px; padding:8px 12px; color:var(--navy); font-size:18px; font-weight:600; line-height:1.5; text-decoration:underline; text-decoration-color:currentColor; text-decoration-thickness:1.5px; text-underline-offset:5px; transition:color .2s var(--ease); }
+.hero .resume:hover { color:#35577a; text-decoration-thickness:2px; }
+.hero .resume:focus-visible { outline:2px solid #35577a; outline-offset:4px; border-radius:4px; }
 .treeZone { position:absolute; z-index:7; }
 .projectZone { left:10%; top:1%; width:34%; height:40%; --fruit-size:60px; --hover-scale:1.16; }
 .skillZone { left:61%; top:5%; width:31%; height:36%; --fruit-size:54px; --hover-scale:1.17; }
@@ -63,4 +65,27 @@
  .scene { height:100%; min-height:0; aspect-ratio:auto; }
  .composition { width:min(100%,calc((100svh - 140px)*1.333333)); }
  .footer { position:absolute; z-index:6; right:clamp(24px,4vw,64px); bottom:26px; left:clamp(24px,4vw,64px); margin:0; padding:0; border:0; line-height:1.4; }
+}
+/* Both themes share the same identity geometry and typography. */
+.darkScene { position:absolute; z-index:5; top:76px; left:0; right:0; pointer-events:none; }
+.darkHero { pointer-events:auto; }
+.darkScene { transition:opacity 180ms ease,visibility 180ms; }
+.darkScene[data-hidden="true"] { opacity:0; visibility:hidden; }
+@media(prefers-reduced-motion:reduce) { .darkScene { transition:none; } }
+.darkHero::before { position:absolute; z-index:-1; left:50%; top:50%; width:clamp(500px,50vw,660px); height:clamp(360px,54vh,500px); transform:translate(-50%,-50%); background:radial-gradient(ellipse,#05080b 0%,#05080b 55%,rgba(5,8,11,.96) 66%,rgba(5,8,11,.7) 80%,transparent 100%); pointer-events:none; content:""; }
+.darkHero .eyebrow { color:#b9c8d2; }
+.darkHero .name { color:#e8edf0; text-shadow:0 0 24px rgba(173,220,237,.14); }
+.darkHero p { color:#d5dfe5; }
+.darkHero p::before { display:none; }
+.darkHero .resume { color:#e8edf0; }
+.darkHero .resume:hover { color:#fff; }
+.darkHero .resume:focus-visible { outline-color:#c4d8e6; }
+@media(min-width:761px) {
+ .darkScene { height:calc(100svh - 76px); min-height:0; }
+}
+@media(max-width:760px) {
+ .darkScene { top:120.8px; height:670px; }
+}
+@media(max-width:600px) {
+ .darkScene { top:119.4px; height:660px; }
 }

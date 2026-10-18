@@ -1,0 +1,9 @@
+.toggle { position:relative; display:inline-grid!important; place-items:center; width:54px; min-width:44px; min-height:44px; padding:0; border:0; color:#bccdd6; background:transparent; cursor:pointer; flex:none; }
+.toggle svg { width:48px; height:26px; stroke:currentColor; stroke-width:1; overflow:visible; }
+.planet { fill:#bccdd6; stroke-width:0; transition:transform .4s ease,fill .4s ease; }
+.toggle:hover { color:#fff; }
+.toggle:focus-visible { outline:2px solid currentColor; outline-offset:2px; border-radius:6px; }
+:global(html[data-portfolio-theme="light"]) .toggle { color:#527496; }
+:global(html[data-portfolio-theme="light"]) .planet { fill:#ba8b35; transform:translateX(24px); }
+:global(html[data-portfolio-theme="light"]) .toggle:hover { color:#182033; }
+@media(prefers-reduced-motion:reduce) { .planet { transition:none; } }

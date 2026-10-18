@@ -53,6 +53,21 @@ function GrowthArtwork() {
   </>;
 }
 
+export function PortfolioIdentity({ dark = false }: { dark?: boolean }) {
+  return <div className={`${styles.hero}${dark ? ` ${styles.darkHero}` : ""}`}>
+    <span className={styles.eyebrow}>Design × Business × Technology</span>
+    <strong className={styles.name}>Carl Shi</strong>
+    <p>I build at the intersection of AI, product, design, and technology. Currently exploring Product, Technical PM, and AI Product opportunities.</p>
+    <Link className={styles.resume} href="/carl-shi-resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</Link>
+  </div>;
+}
+
+export function DarkPortfolioIdentity({ hidden = false }: { hidden?: boolean }) {
+  return <div className={`${styles.scene} ${styles.darkScene}`} data-hidden={hidden} aria-hidden={hidden} inert={hidden}>
+    <div className={styles.composition}><PortfolioIdentity dark /></div>
+  </div>;
+}
+
 export function IvoryHome() {
   const [hovered, setHovered] = useState<Tree | null>(null);
   const [focused, setFocused] = useState<Tree | null>(null);
@@ -105,12 +120,7 @@ export function IvoryHome() {
             </div>
           </div>
 
-          <div className={styles.hero}>
-            <span className={styles.eyebrow}>Design × Business × Technology</span>
-            <strong className={styles.name}>Carl Shi</strong>
-            <p>I build at the intersection of AI, product, design, and technology. Currently exploring Product, Technical PM, and AI Product opportunities.</p>
-            <Link className={styles.resume} href="/carl-shi-resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</Link>
-          </div>
+          <PortfolioIdentity />
         </div>
       </div>
       <footer className={styles.footer}><span>Page inspired by The Little Prince</span><span>Hover to reveal · Click to navigate</span></footer>

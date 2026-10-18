@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./cursor-hint.module.css";
+import { usePortfolioTheme } from "./theme-switch";
 
-export function CursorHint({ theme = "dark" }: { theme?: "light" | "dark" }) {
+export function CursorHint({ theme }: { theme?: "light" | "dark" }) {
+  const [portfolioTheme] = usePortfolioTheme();
   const hintRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [label, setLabel] = useState("");
@@ -40,9 +42,27 @@ export function CursorHint({ theme = "dark" }: { theme?: "light" | "dark" }) {
       });
     };
     const leave = (event: PointerEvent) => { if (!event.relatedTarget) hide(); };
+    const focus = (event: FocusEvent) => {
+      const target = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[data-cursor-hint]") : null;
+      if (!target || !target.matches(":focus-visible")) return;
+      currentLabel = target.dataset.cursorHint ?? "Dive in";
+      setLabel(currentLabel);
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const hint = hintRef.current;
+        if (!hint) return;
+        const bounds = target.getBoundingClientRect();
+        const x = Math.max(8, Math.min(bounds.left, window.innerWidth - hint.offsetWidth - 8));
+        const y = Math.min(bounds.bottom + 10, window.innerHeight - hint.offsetHeight - 8);
+        hint.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        hint.dataset.visible = "true";
+      });
+    };
     document.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerout", leave, { passive: true });
     document.addEventListener("pointerdown", hide, { passive: true });
+    document.addEventListener("focusin", focus);
+    document.addEventListener("focusout", hide);
     window.addEventListener("scroll", hide, { passive: true, capture: true });
     window.addEventListener("blur", hide);
     mouse.addEventListener("change", hide);
@@ -51,6 +71,8 @@ export function CursorHint({ theme = "dark" }: { theme?: "light" | "dark" }) {
       document.removeEventListener("pointermove", move);
       document.removeEventListener("pointerout", leave);
       document.removeEventListener("pointerdown", hide);
+      document.removeEventListener("focusin", focus);
+      document.removeEventListener("focusout", hide);
       window.removeEventListener("scroll", hide, true);
       window.removeEventListener("blur", hide);
       mouse.removeEventListener("change", hide);
@@ -58,7 +80,7 @@ export function CursorHint({ theme = "dark" }: { theme?: "light" | "dark" }) {
   }, [mounted]);
 
   return mounted ? createPortal(
-    <div ref={hintRef} className={styles.hint} aria-hidden="true" data-visible="false" data-theme={theme}>
+    <div ref={hintRef} className={styles.hint} aria-hidden="true" data-visible="false" data-theme={theme ?? portfolioTheme}>
       <span>{label}</span>
     </div>, document.body,
   ) : null;
