@@ -23,11 +23,10 @@ https://carlshi6.github.io/.
 
 ## Current synchronized snapshot
 
-Sites version 107, source commit `4642b1c47aa88058fccec966ab9bfb3d22ae3bc1`.
-Includes the latest résumé, project copy, skill objects, and Build Hope interactive
-workflow, inline roadmap explanations, and recommendation rationale. GitHub Pages
-export configuration and its canonical origin are retained. Subsequent AI PC work
-is not part of this snapshot.
+Sites version 108, source commit `5d1d47a02daba94599fde29a54b7b94038db8ec0`.
+Includes the Luggage Helper visual exploration, clearer role and project status,
+and the original tested screens as evidence. GitHub Pages export configuration
+and its canonical origin are retained.
 
 After building, run `node --test tests/github-pages-export.test.mjs` from `source/`
 to verify the static output and synchronized content.

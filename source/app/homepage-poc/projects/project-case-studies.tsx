@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
 import styles from "./project-case-studies.module.css";
 import { BuildHopeBlueprint, BuildHopeRoadmap, BuildHopeEvidence } from "./build-hope-visuals";
+import { LuggageHelperVisual } from "./luggage-helper-visual";
 
 const projectCases = [
   {
@@ -116,12 +117,12 @@ const projectCases = [
     navLabel: "Travel",
     title: "Luggage Helper",
     category: "AI-powered travel assistant · Mobile product",
-    intro: "A mobile prototype for planning a trip, estimating packed weight, reviewing potential item restrictions, and keeping a packing checklist.",
+    intro: "A tested mobile prototype that brings trip allowance, item analysis, and packing status into one decision flow.",
     problem: "Baggage allowances and item restrictions change across routes, countries, and airlines. Travelers often discover weight limits too late, estimate luggage capacity by hand, or learn at inspection that an item cannot be carried.",
     facts: [
-      ["Focus", "Smart luggage management"],
-      ["Journey", "Before · During · After travel"],
-      ["Output", "Weight · Warnings · Checklist"],
+      ["Role", "Product design · Prototype development"],
+      ["Status", "Tested mobile prototype · Summer 2025"],
+      ["Core flow", "Trip → Item analysis → Packing overview"],
     ],
     system: [
       ["Create", "Start a trip with departure, destination, and the applicable luggage weight limit."],
@@ -129,7 +130,7 @@ const projectCases = [
       ["Analyze", "Send the item context to the model and return an estimated weight and travel-safety classification."],
       ["Guide", "Update the trip total, surface overweight or restricted-item warnings, and maintain a packing checklist."],
     ],
-    outcome: "The mobile prototype connects trip setup, item input, estimated weight, potential restriction warnings, and a checklist. It is not a released travel service or an authoritative source of airline and customs rules.",
+    outcome: "Built and tested the Add Item → Analysis → Add / Discard flow on a phone, along with trip setup, weight totals, potential restriction warnings, and a packing checklist. The new hero is a visual redesign of those existing functions; it has not been separately tested. The prototype is not an authoritative source of airline or customs rules.",
     heroImage: "/media/luggage-helper/app-showcase-flow.png",
     heroAlt: "Luggage Helper app showcase from the portfolio",
     images: [
@@ -365,6 +366,7 @@ export function ProjectCaseStudiesPage() {
       {projectCases.map((project, projectIndex) => {
         const isBuildHopeCase = project.slug === "build-hope-content-operations";
         const isAiPcCase = "keyDecisions" in project;
+        const isLuggageCase = project.slug === "ai-travel-assistant";
         const heroSrc = "heroImage" in project ? project.heroImage : project.images[0][0];
         const heroAlt = "heroAlt" in project ? project.heroAlt : project.images[0][1];
         const executionImages = "executionImages" in project ? project.executionImages : project.images;
@@ -385,7 +387,7 @@ export function ProjectCaseStudiesPage() {
 
           <div className={styles.caseLead}>
             <div className={styles.caseHeroMedia} data-build-hope={isBuildHopeCase}>
-              {isBuildHopeCase ? <BuildHopeBlueprint compact /> : <Image src={heroSrc} alt={heroAlt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 72vw" unoptimized />}
+              {isBuildHopeCase ? <BuildHopeBlueprint compact /> : isLuggageCase ? <LuggageHelperVisual /> : <Image src={heroSrc} alt={heroAlt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 72vw" unoptimized />}
             </div>
             <dl className={styles.caseFacts}>
               {project.facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
@@ -395,7 +397,7 @@ export function ProjectCaseStudiesPage() {
           {isBuildHopeCase ? <BuildHopeCaseContent /> : <>
           <section className={styles.problemSection} aria-labelledby={`${project.slug}-problem`}>
             <span>01 · Problem</span>
-            <h3 id={`${project.slug}-problem`}>What the product needs to make clear.</h3>
+            <h3 id={`${project.slug}-problem`}>{isLuggageCase ? "Know the allowance before deciding what to pack." : "What the product needs to make clear."}</h3>
             <div className={styles.problemCopy}>
               <p>{project.problem}</p>
               {isAiPcCase && <p>I interviewed five prospective users and reviewed competing PC shopping and configuration experiences to identify pain points and establish MVP priorities. I prioritized use-case-based recommendations, comparisons of up to three components, replacement flows, compatibility warnings, and recalculated totals; retailer integrations stayed outside the MVP.</p>}
@@ -447,7 +449,7 @@ export function ProjectCaseStudiesPage() {
           <section className={styles.evidenceSection} aria-labelledby={`${project.slug}-evidence`}>
             <header>
               <span>{isAiPcCase ? "04 · Execution" : "03 · Evidence"}</span>
-              <h3 id={`${project.slug}-evidence`}>{isAiPcCase ? "From guided intake to component replacement." : "The system made visible."}</h3>
+              <h3 id={`${project.slug}-evidence`}>{isAiPcCase ? "From guided intake to component replacement." : isLuggageCase ? "The original prototype, from trip setup to phone testing." : "The system made visible."}</h3>
             </header>
             <div className={styles.storySequence}>
               {executionImages.map(([src, alt, caption], index) => (
