@@ -118,7 +118,7 @@ const aiPcCaseStudy: WorkCaseStudyDetail = {
   thesis:
     "A conversational answer alone is not enough for a high-consideration purchase. Users need a persistent visual workspace where recommendations, constraints, trade-offs, and downstream changes remain visible.",
   strategyBody:
-    "The product strategy pairs conversational guidance with a durable decision workspace. Budget, workload, preferences, compatibility, and estimated total stay visible as the recommendation changes, so users can evaluate the build without reconstructing context from a chat transcript.",
+    "Five interviews with prospective users and a review of competing PC-shopping experiences informed MVP priorities: use-case-based recommendations, comparisons of up to three components, replacement flows, compatibility warnings, and recalculated totals. The strategy pairs conversational guidance with a persistent decision workspace; explanation clarity remains an unresolved research priority.",
   strategyEvidence: {
     id: "strategy-recommendation-review",
     src: `${mediaRoot}/working-recommendation-review.png`,
@@ -257,7 +257,7 @@ const aiPcCaseStudy: WorkCaseStudyDetail = {
     },
   ],
   executionBody:
-    "The React and TypeScript prototype uses one shared build context across intake, recommendation, compatibility review, comparison, replacement, and purchase preparation. This keeps component-level actions tied to the state of the complete build.",
+    "I directed AI-assisted React/TypeScript implementation, reviewed generated code, and manually tested the core flows rather than hand-writing the full codebase. Iteration spans 37 merged PRs from June–August 2026: 16 in June, 17 in July, and 4 in August. The prototype carries one build context across intake, recommendations, comparison, replacement, compatibility warnings, and updated totals.",
   executionSummary: [
     {
       label: "Structured AI response",
@@ -277,10 +277,10 @@ const aiPcCaseStudy: WorkCaseStudyDetail = {
     },
   ],
   outcome:
-    "The core journey is connected end to end—from an ambiguous PC goal to a compatible, purchase-ready build.",
-  outcomeSignals: ["Working UI", "Connected flow", "Deployable build"],
+    "A functional, testable prototype. Three testers liked the speed of receiving a complete configuration but questioned why the AI chose certain components. This identified a recommendation-trust gap, not a validated solution; the product was not publicly launched and no conversion improvement is claimed.",
+  outcomeSignals: ["5 user interviews", "3 prototype testers", "37 merged PRs"],
   nextValidation:
-    "Test whether users understand recommendation rationale, interpret the impact of Compare and Replace, and reach purchase preparation without losing context.",
+    "Improve recommendation explanations in response to the three-user test, then retest trust, rationale comprehension, and component trade-offs. No follow-up validation of those improvements is claimed.",
   validationSignals: ["Rationale comprehension", "Trade-off understanding", "Task completion"],
 };
 
@@ -291,7 +291,7 @@ const dogCaseStudy: DogCaseStudyDetail = {
   scope: "Observation framing, modular product concept, visual-detection prototype, and servo response",
   technology: "Raspberry Pi · Camera · Python / OpenCV · GPIO 18 · MG995 servo",
   openingProblem:
-    "A passive camera can show owners what is happening while they are away, but it does not create a way to respond. This project explored how visual detection and a physical output could form a more responsive remote-care concept.",
+    "Frame-to-frame dog-behavior signals can fluctuate, making it difficult to decide when to trigger a physical response. The prototype explores an inspectable camera-to-actuation workflow; the wider remote-care enclosure remained a concept.",
   heroConcept: {
     id: "dog-facing-concept",
     src: `${dogMediaRoot}/concept-dog-facing.png`,
@@ -364,7 +364,7 @@ const dogCaseStudy: DogCaseStudyDetail = {
   technicalStatement:
     "Connect visual detection to a physical response rather than stopping at remote observation.",
   technicalBody:
-    "The functional evidence was developed as connected bench prototypes: camera input and visual detection on Raspberry Pi, followed by Python logic that could trigger a servo through GPIO and external power.",
+    "The Raspberry Pi prototype connects camera input, Python/OpenCV/YOLO detection, and physical-response logic. Testing progressed from offline image checks to trials with a real dog. Visual overlays made classification issues inspectable; detection thresholds, weighting, and temporal buffering were calibrated to filter transient signals before actuation.",
   technicalStages: [
     {
       title: "See",
@@ -382,7 +382,7 @@ const dogCaseStudy: DogCaseStudyDetail = {
     },
     {
       title: "Interpret",
-      body: "Python and OpenCV produce bounding-box, pose, and motion-state output from the camera feed.",
+      body: "Python, OpenCV, and YOLO produce visual detection overlays from the camera feed. Thresholds, weighting, and temporal buffering help inspect changing classifications before physical response logic is triggered.",
       evidence: [
         {
           id: "technical-detection-output",
@@ -423,7 +423,7 @@ const dogCaseStudy: DogCaseStudyDetail = {
     { label: "Result", value: "The bench prototype demonstrated the detection-to-servo system path." },
   ],
   outcomeBody:
-    "The project reached two distinct outcomes: a functional technical path from camera input to servo response, and a rendered enclosure concept showing how observation, communication, food, and play could share one product language.",
+    "An observable, physically integrated prototype and a more inspectable testing workflow, plus a separate rendered enclosure concept. Final live-dog accuracy and precision were not reliably recorded, so no numerical performance gain is claimed.",
   outcomeViews: [
     {
       id: "concept-front-view",
@@ -475,7 +475,7 @@ const dogCaseStudy: DogCaseStudyDetail = {
     height: 550,
   },
   demonstrated:
-    "Camera-based visual detection and a GPIO-controlled servo response were demonstrated as connected technical prototypes.",
+    "Camera-based detection, live-dog trials with visual overlays, calibration, and a GPIO-controlled servo response were explored through connected technical prototypes. These demonstrations do not establish a measured final accuracy rate.",
   remainedConcept:
     "The finished enclosure, integrated display, food module, and combined dog-facing experience remained a rendered product concept.",
   nextValidation: [

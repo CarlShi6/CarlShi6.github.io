@@ -59,7 +59,7 @@ export const portfolio = {
     paragraphs: [
       "My work sits between product strategy, technical systems, and user experience. I’m most useful when the technology is complex, the product direction is still forming, and the team needs a clear path from capability to value.",
       "I studied Computer Science at NYU and I’m pursuing an MS in Integrated Design, Business and Technology at USC—an education that keeps my approach technically grounded, commercially aware, and attentive to the people using the product.",
-      "My experience includes a five-day Build Hope client engagement through USC Iovine and Young Academy, frontend and backend feature work at Xfanatical, and independent product prototyping.",
+      "My experience includes a five-day Build Hope client engagement through USC Iovine and Young Academy, an Assistant Software Engineer Internship at Xfanatical (June–September 2025), and independent product prototyping. At Xfanatical, I contributed frontend and backend functionality to an internal employee-management application using Vue 3, JavaScript, Python, MongoDB, and REST APIs. I implemented profile and leave-management workflows, traced employee-profile display errors to data transformation and empty-field handling, verified API behavior with Postman and mock data, and merged reviewed changes while coordinating dependencies, changing requirements, and PR review cycles. I shared updated delivery estimates and blockers in daily engineering check-ins.",
     ],
   },
   facts: [
@@ -78,13 +78,13 @@ export const portfolio = {
       navLabel: "PC Advisor",
       title: "AI PC Build Advisor",
       category: "AI product · Decision support",
-      summary: "An explainable recommendation experience for turning PC goals and constraints into a compatible build.",
+      summary: "Defined and tested an AI-assisted PC-building prototype through five user interviews, three prototype tests, and 37 merged pull requests.",
       status: "Paused prototype · Summer 2026",
       problem:
         "PC shoppers must balance performance goals, budgets, prices, and compatibility constraints. The prototype turns these inputs into recommendations and a parts list for purchase planning.",
-      role: "Technical Product Lead · AI-assisted prototype",
+      role: "Technical Product Lead · AI-Assisted Prototype",
       contribution:
-        "Conducted 3–5 interviews and competitor research, defined MVP scope, directed AI-assisted React/TypeScript implementation, reviewed generated code, and tested incompatible builds and replacement flows.",
+        "Interviewed five prospective users, defined MVP priorities, directed AI-generated React/TypeScript implementation, reviewed code, and manually tested core flows. Iterated across 37 merged PRs from June–August 2026 and tested the prototype with three users.",
       tags: ["MVP scoping", "AI-assisted implementation", "Comparison", "Compatibility logic"],
       image: "/media/ai-pc-build-advisor/primary-cart-execution.png",
       imageAlt:
@@ -125,13 +125,13 @@ export const portfolio = {
           },
         ],
         technicalExecution:
-          "I directed AI-assisted implementation of a React and TypeScript prototype, reviewed generated code, and tested guided intake, component comparison, compatibility checks, part replacement, and the updated build total.",
+          "I directed AI-assisted React/TypeScript implementation, reviewed generated code, and manually tested guided intake, comparison of up to three components, compatibility warnings, replacement, and recalculated totals. The repository records 37 merged PRs—16 in June, 17 in July, and 4 in August 2026—not a claim that I handwrote the full codebase.",
         outcome:
-          "A connected working prototype carries the flow from conversational intake through recommendations, comparison, compatibility review, replacement, shopping-list preparation, and purchase references. No user adoption, business impact, or effectiveness metrics are claimed.",
+          "A functional prototype and a research finding: three testers liked receiving a complete configuration quickly but questioned why certain components were recommended. Explanation clarity and trust remain priorities; no production launch, conversion gain, or validated resolution of that trust gap is claimed.",
         knownLimitations:
           "The project is paused and was not publicly deployed. Retailer integrations were deferred; the chatbot explains components but is not a mature real-time price-value decision engine.",
         nextStep:
-          "The next validation pass will examine whether users can understand why a component was recommended, interpret the system-level impact of Compare and Replace, and move from a recommendation to purchase preparation without losing context. This is a future validation objective, not completed research.",
+          "Use the three-user test finding to improve recommendation explanations, then retest understanding, trust, and component trade-offs. Those follow-up improvements have not been independently validated.",
         media: [
           {
             src: "/media/ai-pc-build-advisor/secondary-compatibility-detail.png",
@@ -156,13 +156,13 @@ export const portfolio = {
       navLabel: "Dog Camera",
       title: "Dog Behavior Camera",
       category: "Computer vision · Consumer IoT",
-      summary: "An independent Raspberry Pi prototype showing dog detection and basic behavioral-state feedback on screen.",
+      summary: "Built a Raspberry Pi dog-monitoring prototype with Python, OpenCV, and YOLO, progressing from image checks to live-dog trials with visualization and calibration.",
       status: "Functional prototype · Summer 2025",
       problem:
-        "This project explores how dog detection and persistent behavioral-state logic could connect to a physical response. Remote monitoring and the complete companion device remained concepts.",
+        "Frame-to-frame behavior signals can fluctuate, making it difficult to decide when a camera-based system should trigger a physical response. Remote monitoring and the complete companion enclosure remained concepts.",
       role: "Independent computer vision & IoT project",
       contribution:
-        "Adapted an existing Python/OpenCV/YOLO framework and labeled dataset, adjusted detection and temporal post-processing, and tested the on-screen feedback with a real dog.",
+        "Built a camera-to-actuation prototype with Raspberry Pi, Python, OpenCV, and YOLO. Added visual overlays, tested with a real dog, and calibrated thresholds, weighting, and temporal buffering. No reliable final accuracy or precision metrics were recorded.",
       tags: ["Computer vision", "Raspberry Pi", "Consumer IoT", "Physical prototyping"],
       image: "/media/dog-behavior-camera/primary-portfolio-overview.png",
       imageAlt:

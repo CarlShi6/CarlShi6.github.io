@@ -7,6 +7,7 @@ import { CursorHint } from "./cursor-hint";
 import { CsLogo } from "./cs-logo";
 import { IvoryHome, DarkPortfolioIdentity } from "./ivory-home";
 import { ThemeSwitch, usePortfolioTheme } from "./theme-switch";
+import { SkillWorkshop } from "./skill-objects";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LivingNetworkScene, type SpatialBranch } from "./spatial-scenes";
 import styles from "./homepage-poc.module.css";
@@ -238,7 +239,7 @@ export function HomepagePoc() {
             cursor={cursor}
             onAnchorChange={(branch) => {
               if (theme !== "dark") return;
-              if (!branch && previewActive.current) return;
+              if (previewActive.current) return;
               setHoveredBranch(branch);
             }}
           />
@@ -260,7 +261,7 @@ export function HomepagePoc() {
               data-branch={branch.id}
               data-cursor-hint={hoveredBranch === branch.id ? (branch.id === "projects" ? "Explore projects" : "Explore skills") : undefined}
               aria-label={branch.id === "projects" ? "Explore all projects" : `Explore ${branch.label}`}
-              onFocus={() => setHoveredBranch(branch.id)}
+              onFocus={() => { previewActive.current = branch.id; setHoveredBranch(branch.id); }}
               onBlur={() => {
                 previewActive.current = null;
                 setHoveredBranch(null);
@@ -274,7 +275,8 @@ export function HomepagePoc() {
                   previewActive.current = branch.id;
                 }
               }}
-              onPointerLeave={() => {
+              onPointerLeave={(event) => {
+                if (branch.id === "skills" && event.relatedTarget instanceof Element && event.relatedTarget.closest("[data-skill-workshop]")) return;
                 previewActive.current = null;
                 setHoveredBranch(null);
               }}
@@ -295,18 +297,13 @@ export function HomepagePoc() {
                   <PreviewOrbit kind="projects" active={hoveredBranch === "projects" && !reducedMotion} />
                 </span>
               )}
-              {branch.id === "skills" && (
-                <span className={`${styles.projectPreviewField} ${styles.skillsOrbitField}`} aria-hidden="true">
-                  <span className={styles.projectPreviewAura} />
-                  <span className={styles.projectPreviewCore}>
-                    <strong>Skills</strong>
-                  </span>
-                  <PreviewOrbit kind="skills" active={hoveredBranch === "skills" && !reducedMotion} />
-                </span>
-              )}
             </Link>
           ))}
         </div>
+
+        <SkillWorkshop active={hoveredBranch === "skills"}
+          onEnter={() => { previewActive.current = "skills"; setHoveredBranch("skills"); }}
+          onLeave={() => { previewActive.current = null; setHoveredBranch(null); }} />
 
         <div className={styles.archiveFooter}>
           <span>Move through the system</span>

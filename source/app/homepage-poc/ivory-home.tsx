@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, type CSSProperties, type PointerEvent, type FocusEvent } from "react";
 import styles from "./ivory-home.module.css";
+import { SkillObject, skillObjects } from "./skill-objects";
 
 const layerRoot = "/media/ivory-cosmos/tree-growth";
 const worlds = [
@@ -12,11 +13,11 @@ const worlds = [
   { title: "Luggage Helper", image: "/media/luggage-helper/app-home-screen.png", slug: "ai-travel-assistant" },
   { title: "Music Pulse", image: "/media/music-pulse/participant-view.png", slug: "interactive-music-installation" },
 ];
-const skills = ["Strategy", "Design", "AI", "Build"];
 
 const projectSlots = [[15.75, 23.76], [20.2, 17.5], [27, 17.31], [17.68, 33.52], [27.55, 31.31]];
-const skillSlots = [[74.10, 25.78], [80.59, 21.55], [86.39, 23.76], [78.38, 31.22]];
-const fruitLayers = ["p1", "p2", "p3", "p5", "p6", "s1", "s2", "s3", "s4"];
+// Attachment points measured on the 1448 × 1086 tree artwork, not object centers.
+const skillSlots = [[1017 / 1448 * 100, 205 / 1086 * 100], [1216 / 1448 * 100, 194 / 1086 * 100], [1127 / 1448 * 100, 119 / 1086 * 100], [1115 / 1448 * 100, 258 / 1086 * 100]];
+const fruitLayers = ["p1", "p2", "p3", "p5", "p6"];
 type Tree = "projects" | "skills";
 // Position each leaf cluster against its own branch instead of moving a whole canopy.
 const leafClusters: Array<{ tree: Tree; clip: string; x: number; y: number; origin: string }> = [
@@ -108,14 +109,11 @@ export function IvoryHome() {
           <div className={`${styles.treeZone} ${styles.skillZone}`} data-tree="skills" {...treeEvents("skills")}>
             <button className={styles.treeTrigger} type="button" aria-label="Explore skill tree" aria-expanded={active === "skills"} aria-controls="skill-tree-fruits" />
             <div id="skill-tree-fruits" className={styles.fruits} aria-label="Skill fruits">
-            {skills.map((skill, index) => {
+            {skillObjects.map((skill, index) => {
               const [x, y] = skillSlots[index];
-              return <Link key={skill} className={`${styles.fruit} ${styles.skillFruit}`}
+              return <SkillObject key={skill.id} index={index} compact
                 style={{ ...fruitPosition("skills", x, y), "--growth-delay": `${.28 + index * .055}s` } as CSSProperties}
-                href="/homepage-poc/projects#skills" aria-label={`${skill} — explore skill`}>
-                <span className={styles.fruitInterior}><span>{skill}</span></span>
-                <span className={styles.fruitName}>{skill}</span>
-              </Link>;
+              />;
             })}
             </div>
           </div>

@@ -42,20 +42,20 @@ const details: Record<SpatialBranch, BranchDetail> = {
     items: [
       {
         title: "Build Hope — Content Operations System",
-        description: "A real nonprofit client engagement connecting content ideation, planning, publishing, and learning through a sustainable operating model.",
+        description: "Designed a five-phase, 30-day content operations roadmap for a nonprofit, turning limited team capacity and inconsistent publishing into a practical content-management workflow.",
         signal: "Client engagement · Content operations · Implementation roadmap",
         image: "/media/build-hope-content-operations/hero-operating-model.webp",
         compactMedia: true,
       },
       {
         title: "AI PC Build Advisor",
-        description: "An AI-powered advisor that translates budget, workload, performance, and aesthetic preferences into clear, compatible part recommendations.",
-        signal: "Natural-language guidance · Compatibility · Comparison",
+        description: "Defined and tested an AI-assisted PC-building prototype through five user interviews, three prototype tests, and iterative development across 37 merged pull requests.",
+        signal: "AI product prototyping · User research · Compatibility",
         image: "/media/ai-pc-build-advisor/working-build-needs.png",
       },
       {
         title: "Dog Behavior Camera",
-        description: "A physical AI prototype connecting visual detection, behavior interpretation, and a responsive hardware output.",
+        description: "Built a Raspberry Pi dog-monitoring prototype with Python, OpenCV, and YOLO, progressing from image checks to live-dog trials with visual overlays and calibration.",
         signal: "Computer vision · Physical prototype",
         image: "/media/dog-behavior-camera/case-study/detection-moving-frame.png",
       },
@@ -176,7 +176,7 @@ const details: Record<SpatialBranch, BranchDetail> = {
       },
       {
         title: "Experience",
-        description: "A five-day nonprofit client sprint with Build Hope, software engineering work at Xfanatical, and independent AI-assisted product prototyping.",
+        description: "Build Hope client consultant through USC; Assistant Software Engineer Intern at Xfanatical. Internal-app features merged through reviewed pull requests.",
         signal: "Consult · build · evaluate",
       },
       {

@@ -8,6 +8,7 @@ import { ThemeSwitch } from "../theme-switch";
 import { useEffect, useState } from "react";
 import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
 import styles from "./project-case-studies.module.css";
+import { BuildHopeBlueprint, BuildHopeRoadmap, BuildHopeEvidence } from "./build-hope-visuals";
 
 const projectCases = [
   {
@@ -15,12 +16,14 @@ const projectCases = [
     navLabel: "Build Hope",
     title: "Build Hope — Content Operations System",
     category: "Content operations · Digital operations system",
-    intro: "A five-day client sprint to help a nonprofit turn existing event media into a repeatable content workflow.",
-    problem: "Build Hope's small team was managing social content through a largely manual process. The work competed with mission delivery for time, while valuable community stories could remain unseen.",
+    intro: "Designing a scalable workflow that helps a nonprofit turn community impact into consistent storytelling.",
+    problem: "Build Hope already had event photos and videos, but limited staff capacity and inconsistent publishing. The challenge was to organize assets, schedule content, and learn from engagement metrics through a repeatable workflow.",
     facts: [
       ["Engagement", "Four-person team · Five-day client sprint · September 2026"],
       ["Role", "Product Strategy & Operations Consultant"],
       ["Context", "Client engagement through USC Iovine and Young Academy"],
+      ["Roadmap", "Five phases · 30 days"],
+      ["Evaluation", "~8 tools researched as a team · 3 personally tested"],
     ],
     system: [
       ["Problem", "A manual content process pulled time away from mission work."],
@@ -28,11 +31,11 @@ const projectCases = [
       ["System", "Connect ideation, planning, publishing, and learning in one repeatable loop."],
       ["Implementation", "A proposed five-phase, 30-day roadmap: Set Up, Organize, Plan, Execute, Optimize."],
     ],
-    outcome: "Proposed impact: less administrative work, more consistent storytelling, and greater visibility. These are expected outcomes from the delivery—not measured post-launch results.",
+    outcome: "Delivered a five-phase, 30-day roadmap and content-management playbook. A later review found more posting activity on the nonprofit's existing social channel; that observation does not establish roadmap adoption or a causal improvement in engagement.",
     heroImage: "/media/build-hope-content-operations/hero-operating-model.webp",
     heroAlt: "Build Hope four-step content operations model from ideation through learning",
     images: [
-      ["/media/build-hope-content-operations/platform-evaluation.webp", "Four-platform evaluation", "Metricool, monday.com, Buffer, and Agorapulse were compared against actionable insights, publishing support, AI assistance, and affordability."],
+      ["/media/build-hope-content-operations/platform-evaluation.webp", "Four-platform delivery comparison", "The team researched approximately eight tools; this delivery slide highlights four. I personally tested Buffer, Metricool, and Monday.com and helped recommend Metricool for analytics, workflow fit, and cost."],
       ["/media/build-hope-content-operations/implementation-roadmap.webp", "30-day implementation roadmap", "The roadmap moves from connecting platforms and centralizing assets to publishing, monitoring, and applying insights."],
       ["/media/build-hope-content-operations/content-playbook.webp", "Content playbook", "A repeatable operating guide connects defining the story, gathering inputs, creating, organizing, publishing, and learning."],
       ["/media/build-hope-content-operations/feedback-loop.webp", "Learning feedback loop", "Create, publish, measure, learn, improve, and repeat turns content delivery into an operating rhythm."],
@@ -43,12 +46,13 @@ const projectCases = [
     navLabel: "PC Advisor",
     title: "AI PC Build Advisor",
     category: "AI product · Decision support",
-    intro: "An AI-assisted prototype that turns a beginner's needs into part recommendations, comparisons, compatibility guidance, and a price-aware build list.",
+    intro: "Defined and tested an AI-assisted PC-building product through five user interviews, three prototype tests, and iterative development across 37 merged pull requests.",
     problem: "Choosing PC parts is still overwhelming for beginners. Specifications are difficult to interpret, similar components are hard to compare, compatibility and price risks are easy to miss, and advice across different sources often conflicts.",
     facts: [
-      ["Role", "Technical Product Lead · AI-assisted product prototype"],
-      ["Status", "Paused prototype · Not publicly deployed"],
-      ["Research", "3–5 user interviews · Competitor research"],
+      ["Role", "Technical Product Lead · AI-Assisted Prototype"],
+      ["Status", "Functional prototype · Summer 2026 · Not publicly launched"],
+      ["Research", "5 user interviews · 3 prototype testers"],
+      ["Iteration", "37 merged PRs · June–August 2026"],
       ["Core flow", "Need → Recommendation → Review → Purchase"],
       ["Prototype scope", "Guided advisor · Comparison · Compatibility · Handoff"],
     ],
@@ -69,40 +73,40 @@ const projectCases = [
     executionImages: [
       ["/media/ai-pc-build-advisor/working-build-needs.png", "Guided needs and recommendation workspace", "The advisor turns a conversational budget and use case into persistent build requirements."],
       ["/media/ai-pc-build-advisor/working-alternatives.png", "Recommended component alternatives", "Alternatives display price, specifications, and compatibility context before replacement."],
-      ["/media/ai-pc-build-advisor/working-replacement-drawer.png", "Compatibility-safe replacement drawer", "A flagged motherboard choice is connected directly to compatible replacement options."],
+      ["/media/ai-pc-build-advisor/working-replacement-drawer.png", "Compatibility-aware replacement drawer", "A flagged motherboard choice is connected directly to compatible replacement options."],
     ],
-    finalExperience: "The prototype keeps recommendations, compatibility warnings, comparison of up to three parts, replacement, and the updated build total in one workspace. I reviewed AI-generated code, diagnosed issues, and tested incompatible configurations and key flows myself. The chatbot explains products and components; real-time price-value judgment remains a limitation.",
+    finalExperience: "The prototype keeps use-case-based recommendations, comparisons of up to three components, replacement flows, compatibility warnings, and recalculated build totals in one workspace. I directed AI-assisted implementation, reviewed generated code, and manually tested core flows; I did not personally handwrite the full React/TypeScript codebase. Repository history records 37 merged PRs: 16 in June, 17 in July, and 4 in August 2026.",
     finalImages: [
       ["/media/ai-pc-build-advisor/working-recommendation-review.png", "Recommendation review panel", "The review panel explains the build goal, recommendation logic, compatibility issue, and a lower-cost alternative."],
       ["/media/ai-pc-build-advisor/working-comparison.png", "Side-by-side component comparison", "A beginner-readable comparison keeps price, performance, power, and the current baseline visible."],
       ["/media/ai-pc-build-advisor/working-purchase-references.png", "Purchase reference list", "The selected configuration shows parts and prices for purchase planning; it is not an integrated retailer checkout."],
     ],
-    outcome: "The paused prototype demonstrates a decision path from guided needs to part recommendations, compatibility review, comparison, replacement, and an updated build list. It was not publicly deployed and has no post-launch adoption results.",
+    outcome: "A functional, testable prototype and a concrete research finding: three testers liked the speed of receiving a complete configuration but questioned why the AI recommended certain components. Explanation clarity and recommendation trust remain priorities for further testing—not validated solutions. The product was not publicly launched; no conversion or adoption improvement is claimed.",
   },
   {
     slug: "dog-behavior-camera",
     navLabel: "Dog Camera",
     title: "Dog Behavior Camera",
     category: "Computer vision · Physical prototype",
-    intro: "An independent Raspberry Pi computer vision prototype showing real-time dog detection and basic behavioral-state feedback, with state-to-actuator response logic.",
-    problem: "Daily interactions such as feeding, playing, resting, and standing contain behavioral signals that are difficult for an owner to interpret consistently. The project explores how vision and motion detection can make those signals visible and support a more responsive relationship.",
+    intro: "Built a Raspberry Pi dog-monitoring prototype using Python, OpenCV, and YOLO, progressing from offline image checks to live-dog trials with visualization and calibration.",
+    problem: "Camera-based behavior signals can fluctuate from frame to frame. The challenge was to inspect those signals and decide when a persistent detected state should trigger a physical response, rather than reacting to every transient classification.",
     facts: [
       ["Role", "Independent extracurricular project"],
       ["Tools", "Python · OpenCV · YOLO · Raspberry Pi"],
-      ["Scope", "Adapted existing framework and labeled dataset · Summer 2025"],
+      ["Scope", "Image checks → live-dog trials · 2025"],
     ],
     system: [
-      ["Observe", "Use camera input to establish the dog’s current position, movement, and activity context."],
-      ["Interpret", "Adjust detection parameters, weighting, temporal buffering, and post-processing to show basic behavioral-state feedback on screen."],
-      ["Respond", "Design the logic connecting a persistent detected state to a physical actuator response."],
-      ["Validate", "Test with a real dog; keep the broader enclosure, communication, and food modules labeled as concepts."],
+      ["Observe", "Progress from early image-based checks to camera input and trials with a real dog."],
+      ["Inspect", "Add visual detection overlays to inspect live output and identify classification issues."],
+      ["Calibrate", "Adjust detection thresholds, weighting, and temporal buffering to filter transient behavior signals."],
+      ["Respond", "Connect persistent detected states to physical response logic; keep the wider enclosure and remote features labeled as concepts."],
     ],
-    outcome: "Testing with a real dog demonstrated on-screen detection and basic behavioral-state feedback. The model weights were not fine-tuned; the larger companion device and remote features remained concepts.",
+    outcome: "An observable, physically integrated prototype with a more inspectable testing and debugging workflow. Final live-dog accuracy and precision were not reliably recorded, so no numerical performance improvement is claimed. The complete companion enclosure and remote features remained concepts.",
     heroImage: "/media/dog-behavior-camera/primary-portfolio-overview.png",
     heroAlt: "Robot for Dog project overview from the portfolio",
     images: [
-      ["/media/dog-behavior-camera/case-study/detection-standing-frame.png", "Standing-state detection", "The first PDF-sourced frame identifies the dog, maps directional motion cues, and classifies the current standing state."],
-      ["/media/dog-behavior-camera/case-study/detection-moving-frame.png", "Moving-state detection", "The second frame exposes the transition to a moving action while retaining the standing atomic state and normal behavior classification."],
+      ["/media/dog-behavior-camera/case-study/detection-standing-frame.png", "Standing-state detection overlay", "Visual overlays make the detected position, directional cues, and current standing-state output inspectable during testing; a screenshot is not an accuracy measurement."],
+      ["/media/dog-behavior-camera/case-study/detection-moving-frame.png", "Inspecting changing signals", "The live-dog output exposes changing motion and state labels, helping identify classification issues and calibrate thresholds and temporal buffering."],
       ["/media/dog-behavior-camera/case-study/prototype-servo-hardware.png", "Servo motor hardware study", "A Raspberry Pi, GPIO connection, and external power supply explore how a persistent state could drive the toy-holding arm."],
       ["/media/dog-behavior-camera/case-study/concept-exploded-assembly.png", "Exploded product system", "The camera, food plate, toy arm, wheels, display, and storage modules are organized as one interaction system."],
     ],
@@ -167,34 +171,20 @@ const projectIds = projectCases.map((project) => project.slug);
 const readingItems = projectCases.map((project) => ({ href: `#${project.slug}`, label: project.navLabel }));
 
 function BuildHopeCaseContent() {
-  const operatingModel = [
-    ["Ideate", "Turn programs, events, milestones, and community stories into a usable content backlog."],
-    ["Plan", "Choose priorities, owners, channels, and publishing dates in a shared calendar."],
-    ["Publish", "Prepare and schedule channel-ready content through a centralized workflow."],
-    ["Learn", "Review performance, identify useful patterns, and feed those insights into the next cycle."],
-  ] as const;
-  const roadmap = [
-    ["Days 1–2", "Connect platforms, review recent performance, and establish a baseline."],
-    ["Days 3–5", "Centralize assets and tag them by program, audience, and content category."],
-    ["Days 6–7", "Select content, build the calendar, and establish a review rhythm."],
-    ["Days 8–21", "Schedule, publish, and monitor the first operating cycle."],
-    ["Days 22–30", "Review top content, compare formats, and apply insights to the next cycle."],
-  ] as const;
-
   return <div className={styles.operationsCase}>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-challenge">
-      <span>01 · Challenge</span>
-      <h3 id="build-hope-challenge">Mission work generated meaningful stories, but the content process was difficult to sustain.</h3>
-      <p>Build Hope’s small team was coordinating social content manually while also delivering programs and supporting its community. The engagement focused on making that work more repeatable without replacing the human judgment and lived experience behind each story.</p>
-    </section>
-    <section className={styles.operationsNarrative} aria-labelledby="build-hope-reframe">
-      <span>02 · Reframing the problem</span>
-      <h3 id="build-hope-reframe">The core need was an operating system—not simply more posts.</h3>
-      <p>The team already had programs, events, updates, and community impact worth sharing. The missing layer was a reliable path for turning those inputs into planned, approved, published, and learnable content.</p>
+      <span>01–02 · Challenge & reframing</span>
+      <h3 id="build-hope-challenge">The bottleneck was the workflow—not the stories.</h3>
+      <p>Build Hope needed a sustainable way to turn existing event media into consistent publishing, within limited staff capacity.</p>
+      <div className={styles.hopeProblemFlow}>
+        <article><span>Existing inputs</span><h4>Stories worth sharing</h4><p>Event photos, videos, program updates, and community impact.</p></article>
+        <article><span>Operating constraint</span><h4>Limited team capacity</h4><p>Inconsistent publishing and a need to organize, schedule, and review content.</p></article>
+        <article><span>Reframing</span><h4 id="build-hope-reframe">A repeatable operating system</h4><p>Connect assets, planning, publishing, and learning—not simply request more posts.</p></article>
+      </div>
     </section>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-gaps">
       <span>03 · Operational gaps</span>
-      <h3 id="build-hope-gaps">Four capabilities were not covered by the existing workflow.</h3>
+      <h3 id="build-hope-gaps">Four capabilities the operating system needed to address.</h3>
       <div className={styles.gapGrid}>
         <article><b>01</b><h4>Automated publishing</h4><p>Prepare and schedule content without repeating the same manual steps for every channel.</p></article>
         <article><b>02</b><h4>Social analytics</h4><p>Bring performance signals together so the team can identify useful patterns.</p></article>
@@ -204,42 +194,65 @@ function BuildHopeCaseContent() {
     </section>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-evaluation">
       <span>04 · Solution evaluation</span>
-      <h3 id="build-hope-evaluation">Four platforms were compared against the team’s operating needs.</h3>
-      <p>Our team researched roughly eight options and highlighted Metricool, monday.com, Buffer, and Agorapulse in the presentation. I personally tested Buffer, Metricool, and monday.com. The recommendation moved from Buffer to Metricool after considering analytics, engagement insights, automation, usability, and cost; this was a qualitative comparison, not a formal scoring matrix.</p>
-      <figure className={styles.operationsFigure}><Image src="/media/build-hope-content-operations/platform-evaluation.webp" alt="Comparison of four social media management platforms" fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 980px" unoptimized /></figure>
+      <h3 id="build-hope-evaluation">Choose for the operating constraints—not the longest feature list.</h3>
+      <p>I helped recommend Metricool based on analytics, workflow fit, and cost. The decision connected the nonprofit’s content needs to a tool the proposed operating model could use.</p>
+      <div className={styles.hopeDecisionTable}>
+        <table><caption>Recommendation logic · Qualitative assessment from the September 2026 engagement</caption><thead><tr><th scope="col">Operational need</th><th scope="col">Evaluation focus</th><th scope="col">Why it mattered to the recommendation</th></tr></thead><tbody>
+          <tr><th scope="row">Learn from publishing</th><td data-label="Evaluation focus">Analytics</td><td data-label="Decision rationale">Engagement reporting and actionable insights supported the proposed Learn stage.</td></tr>
+          <tr><th scope="row">Make the workflow repeatable</th><td data-label="Evaluation focus">Workflow fit</td><td data-label="Decision rationale">Scheduling and cross-platform publishing connected the calendar to execution.</td></tr>
+          <tr><th scope="row">Keep the system practical</th><td data-label="Evaluation focus">Cost</td><td data-label="Decision rationale">Affordability was considered alongside analytics and workflow fit, rather than features alone.</td></tr>
+        </tbody></table>
+        <p>This explains our recommendation, not a scored ranking or a claim that other tools lack these capabilities today.</p>
+      </div>
+      <div className={styles.hopeEvaluation}>
+        <div><span>Team research</span><strong>~8 tools</strong><p>Broader exploration of content-management options.</p></div>
+        <div><span>My hands-on testing</span><strong>3 tools</strong><p>Buffer · Metricool · Monday.com</p></div>
+        <div><span>Shown in final delivery</span><strong>4 platforms</strong><p>Metricool · Monday.com · Buffer · Agorapulse</p></div>
+        <aside><span>Decision boundary</span><p>The engagement delivered a tool recommendation and rollout plan. Client adoption and performance after implementation were not validated.</p></aside>
+      </div>
+      <BuildHopeEvidence src="/media/build-hope-content-operations/platform-evaluation.webp" label="View original platform evaluation" />
     </section>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-model">
       <span>05 · Operating model</span>
       <h3 id="build-hope-model">Ideate → Plan → Publish → Learn</h3>
-      <div className={styles.operatingFlow}>
-        {operatingModel.map(([title, description], index) => <article key={title}><b>{String(index + 1).padStart(2, "0")}</b><h4>{title}</h4><p>{description}</p></article>)}
-      </div>
+      <div className={styles.hopeWide}><BuildHopeBlueprint /><BuildHopeEvidence src="/media/build-hope-content-operations/hero-operating-model.webp" label="View original operating model" /></div>
     </section>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-roadmap">
       <span>06 · 30-day implementation roadmap</span>
-      <h3 id="build-hope-roadmap">Adoption is sequenced as a manageable first operating cycle.</h3>
-      <div className={styles.roadmapGrid}>{roadmap.map(([period, description]) => <article key={period}><b>{period}</b><p>{description}</p></article>)}</div>
-      <figure className={styles.operationsFigure}><Image src="/media/build-hope-content-operations/implementation-roadmap.webp" alt="Build Hope 30-day content operations implementation roadmap" fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 980px" unoptimized /></figure>
+      <h3 id="build-hope-roadmap">Build the foundation before increasing the publishing load.</h3>
+      <p>Sequence setup, asset organization, planning, execution, and optimization into a proposed first operating cycle.</p>
+      <div className={styles.hopeWide}><BuildHopeRoadmap /><BuildHopeEvidence src="/media/build-hope-content-operations/implementation-roadmap.webp" label="View original 30-day roadmap" /></div>
     </section>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-playbook">
       <span>07 · Content playbook / feedback loop</span>
       <h3 id="build-hope-playbook">A repeatable playbook connects creation to learning.</h3>
-      <p>The playbook moves through Define, Gather, Create, Organize, Publish, and Learn. Its feedback loop—Create → Publish → Measure → Learn → Improve → Repeat—helps each cycle inform the next one.</p>
-      <div className={styles.operationsImagePair}>
-        <figure><Image src="/media/build-hope-content-operations/content-playbook.webp" alt="Build Hope content playbook" fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 48vw" unoptimized /></figure>
-        <figure><Image src="/media/build-hope-content-operations/feedback-loop.webp" alt="Build Hope content learning feedback loop" fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 48vw" unoptimized /></figure>
+      <p>The playbook turns the workflow into a reusable guide. Performance review feeds the next round of content choices.</p>
+      <div className={styles.hopeWide}>
+        <ol className={styles.hopePlaybook}>{["Define", "Gather", "Create", "Organize", "Publish", "Learn"].map((step, i) => <li key={step}><span>0{i + 1}</span>{step}</li>)}</ol>
+        <p className={styles.hopeFeedback}>Create → Publish → Measure → Learn → Improve → Repeat</p>
+        <BuildHopeEvidence src="/media/build-hope-content-operations/content-playbook.webp" label="View original content playbook" />
+        <BuildHopeEvidence src="/media/build-hope-content-operations/feedback-loop.webp" label="View original feedback loop" />
       </div>
     </section>
-    <section className={styles.operationsNarrative} aria-labelledby="build-hope-impact">
-      <span>08 · Proposed impact</span>
-      <h3 id="build-hope-impact">Less administrative work. More consistent storytelling. Greater visibility.</h3>
-      <p><strong>These are proposed outcomes, not measured post-launch results.</strong> The final delivery defines the workflow and expected value; it does not document validated changes in engagement, reach, productivity, or revenue.</p>
+    <section className={`${styles.operationsNarrative} ${styles.closingNarrative}`} aria-labelledby="build-hope-impact">
+      <span>08 · Proposed impact / observed follow-up</span>
+      <div className={styles.closingCopy}>
+      <h3 id="build-hope-impact">Separate the handoff, the intended value, and the evidence.</h3>
+      <div className={styles.hopeImpact}>
+        <article><span>Delivered</span><h4>A system and a practical handoff</h4><p>A five-phase, 30-day roadmap and content-management playbook.</p></article>
+        <article><span>Proposed impact</span><h4>Less administration. More consistent storytelling.</h4><p>Expected value—not measured changes in engagement, reach, productivity, or revenue.</p></article>
+        <article><span>Observed follow-up · October 19, 2026</span><h4>Posting activity changed after the engagement.</h4><p>I counted eight posts during October 1–19, versus six total across July (3), August (1), and September (2) on the existing social channel.</p><p><strong>Unequal observation periods; no causal attribution.</strong> This does not establish full roadmap adoption or prove the engagement caused the change.</p></article>
+      </div>
+      </div>
     </section>
-    <section className={styles.operationsNarrative} aria-labelledby="build-hope-role">
-      <span>09 · My role / reflection</span>
-      <h3 id="build-hope-role">Product Strategy & Operations Consultant — Build Hope</h3>
-      <p>In this four-person team, I pushed our discovery beyond views and posting frequency by asking the stakeholder about funding, engagement, priorities, and staff constraints. I designed the five-phase, 30-day roadmap, contributed the content playbook and handoff material, and proposed testing TikTok with existing event media under a standardized workflow. I presented the roadmap and Metricool features. Stakeholders responded positively, expressed interest in trying Metricool, and specifically liked the roadmap as a clear reference. Adoption and performance changes were not measured.</p>
+    <section className={`${styles.operationsNarrative} ${styles.closingNarrative}`} aria-labelledby="build-hope-role">
+      <span>09 · Reflection</span>
+      <div className={styles.closingCopy}>
+      <h3 id="build-hope-role">Design the operating rhythm before increasing the content load.</h3>
+      <p>My key takeaway was to translate a request for more views into a sustainable workflow, with clear steps and signals the team could review over time.</p>
+      <p>I also proposed reusing event photos and videos in recurring short-form content, evaluated through views, engagement, and follower changes. This was a proposed test—not a launched TikTok channel.</p>
       <Link href="#ai-pc-build-advisor">Next · PC Advisor <i aria-hidden="true">→</i></Link>
+      </div>
     </section>
   </div>;
 }
@@ -356,7 +369,7 @@ export function ProjectCaseStudiesPage() {
         const heroAlt = "heroAlt" in project ? project.heroAlt : project.images[0][1];
         const executionImages = "executionImages" in project ? project.executionImages : project.images;
 
-        return <section className={styles.caseChapter} data-compact-media={project.slug === "interactive-music-installation"} id={project.slug} key={project.slug}>
+        return <section className={styles.caseChapter} data-build-hope={isBuildHopeCase} data-compact-media={project.slug === "interactive-music-installation"} id={project.slug} key={project.slug}>
           <header className={styles.caseOpening}>
             <div className={styles.caseIndex}>
               <span>{String(projectIndex + 1).padStart(2, "0")} / 05</span>
@@ -366,12 +379,13 @@ export function ProjectCaseStudiesPage() {
               <span>{project.category}</span>
               <h2>{project.title}</h2>
               <p>{project.intro}</p>
+              {isBuildHopeCase && <aside className={styles.hopeContribution}><span>My contribution · Product Strategy & Operations Consultant</span><p>I clarified stakeholder goals and operational constraints, contributed to platform evaluation, and developed and presented the 30-day implementation roadmap and content-management playbook.</p><small>Five-day, four-person client engagement through USC Iovine and Young Academy · September 2026</small></aside>}
             </div>
           </header>
 
           <div className={styles.caseLead}>
-            <div className={styles.caseHeroMedia}>
-              <Image src={heroSrc} alt={heroAlt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 72vw" unoptimized />
+            <div className={styles.caseHeroMedia} data-build-hope={isBuildHopeCase}>
+              {isBuildHopeCase ? <BuildHopeBlueprint compact /> : <Image src={heroSrc} alt={heroAlt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 72vw" unoptimized />}
             </div>
             <dl className={styles.caseFacts}>
               {project.facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
@@ -384,7 +398,7 @@ export function ProjectCaseStudiesPage() {
             <h3 id={`${project.slug}-problem`}>What the product needs to make clear.</h3>
             <div className={styles.problemCopy}>
               <p>{project.problem}</p>
-              {isAiPcCase && <p>I interviewed 3–5 potential users and reviewed PCPartPicker, Newegg, Micro Center, Best Buy, and other PC-building resources before development and during iteration. I defined the MVP, prioritized the core decision flows, and deferred retailer integrations to keep the prototype focused.</p>}
+              {isAiPcCase && <p>I interviewed five prospective users and reviewed competing PC shopping and configuration experiences to identify pain points and establish MVP priorities. I prioritized use-case-based recommendations, comparisons of up to three components, replacement flows, compatibility warnings, and recalculated totals; retailer integrations stayed outside the MVP.</p>}
             </div>
           </section>
 
@@ -433,7 +447,7 @@ export function ProjectCaseStudiesPage() {
           <section className={styles.evidenceSection} aria-labelledby={`${project.slug}-evidence`}>
             <header>
               <span>{isAiPcCase ? "04 · Execution" : "03 · Evidence"}</span>
-              <h3 id={`${project.slug}-evidence`}>{isAiPcCase ? "From guided intake to compatibility-safe replacement." : "The system made visible."}</h3>
+              <h3 id={`${project.slug}-evidence`}>{isAiPcCase ? "From guided intake to component replacement." : "The system made visible."}</h3>
             </header>
             <div className={styles.storySequence}>
               {executionImages.map(([src, alt, caption], index) => (
@@ -453,7 +467,7 @@ export function ProjectCaseStudiesPage() {
             <section className={styles.finalExperienceSection} aria-labelledby={`${project.slug}-final-experience`}>
               <header>
                 <span>05 · Final experience</span>
-                <h3 id={`${project.slug}-final-experience`}>One continuous workspace from recommendation to purchase.</h3>
+                <h3 id={`${project.slug}-final-experience`}>One workspace from recommendations to purchase planning.</h3>
                 <p>{project.finalExperience}</p>
               </header>
               <div className={styles.storySequence}>
