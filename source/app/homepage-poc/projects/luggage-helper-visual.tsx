@@ -7,6 +7,7 @@ export function LuggageHelperVisual() {
       <strong>Pack with a clearer picture.</strong>
       <p>Trip context, item guidance, and luggage status at a glance.</p>
     </div>
+    <span className={styles.mobileHint}>Swipe to explore all three screens →</span>
     <div className={styles.phones}>
       <div className={styles.stage}>
         <span className={styles.stageLabel}>01 / Set the trip</span>
