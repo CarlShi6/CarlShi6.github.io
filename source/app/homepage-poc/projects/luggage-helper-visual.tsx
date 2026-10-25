@@ -47,11 +47,11 @@ export function LuggageHelperVisual() {
           <div className={styles.appHeader}><span className={styles.mark}>LH</span><span>My luggage</span><span className={styles.headerDot}>•••</span></div>
           <div className={styles.screenBody}>
             <span className={styles.kicker}>JFK → PVG</span>
-            <h3>Ready for takeoff.</h3>
+            <h3>Your bag at a glance.</h3>
             <div className={styles.weightCard}><div><span>Packed weight</span><strong>3.9 <small>/ 23 kg</small></strong></div><div className={styles.progress}><i /></div><small>19.1 kg remaining</small></div>
             <div className={styles.listHead}><b>Items in luggage</b><span>5 items</span></div>
-            <div className={styles.itemRow}><span>Shirt, jeans, T-shirt, sweater</span><b>1.4 kg</b></div>
-            <div className={styles.itemRow}><span>Other packed items</span><b>2.5 kg</b></div>
+            <div className={styles.itemRow}><span>Shirt, jeans, T-shirt, sweater</span></div>
+            <div className={styles.itemRow}><span>18650 battery · check carrying rules</span></div>
             <div className={styles.checklist}><span>✓</span><div><b>Packing checklist</b><small>Review what is still needed</small></div><span>→</span></div>
             <div className={styles.notice}>1 item needs a carrying-rule check</div>
           </div>

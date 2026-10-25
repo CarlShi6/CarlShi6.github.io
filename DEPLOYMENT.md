@@ -23,7 +23,7 @@ https://carlshi6.github.io/.
 
 ## Current synchronized snapshot
 
-Sites version 108, source commit `5d1d47a02daba94599fde29a54b7b94038db8ec0`.
+Sites version 109, source commit `a395a8e680de5accf81643f08eb13c6d37453511`.
 Includes the Luggage Helper visual exploration, clearer role and project status,
 and the original tested screens as evidence. GitHub Pages export configuration
 and its canonical origin are retained.
