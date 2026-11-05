@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import styles from "./cursor-hint.module.css";
 import { usePortfolioTheme } from "./theme-switch";
@@ -8,10 +8,12 @@ import { usePortfolioTheme } from "./theme-switch";
 export function CursorHint({ theme }: { theme?: "light" | "dark" }) {
   const [portfolioTheme] = usePortfolioTheme();
   const hintRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
   const [label, setLabel] = useState("");
-
-  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     if (!mounted) return;

@@ -1,0 +1,181 @@
+.study {
+  position: relative;
+  min-height: 100svh;
+  background: #01050b;
+}
+
+/* The baseline remains a literal Motion E render. Refined mode removes the
+   legacy crop masks and adds a safe visual frame without moving the buttons,
+   so object IDs, anchors, capture paths, and Scanner hit targets stay stable. */
+.study[data-e2-assets="refined"] :global([data-object-id]) {
+  overflow: visible;
+}
+
+.study[data-e2-assets="refined"] :global([data-art]) {
+  clip-path: none !important;
+  background-size: 88% 88% !important;
+}
+
+.study[data-e2-assets="refined"]
+  :global([data-side="projects"][data-art="0"]) {
+  background-image: url("/homepage-poc/motion-e2/project-1-refined.png") !important;
+  background-size: contain !important;
+}
+
+.study[data-e2-assets="refined"]
+  :global([data-side="skills"][data-art="0"]) {
+  background-image: url("/homepage-poc/motion-e2/skill-1-refined.png") !important;
+  background-size: contain !important;
+}
+
+.study[data-e2-bounds="true"] :global([data-object-id]) {
+  outline: 1px solid rgba(255, 207, 124, 0.82);
+  outline-offset: -1px;
+  background: rgba(255, 207, 124, 0.035);
+}
+
+.study[data-e2-bounds="true"] :global([data-art]) {
+  box-shadow: inset 0 0 0 1px rgba(126, 206, 255, 0.72);
+}
+
+.assetStudy {
+  position: fixed;
+  z-index: 120;
+  top: 82px;
+  left: 50%;
+  display: grid;
+  grid-template-columns: auto minmax(230px, 1fr) auto;
+  width: min(620px, calc(100vw - 36px));
+  padding: 8px 10px;
+  align-items: center;
+  gap: 10px;
+  color: #e8edf0;
+  border: 1px solid rgba(115, 139, 153, 0.58);
+  background: rgba(4, 10, 17, 0.94);
+  font: 12px/1.4 system-ui, sans-serif;
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+}
+
+.heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.heading b,
+.heading span {
+  display: block;
+}
+
+.heading b {
+  color: #fff1d6;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.heading span,
+.assetStudy p {
+  color: #aebdc7;
+}
+
+.heading a {
+  display: none;
+  min-height: 44px;
+  color: #d8e4e9;
+  text-underline-offset: 4px;
+}
+
+.modeSwitch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 0;
+}
+
+.modeSwitch button {
+  min-height: 44px;
+  padding: 8px;
+  color: #dce7eb;
+  border: 1px solid #40505b;
+  background: #0b151d;
+  font: inherit;
+  cursor: pointer;
+}
+
+.modeSwitch button[aria-pressed="true"] {
+  color: #fff4dd;
+  border-color: #ffe0a8;
+  background: #1b2831;
+}
+
+.assetStudy p {
+  display: none;
+}
+
+.assetStudy label {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+}
+
+.assetStudy input {
+  width: 18px;
+  height: 18px;
+  accent-color: #dcc5a0;
+}
+
+.assetStudy :focus-visible {
+  outline: 2px solid #ffe4b1;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .assetStudy {
+    position: absolute;
+    top: 78px;
+    left: 50%;
+    width: min(600px, calc(100vw - 24px));
+  }
+}
+
+@media (max-width: 560px) {
+  .assetStudy {
+    top: 76px;
+    grid-template-columns: 1fr auto;
+    row-gap: 4px;
+  }
+
+  .heading span,
+  .assetStudy p {
+    display: none;
+  }
+
+  .modeSwitch {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .assetStudy label {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .assetStudy {
+    backdrop-filter: none;
+  }
+}
+
+:global(html:has(.study)) {
+  background: #01050b !important;
+}
+
+:global(body:has(.study)) {
+  background: #01050b !important;
+}

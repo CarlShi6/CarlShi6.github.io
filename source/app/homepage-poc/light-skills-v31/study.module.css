@@ -1,0 +1,19 @@
+.page{--paper:#f6f2e8;--ink:#192f40;--muted:#536877;--gold:#957039;min-height:100svh;background:var(--paper);color:var(--ink)}
+.nav{height:76px;padding:0 4.5vw;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d9d2c3}
+.nav a{font-size:13px;color:var(--ink);min-height:44px;display:flex;align-items:center}.nav>div{display:flex;gap:36px}.home{gap:16px}.home svg{width:42px;height:42px;filter:brightness(0) saturate(100%) invert(11%) sepia(16%) saturate(1534%) hue-rotate(183deg)}
+.page a{touch-action:manipulation}.page a:focus-visible{outline:2px solid #284b67;outline-offset:5px}.page a:hover{text-decoration:underline;text-underline-offset:5px}
+.study{position:relative;margin:0 4.5vw;display:grid;justify-items:center;min-height:740px}
+.heading{position:absolute;left:0;top:42px}.heading h1{font:400 44px/1.1 Georgia,serif;margin:0 0 15px}.heading p{font-size:18px;line-height:1.5;color:var(--muted);margin:0}
+.specimen{position:relative;width:448px;aspect-ratio:520/850;margin:0;container-type:inline-size}
+.art{display:block;width:100%;height:100%;overflow:visible}
+.original path{stroke-width:.1}.original path+path{opacity:.08;stroke-width:.1}
+.inscriptions{fill:#263e3e;font-family:Georgia,serif;paint-order:stroke;stroke:#e9ddc0;stroke-width:.5px;stroke-linejoin:round}
+.skillTitle{font-size:32px;letter-spacing:-.035em}.keyword{font-size:22px}
+.reading{position:absolute;left:31%;top:61%;width:40%;color:#1c353c;font-size:16px;line-height:1.5}
+.reading p{margin:0 0 12px}.reading a{color:inherit;display:inline-flex;align-items:center;gap:9px;min-height:44px;text-decoration:underline;text-underline-offset:5px;font-size:14px}
+.srOnly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.footer{padding:18px 4.5vw 24px;display:flex;justify-content:space-between;align-items:center;gap:24px;color:var(--muted);font-size:13px}.footer a{color:inherit;min-height:44px;display:flex;align-items:center}
+@media(min-width:1600px){.specimen{width:490px}.study{min-height:810px}}
+@media(max-width:900px){.heading{position:static;justify-self:start;margin:30px 0 0}.heading h1{font-size:36px}.specimen{width:min(470px,100%)}.study{min-height:0}}
+@media(max-width:480px){.nav{height:68px}.nav>div{gap:22px}.study{margin:0 12px}.heading{margin:28px 12px 16px}.heading h1{font-size:32px}.heading p{font-size:16px}.reading{left:30%;width:43%;top:60%;font-size:15px;line-height:1.4}.reading p{margin-bottom:5px}.reading a{font-size:13px;gap:5px}.footer{align-items:flex-start;gap:20px;font-size:13px}.footer span{max-width:48%}.keyword{font-size:24px}}
+@media(max-width:360px){.reading{top:57%;font-size:14px;line-height:1.4}.reading a{font-size:13px;gap:3px}}

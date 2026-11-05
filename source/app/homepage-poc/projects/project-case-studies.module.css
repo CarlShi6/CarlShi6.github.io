@@ -1,4 +1,5 @@
 .casesPage {
+  composes: system from "../editorial-layout.module.css";
   --bg: #05080b;
   --raised: #080d11;
   --line: #17212a;
@@ -18,8 +19,11 @@
 .caseBackdrop { position: fixed; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(circle at 76% 12%, rgba(47, 75, 88, 0.14), transparent 31%), linear-gradient(rgba(42, 58, 67, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(42, 58, 67, 0.05) 1px, transparent 1px); background-size: auto, 96px 96px, 96px 96px; mask-image: linear-gradient(180deg, #000, transparent 92%); }
 
 .caseNav { position: fixed; z-index: 40; top: 0; right: 0; left: 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 58px; padding: 0 clamp(22px, 4vw, 54px); border-bottom: 1px solid rgba(38, 51, 61, 0.62); background: rgba(5, 8, 11, 0.91); backdrop-filter: blur(18px); }
-.homeLink { display: inline-grid; width: 38px; height: 38px; align-items: center; justify-self: start; color: var(--text); background: transparent; }
-.homeIcon { display: grid; width: 100%; height: 100%; place-items: center; }
+.homeLink { display: inline-flex; gap:12px; min-height:44px; align-items: center; justify-self: start; color: var(--text); background: transparent; }
+.homeIcon { display: grid; width:38px; height:38px; flex:none; place-items: center; }
+.homeLabel { font:520 12px/1 Arial,sans-serif; letter-spacing:.01em; color:var(--rail-muted); }
+.homeLink:hover .homeLabel { color:var(--text); }
+.homeLink:focus-visible { outline:2px solid var(--text); outline-offset:3px; }
 .projectNavLinks { display: flex; gap: clamp(14px, 2.2vw, 34px); align-items: center; }
 .projectNavLinks a { position: relative; padding: 20px 0; color: rgba(var(--copy-rgb), 0.58); font: 500 10.5px/1 var(--font-geist-mono), monospace; letter-spacing: 0.1em; text-transform: uppercase; }
 .projectNavLinks a::after { position: absolute; right: 0; bottom: 13px; left: 0; height: 1px; background: #dcecf1; content: ""; opacity: 0; transform: scaleX(0.25); transition: opacity 220ms ease, transform 320ms ease; }
@@ -150,6 +154,10 @@
   margin-inline: auto;
 }
 .caseChapter[data-compact-media="true"] .caseHeroMedia {
+  /* Constrain the grid item before its aspect ratio derives 624px from the
+     retained 390px minimum height on narrow screens. */
+  width: 100%;
+  min-width: 0;
   min-height: 390px;
   clip-path: none;
 }
@@ -233,7 +241,7 @@
 :global(html[data-portfolio-theme="light"]) :is(.homeLink, .indexLink, .projectNavLinks a, .caseFooter a) { color: #53677e; }
 :global(html[data-portfolio-theme="light"]) :is(.homeLink:hover, .indexLink:hover, .projectNavLinks a:hover, .projectNavLinks a[data-active="true"], .caseFooter a:hover) { color: #182033; }
 :global(html[data-portfolio-theme="light"]) .projectNavLinks a::after { background: #527496; }
-:global(html[data-portfolio-theme="light"]) :is(.caseArchiveHero > span, .caseTitleBlock > span, .caseIndex, .caseFacts dt, .problemSection > span, .systemSection header > span, .decisionSection header > span, .evidenceSection header > span, .finalExperienceSection header > span, .outcomeSection > span, .operationsNarrative > span, .heroCounter, .storySequence figcaption > span, .systemSection li > span, .decisionSection li > span) { color: #657181; }
+:global(html[data-portfolio-theme="light"]) :is(.caseArchiveHero > span, .caseTitleBlock > span, .caseIndex, .caseFacts dt, .problemSection > span, .systemSection header > span, .decisionSection header > span, .evidenceSection header > span, .finalExperienceSection header > span, .outcomeSection > span, .operationsNarrative > span, .heroCounter, .storySequence figcaption > span, .systemSection li > span, .decisionSection li > span) { color: var(--rail-muted); }
 :global(html[data-portfolio-theme="light"]) :is(.caseArchiveHero p, .caseTitleBlock p, .caseFacts dd, .problemSection p, .systemSection li p, .decisionSection li p, .decisionVisual figcaption, .storySequence figcaption p, .finalExperienceSection header p, .operationsNarrative > p, .gapGrid p, .operatingFlow p, .roadmapGrid p) { color: #53677e; }
 :global(html[data-portfolio-theme="light"]) .operationsNarrative > p strong { color: #182033; }
 :global(html[data-portfolio-theme="light"]) :is(.gapGrid b, .operatingFlow b, .roadmapGrid b) { color: #80632e; }
@@ -246,7 +254,7 @@
 /* Build Hope: native, theme-aware delivery visuals. Other cases stay unchanged. */
 .operationsCase .operationsNarrative { grid-template-columns:140px minmax(0,1fr); gap:20px 36px; padding:48px 0; }
 .operationsCase .operationsNarrative > span { grid-column:1; grid-row:1 / 3; font-size:11px; line-height:1.6; color:var(--rail-muted); }
-.operationsCase .operationsNarrative > h3, .operationsCase .operationsNarrative > p, .operationsCase .operationsNarrative > div, .operationsCase .operationsNarrative > details { grid-column:2; }
+.operationsCase .operationsNarrative > h3, .operationsCase .operationsNarrative > p, .operationsCase .operationsNarrative > div, .operationsCase .operationsNarrative > details, .operationsCase .operationsNarrative > figure { grid-column:2; }
 .operationsCase .operationsNarrative > h3 { max-width:760px; font-size:clamp(26px,3vw,38px); text-wrap:pretty; }
 .operationsCase .operationsNarrative > p { max-width:780px; color:var(--rail-muted); }
 .operationsCase .gapGrid { margin-top:4px; }
@@ -308,6 +316,42 @@
 .hopeEvidence figure { margin:0; padding:16px; }
 .hopeEvidence img { display:block; width:100%; height:auto; }
 .hopeEvidence figcaption { margin-top:12px; color:var(--rail-muted); font-size:12px; line-height:1.6; }
+.hopeToolEvidence { margin:clamp(34px,5vw,64px) 0; background:var(--raised); }
+.hopeToolEvidenceImage { position:relative; overflow:hidden; aspect-ratio:16/9; background:#ece6d9; }
+.hopeToolEvidenceImage img { width:100%; height:100%; object-fit:contain; display:block; }
+.hopeToolEvidenceImage>span { position:absolute; left:18px; bottom:18px; padding:8px 10px; background:var(--bg); color:var(--text); font-size:12px; line-height:1.3; }
+.hopeToolEvidence figcaption { display:grid; grid-template-columns:minmax(170px,.55fr) minmax(0,1.45fr); gap:12px 34px; padding:clamp(28px,4vw,44px); }
+.hopeToolEvidence figcaption>span,.hopeEvidenceGap>span { color:var(--rail-muted); font:500 12px/1.5 var(--font-geist-mono),monospace; }
+.hopeToolEvidence h4 { grid-column:1; margin:8px 0 0; font-size:clamp(25px,3vw,38px); font-weight:500; line-height:1.08; letter-spacing:-.04em; }
+.hopeToolEvidence ol { grid-column:2; grid-row:1 / 3; list-style:none; padding:0; margin:0; }
+.hopeToolEvidence li { display:grid; grid-template-columns:76px 1fr; gap:14px; align-items:baseline; padding:11px 0; border-top:1px solid var(--line); }
+.hopeToolEvidence li b { font-size:14px; font-weight:600; }
+.hopeToolEvidence li small { color:var(--rail-muted); font-size:13px; line-height:1.5; }
+.hopeToolEvidence figcaption>p { grid-column:2; margin:12px 0 0; color:var(--rail-muted); font-size:13px; line-height:1.7; }
+.hopeArtifactGallery { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px; margin-top:36px; }
+.hopeArtifact { grid-column:span 4; min-width:0; background:var(--raised); }
+.hopeArtifact[data-featured=true] { grid-column:span 6; }
+.hopeArtifact summary { position:relative; display:block; cursor:zoom-in; list-style:none; overflow:hidden; }
+.hopeArtifact summary::-webkit-details-marker { display:none; }
+.hopeArtifact summary>img { display:block; width:100%; aspect-ratio:16/10; object-fit:cover; transition:transform .45s ease,filter .45s ease; }
+.hopeArtifact summary>span { position:absolute; inset:auto 0 0; display:grid; grid-template-columns:1fr auto; gap:5px 14px; padding:44px 18px 18px; color:#fff; background:linear-gradient(transparent,rgba(5,9,14,.9)); }
+.hopeArtifact summary small { grid-column:1/-1; font-size:11px; line-height:1.4; }
+.hopeArtifact summary b { font-size:17px; font-weight:550; }
+.hopeArtifact summary i { align-self:end; font-size:12px; font-style:normal; text-decoration:underline; text-underline-offset:3px; }
+.hopeArtifact summary i em { font-style:normal; }
+.hopeArtifact summary i em:last-child { display:none; }
+.hopeArtifact summary:is(:hover,:focus-visible)>img { transform:scale(1.025); filter:saturate(1.08); }
+.hopeArtifact summary:focus-visible { outline:2px solid var(--text); outline-offset:4px; }
+.hopeArtifact[open] { grid-column:1/-1; }
+.hopeArtifact[open] summary>img { display:none; }
+.hopeArtifact[open] summary>span { position:static; padding:18px; color:var(--text); background:none; }
+.hopeArtifact[open] summary i em:first-child { display:none; }
+.hopeArtifact[open] summary i em:last-child { display:inline; }
+.hopeArtifact figure { margin:0; padding:18px; }
+.hopeArtifact figure img { width:100%; height:auto; display:block; }
+.hopeArtifact figcaption { margin-top:14px; color:var(--rail-muted); font-size:13px; line-height:1.7; }
+.hopeEvidenceGap { grid-column:1/-1; display:grid; grid-template-columns:180px 1fr; gap:24px; padding:24px 0; border-block:1px solid var(--line); }
+.hopeEvidenceGap p { margin:0; max-width:760px; color:var(--rail-muted); font-size:14px; line-height:1.7; }
 .hopePlaybook { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); list-style:none; padding:0; margin:0; border:1px solid var(--line); background:var(--raised); }
 .hopePlaybook li { padding:20px; font-size:19px; border-bottom:1px solid var(--line); }
 .hopePlaybook li>span { display:block; margin-bottom:12px; font:11px var(--font-geist-mono),monospace; color:var(--rail-muted); }
@@ -329,7 +373,7 @@
   .operationsCase { margin-top:36px; }
   .operationsCase .operationsNarrative { grid-template-columns:minmax(0,1fr); padding:32px 0; gap:18px; }
   .operationsCase .operationsNarrative > span { grid-row:auto; }
-  .operationsCase .operationsNarrative > :is(span,h3,p,div,details) { grid-column:1; }
+  .operationsCase .operationsNarrative > :is(span,h3,p,div,details,figure) { grid-column:1; }
   .hopePipeline { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
   .hopePipeline li::after { display:none; }
   .hopeBlueprint[data-compact=true] .hopePipeline { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -365,6 +409,23 @@
 .hopeDecisionTable tbody th { font-weight:500; }
 .hopeDecisionTable td { color:var(--rail-muted); }
 .hopeDecisionTable>p { color:var(--rail-muted); margin:16px 0 0; font-size:12px; line-height:1.7; }
+.hopePlatformMatrix table { border:1px solid var(--line); }
+.hopePlatformMatrix th,.hopePlatformMatrix td { border-right:1px solid var(--line); text-align:center; }
+.hopePlatformMatrix th:first-child { width:32%; text-align:left; }
+.hopePlatformMatrix th:nth-child(2) { width:auto; }
+.hopePlatformMatrix thead th[data-recommended=true] { color:var(--bg); background:var(--text); }
+.hopePlatformMatrix td[data-state=yes] { color:var(--text); font-size:20px; }
+.hopePlatformMatrix td[data-state=no] { color:var(--rail-muted); font-size:18px; }
+.hopeContributionGrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border:1px solid var(--line); background:var(--raised); }
+.hopeContributionGrid article { padding:24px; border-bottom:1px solid var(--line); }
+.hopeContributionGrid article:nth-child(even) { border-left:1px solid var(--line); }
+.hopeContributionGrid article:nth-last-child(-n+2) { border-bottom:0; }
+.hopeContributionGrid span { color:var(--rail-muted); font:11px/1.5 var(--font-geist-mono),monospace; }
+.hopeContributionGrid h4 { margin:16px 0 10px; font-size:20px; font-weight:500; }
+.hopeContributionGrid p { margin:0; color:var(--rail-muted); font-size:14px; line-height:1.7; }
+.hopeImpact article:last-child { grid-column:auto; }
+.hopeImpact article:nth-child(n+3) { border-top:1px solid var(--line); }
+.hopeImpact article:nth-child(even) { border-left:1px solid var(--line); }
 @media(max-width:760px) {
   .hopeProblemFlow { grid-template-columns:1fr; }
   .hopeProblemFlow article+article { border-left:0; border-top:1px solid var(--line); }
@@ -375,6 +436,10 @@
   .hopeDecisionTable tbody th,.hopeDecisionTable tbody td { padding:8px 0; border:0; font-size:14px; }
   .hopeDecisionTable tbody th { font-size:18px; }
   .hopeDecisionTable td[data-label]::before { content:attr(data-label); display:block; margin-bottom:5px; color:var(--rail-muted); font:11px/1.6 var(--font-geist-mono),monospace; }
+  .hopePlatformMatrix th,.hopePlatformMatrix td { text-align:left; border-right:0; }
+  .hopeContributionGrid { grid-template-columns:1fr; }
+  .hopeContributionGrid article,.hopeContributionGrid article:nth-child(even),.hopeContributionGrid article:nth-last-child(-n+2) { border-left:0; border-bottom:1px solid var(--line); }
+  .hopeContributionGrid article:last-child { border-bottom:0; }
   .caseChapter[data-build-hope=true] .caseOpening { grid-template-columns:1fr; gap:16px; }
   .caseChapter[data-build-hope=true] .caseIndex { display:none; }
 }
@@ -408,6 +473,37 @@
 .hopeWorkflowFooter { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; margin-top:28px; padding-top:20px; border-top:1px solid var(--line); }
 .hopeWorkflowFooter>span { font-size:12px; line-height:1.7; color:var(--rail-muted); }
 .hopeWorkflowFooter button { min-height:44px; border:1px solid var(--bright-line); padding:10px 16px; background:var(--bg); color:var(--text); font:inherit; font-size:13px; cursor:pointer; }
+.hopeOperationsExplorer { min-width:0; }
+.hopeOperationsIntro { display:flex; align-items:end; justify-content:space-between; gap:24px; }
+.hopeOperationsIntro>span { flex:none; margin-bottom:18px; color:var(--rail-muted); font:11px/1.5 var(--font-geist-mono),monospace; }
+.hopeOperationsIntro b { display:inline-block; margin-left:8px; color:var(--text); font-size:16px; animation:hopeSwipeCue 1.5s ease-in-out infinite; }
+.hopeOperationsRail { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); border:1px solid var(--line); background:var(--bg); }
+.hopeOperationsRail button { position:relative; min-width:0; min-height:98px; padding:16px 12px; border:0; border-right:1px solid var(--line); background:transparent; color:var(--rail-muted); text-align:left; cursor:pointer; transition:background .25s,color .25s; }
+.hopeOperationsRail button:last-child { border-right:0; }
+.hopeOperationsRail button:not(:last-child)::after { position:absolute; z-index:2; top:50%; right:-7px; display:grid; width:14px; height:14px; place-items:center; border:1px solid var(--line); border-radius:50%; background:var(--bg); color:var(--rail-muted); content:'›'; font-size:10px; transform:translateY(-50%); }
+.hopeOperationsRail button[aria-selected=true] { background:var(--text); color:var(--bg); }
+.hopeOperationsRail button small { display:block; margin-bottom:14px; font:10px/1 var(--font-geist-mono),monospace; opacity:.65; }
+.hopeOperationsRail button span { display:block; overflow-wrap:anywhere; font-size:13px; line-height:1.3; }
+.hopeOperationsRail button i { display:block; max-height:0; margin-top:0; overflow:hidden; color:currentColor; font:normal 9px/1.4 var(--font-geist-mono),monospace; opacity:0; transition:max-height .2s,margin .2s,opacity .2s; }
+.hopeOperationsRail button:is(:hover,:focus-visible) i,.hopeOperationsRail button[aria-selected=true] i { max-height:18px; margin-top:8px; opacity:.72; }
+.hopeOperationsRail button:focus-visible { z-index:3; outline:2px solid var(--text); outline-offset:3px; }
+.hopeOperationsPanel { display:grid; grid-template-columns:150px minmax(150px,.8fr) minmax(220px,1.5fr); gap:10px 28px; min-height:210px; padding:28px; border:1px solid var(--line); border-top:0; background:var(--raised); animation:hopeStageReveal .3s ease both; }
+.hopeOperationsPanel>span { grid-column:1; color:var(--rail-muted); font:11px/1.5 var(--font-geist-mono),monospace; }
+.hopeOperationsPanel h4 { grid-column:1; margin:8px 0 0; font-size:26px; font-weight:500; letter-spacing:-.035em; }
+.hopeOperationsPanel>strong { grid-column:2; grid-row:1 / 3; font-size:17px; font-weight:500; line-height:1.45; }
+.hopeOperationsPanel>p { grid-column:3; grid-row:1 / 3; margin:0; color:var(--rail-muted); font-size:14px; line-height:1.7; }
+.hopeOperationsPanel dl { grid-column:2 / -1; display:grid; grid-template-columns:120px 1fr; gap:16px; margin:18px 0 0; padding-top:18px; border-top:1px solid var(--line); }
+.hopeOperationsPanel dt { color:var(--rail-muted); font:11px/1.5 var(--font-geist-mono),monospace; }
+.hopeOperationsPanel dd { margin:0; font-size:14px; }
+.hopeOperationsNav { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:16px 18px; border:1px solid var(--line); border-top:0; background:var(--bg); }
+.hopeOperationsNav>span { color:var(--rail-muted); font:11px/1.5 var(--font-geist-mono),monospace; }
+.hopeOperationsNav>span b { color:var(--text); font-weight:600; }
+.hopeOperationsNav>div { display:flex; gap:8px; }
+.hopeOperationsNav button { min-height:42px; padding:8px 14px; border:1px solid var(--bright-line); background:transparent; color:var(--text); font:500 12px/1.2 var(--font-geist-mono),monospace; cursor:pointer; }
+.hopeOperationsNav button:last-child { background:var(--text); color:var(--bg); }
+.hopeOperationsNav button:disabled { cursor:not-allowed; opacity:.35; }
+.hopeOperationsNav button:focus-visible { outline:2px solid var(--text); outline-offset:3px; }
+.hopeOperationsBoundary { margin:12px 0 0; color:var(--rail-muted); font-size:12px; line-height:1.65; }
 .hopeInteractiveRoadmap { background:var(--raised); border:1px solid var(--line); }
 .hopeDayControl { padding:24px; }
 .hopeDayControl label { display:flex; justify-content:space-between; gap:16px; font-size:14px; color:var(--rail-muted); }
@@ -433,8 +529,15 @@
 .hopeRoadmapDetail strong { display:block; margin-top:8px; font-size:15px; line-height:1.5; font-weight:500; }
 .hopeRoadmapNote { padding:18px 24px; margin:0; color:var(--rail-muted); font-size:12px; line-height:1.7; }
 .hopePhaseGroup[data-active=true] { background:rgba(var(--copy-rgb),.035); }
-.hopeInlinePhase { padding:2px 20px 22px 156px; animation:hopeStageReveal .3s ease both; }
+.hopeInlinePhase { display:grid; grid-template-columns:minmax(240px,.8fr) minmax(320px,1.2fr); gap:28px; padding:24px; animation:hopeStageReveal .3s ease both; }
 .hopeInlinePhase[hidden] { display:none; }
+.hopePhaseVisual { min-width:0; margin:0; padding:18px; background:rgba(var(--copy-rgb),.035); }
+.hopePhaseVisual svg { display:block; width:100%; height:auto; color:var(--text); stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.hopePhaseOrbit { opacity:.18; stroke-dasharray:5 8; }
+.hopePhaseVisual figcaption { display:flex; flex-direction:column; gap:7px; margin-top:10px; }
+.hopePhaseVisual figcaption span { color:var(--rail-muted); font-size:11px; line-height:1.5; }
+.hopePhaseVisual figcaption strong { font-size:16px; line-height:1.45; font-weight:500; }
+.hopeInlinePlan { align-self:center; min-width:0; }
 .hopeInlineEyebrow { display:block; color:var(--rail-muted); font:11px/1.5 var(--font-geist-mono),monospace; margin:4px 0 16px; }
 .hopeInlineTasks { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; padding:0; margin:0; list-style:none; }
 .hopeInlineTasks li { position:relative; min-width:0; }
@@ -447,6 +550,7 @@
 .hopeInlineOutput small { display:block; color:var(--rail-muted); font:11px/1.6 var(--font-geist-mono),monospace; margin-bottom:4px; }
 .hopeSelectionStatus { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 @keyframes hopeStageReveal { from { opacity:.4; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes hopeSwipeCue { 0%,100% { transform:translateX(0); } 50% { transform:translateX(5px); } }
 @media(max-width:760px) {
   .operationsCase h3[id] { scroll-margin-top:130px; }
   .hopeStageControls { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -458,17 +562,38 @@
   .hopeGanttAxis { grid-template-columns:100px 1fr 1fr auto; gap:8px; padding-inline:8px; }
   .hopeGanttRow { grid-template-columns:100px minmax(0,1fr); gap:8px; padding:12px 8px; }
   .hopeGanttLabel b { font-size:12px; }
-  .hopeInlinePhase { padding:4px 16px 20px; }
+  .hopeToolEvidence { grid-template-columns:1fr; }
+  .hopeToolEvidenceImage { min-height:0; }
+  .hopeToolEvidence figcaption { display:flex; flex-direction:column; padding:26px 20px; }
+  .hopeToolEvidence h4 { margin:8px 0 18px; }
+  .hopeToolEvidence ol,.hopeToolEvidence figcaption>p { grid-column:auto; grid-row:auto; }
+  .hopeArtifact,.hopeArtifact[data-featured=true] { grid-column:1/-1; }
+  .hopeEvidenceGap { grid-template-columns:1fr; gap:10px; }
+  .hopeInlinePhase { grid-template-columns:1fr; padding:16px; }
   .hopeInlineTasks { grid-template-columns:1fr; gap:12px; }
   .hopeInlineTasks li { display:flex; align-items:center; gap:12px; }
   .hopeInlineTasks li>span { flex:none; }
   .hopeInlineTasks li:not(:last-child)::after { content:none; }
   .hopeInlineTasks p { margin:0; }
   .hopeWorkflowFooter>span { width:100%; }
+  .hopeOperationsIntro { align-items:start; }
+  .hopeOperationsIntro>span { margin:0; max-width:120px; text-align:right; }
+  .hopeOperationsRail { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:thin; overscroll-behavior-inline:contain; }
+  .hopeOperationsRail button { flex:0 0 46%; min-height:88px; border-right:1px solid var(--line); scroll-snap-align:start; }
+  .hopeOperationsRail button::after { display:none !important; }
+  .hopeOperationsRail button:last-child { border-right:0; }
+  .hopeOperationsPanel { grid-template-columns:1fr; min-height:0; padding:22px 18px; }
+  .hopeOperationsPanel>:is(span,h4,strong,p,dl) { grid-column:1; grid-row:auto; }
+  .hopeOperationsPanel dl { grid-template-columns:1fr; gap:6px; }
+  .hopeOperationsNav { align-items:flex-start; flex-direction:column; }
+  .hopeOperationsNav>div { width:100%; }
+  .hopeOperationsNav button { flex:1; }
+  .hopeImpact article:nth-child(even) { border-left:0; }
 }
 @media(prefers-reduced-motion:reduce) {
-  .hopeArtFrame,.hopeInlinePhase { animation:none; }
-  .hopeStageControls button,.hopeGanttRow,.hopeGanttBar,.hopeGanttCursor { transition:none; }
+  .hopeArtFrame,.hopeInlinePhase,.hopeOperationsPanel { animation:none; }
+  .hopeOperationsIntro b { animation:none; }
+  .hopeStageControls button,.hopeOperationsRail button,.hopeOperationsRail button i,.hopeGanttRow,.hopeGanttBar,.hopeGanttCursor { transition:none; }
 }
 /* A reading map, rather than separate-page tabs. */
 .readingContext { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; color:var(--rail-muted); font-size:13px; }
@@ -508,6 +633,77 @@
   .mobileReadingNav { top:54px; padding-inline:17px; gap:8px; }
 }
 @media(max-width:480px) {
+  .caseNav { grid-template-columns:auto 1fr auto; gap:6px; padding-inline:12px; }
+  .readingContext { position:static; transform:none; justify-self:center; }
+  .homeLink { gap:8px; }
+  .homeIcon { width:30px; height:30px; }
+  .homeLabel { font-size:11px; }
   .indexLink { font-size:11px; padding:8px; gap:5px; }
   .indexLink svg { width:13px; height:13px; }
+}
+
+/* Shared case-study opening: evidence follows a compact, readable introduction. */
+.caseChapter,
+.caseChapter[data-build-hope=true] {
+  width: min(100% - 2 * var(--editorial-gutter), var(--editorial-content-width));
+  padding-block: var(--editorial-section-space);
+}
+.caseOpening,
+.caseChapter[data-build-hope=true] .caseOpening {
+  grid-template-columns: var(--editorial-aux) minmax(0, 1fr);
+  gap: var(--editorial-grid-gap);
+  margin-bottom: var(--editorial-intro-gap);
+}
+.caseIndex { padding-top: 0; font-family: inherit; font-size: var(--editorial-caption); line-height: 1.6; color: var(--rail-muted); white-space: nowrap; }
+.caseIndex i { display: none; }
+.caseTitleBlock > span {
+  color: var(--rail-muted);
+  font-family: inherit;
+  font-size: var(--editorial-overline);
+  line-height: 1.5;
+  letter-spacing: .025em;
+  text-transform: none;
+}
+.caseTitleBlock h2 {
+  margin-top: 12px;
+  font-size: var(--editorial-display);
+  line-height: 1.04;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+.caseTitleBlock p {
+  max-width: var(--editorial-measure);
+  margin-top: var(--editorial-copy-gap);
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: var(--editorial-leading);
+}
+.hopeContribution { margin-top: 20px; padding-top: 16px; }
+.hopeContribution > span { font-family: inherit; font-size: var(--editorial-caption); }
+.hopeContribution > p { margin-top: 8px; font-size: var(--editorial-body); }
+.hopeContribution > p { max-width: var(--editorial-measure); color: var(--rail-muted); line-height: var(--editorial-leading); }
+.hopeContribution small { margin-top: 8px; font-size: var(--editorial-caption); line-height: 1.5; }
+.caseFacts dt { font-family: inherit; font-size: var(--editorial-overline); line-height: 1.5; letter-spacing: .025em; color: var(--rail-muted); text-transform: none; }
+.caseFacts dd { font-size: var(--editorial-body); line-height: var(--editorial-leading); }
+.caseLead { align-items: start; }
+.caseHeroMedia:not([data-build-hope=true]) { min-height: 0; aspect-ratio: 16 / 10; }
+/* The remote Travel hero is native content, not a fixed-ratio screenshot. */
+.caseHeroMedia[data-luggage=true] { aspect-ratio: auto; }
+.caseHeroMedia img { object-position: center top; }
+.caseFacts { grid-template-rows: none; }
+.caseFacts div { padding: 16px 20px; }
+.caseFacts dd { margin-top: 8px; }
+
+@media (max-width: 980px) {
+  .caseLead,
+  .caseChapter[data-compact-media=true] .caseLead { grid-template-columns: minmax(0, 1fr); }
+  .caseFacts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .caseFacts { grid-template-columns: minmax(0, 1fr); }
+  .caseOpening,
+  .caseChapter[data-build-hope=true] .caseOpening { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .caseIndex,
+  .caseChapter[data-build-hope=true] .caseIndex { display: block; }
+  .caseIndex span { display: inline; }
 }

@@ -1,0 +1,17 @@
+.home { isolation:isolate; }
+.worlds { position:relative; }
+.light,.dark { position:relative; }
+.light[data-active="false"],.dark[data-active="false"] { position:absolute; inset:0; visibility:hidden; pointer-events:none; }
+.home[data-transitioning="true"] .dark { z-index:2; }
+.home[data-transitioning="true"] .light { z-index:1; }
+/* Same E.6 canvas, temporarily above DOM artwork only while the mask is active. */
+.home[data-transitioning="true"] .dark :global([data-c-active]) canvas { visibility:visible; }
+.home[data-transitioning="true"] .dark :global([data-c-active]) canvas { position:relative; }
+.home[data-rc2-mask="true"] .dark :global([aria-label="Dark gravitational portfolio system"] > div:has(> canvas)) { z-index:45; visibility:visible; }
+.home[data-transitioning="true"] .dark :global([data-c-active]) { background:transparent; }
+.home[data-transitioning="true"] .dark :global([data-c-active] section) { background:transparent; }
+.skip { position:fixed; z-index:110; right:20px; bottom:16px; min-height:44px; padding:10px 16px; background:#101b24; color:#fff3dc!important; cursor:pointer; font-size:12px!important; }
+.status { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.initialSkip { display:none; }
+.home:has(:global([data-c-entrance="running"])) .initialSkip { display:block; }
+@media(prefers-reduced-motion:reduce){.home * { scroll-behavior:auto!important; }}

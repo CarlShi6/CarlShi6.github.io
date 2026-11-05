@@ -3,18 +3,19 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import Link from "next/link";
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { KeyboardEvent, PointerEvent as ReactPointerEvent, WheelEvent } from "react";
+import { StaticHomeLink } from './static-home-link';
+import { Fragment, lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AccordionGallery } from "./accordion-gallery";
+import { EditorialMotion } from "./editorial-motion";
 import { CursorHint } from "./cursor-hint";
 import { CsLogo } from "./cs-logo";
-import { ThemeSwitch } from "./theme-switch";
+import { ThemeSwitch, usePortfolioTheme } from "./theme-switch";
 import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
-import { LivingNetworkScene, type SpatialBranch } from "./spatial-scenes";
+import type { SpatialBranch } from "./spatial-scenes";
 import styles from "./unified-detail.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
+const LivingNetworkScene = lazy(() => import('./spatial-scenes').then(module => ({ default: module.LivingNetworkScene })));
 
 type DetailItem = {
   title: string;
@@ -191,66 +192,6 @@ const details: Record<SpatialBranch, BranchDetail> = {
 
 const branchOrder: SpatialBranch[] = ["projects", "skills", "about"];
 const sectionLinks = branchOrder.map((item) => ({ href: `#${item}`, label: item.charAt(0).toUpperCase() + item.slice(1) }));
-const skillIcons = ["</>", "AI", "↗", "✎", "⚙"] as const;
-const aboutIcons = ["product", "technical", "experience", "location"] as const;
-
-function AboutGlyph({ name }: { name: (typeof aboutIcons)[number] }) {
-  const common = {
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.7,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-  };
-
-  return (
-    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true" {...common}>
-      {name === "product" && <><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /><path d="m14.5 9.5 4-4M16 5.5h2.5V8" /></>}
-      {name === "technical" && <><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M14 5l-4 14" /></>}
-      {name === "experience" && <><rect x="3.5" y="7.5" width="17" height="11" rx="1.5" /><path d="M9 7.5V5h6v2.5M3.5 12h17M10 12v2h4v-2" /></>}
-      {name === "location" && <><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.25" /></>}
-    </svg>
-  );
-}
-
-function startSkillDrag(event: ReactPointerEvent<HTMLUListElement>) {
-  if (event.pointerType !== "mouse" || event.button !== 0) return;
-  const rail = event.currentTarget;
-  rail.dataset.dragging = "true";
-  rail.dataset.dragStartX = String(event.clientX);
-  rail.dataset.dragStartScroll = String(rail.scrollLeft);
-  rail.setPointerCapture(event.pointerId);
-  event.preventDefault();
-}
-
-function moveSkillDrag(event: ReactPointerEvent<HTMLUListElement>) {
-  const rail = event.currentTarget;
-  if (rail.dataset.dragging !== "true") return;
-  const startX = Number(rail.dataset.dragStartX ?? event.clientX);
-  const startScroll = Number(rail.dataset.dragStartScroll ?? rail.scrollLeft);
-  rail.scrollLeft = startScroll - (event.clientX - startX);
-  event.preventDefault();
-}
-
-function stopSkillDrag(event: ReactPointerEvent<HTMLUListElement>) {
-  const rail = event.currentTarget;
-  delete rail.dataset.dragging;
-  delete rail.dataset.dragStartX;
-  delete rail.dataset.dragStartScroll;
-  if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId);
-}
-
-function scrollSkillRailByWheel(event: WheelEvent<HTMLUListElement>) {
-  if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-  event.currentTarget.scrollLeft += event.deltaY;
-  event.preventDefault();
-}
-
-function scrollSkillRailByKey(event: KeyboardEvent<HTMLUListElement>) {
-  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-  event.currentTarget.scrollBy({ left: event.key === "ArrowRight" ? 120 : -120, behavior: "smooth" });
-  event.preventDefault();
-}
 const projectSlugs = [
   "build-hope-content-operations",
   "ai-pc-build-advisor",
@@ -274,6 +215,7 @@ function useReducedMotion() {
 }
 
 export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
+  const [theme] = usePortfolioTheme();
   const root = useRef<HTMLElement>(null);
   const motionVideos = useRef<HTMLDivElement>(null);
   const cursor = useRef({ x: 0.5, y: 0.5, active: false });
@@ -341,14 +283,6 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
   useLayoutEffect(() => {
     if (!root.current) return;
     const context = gsap.context(() => {
-      gsap.from(`.${styles.archiveHeroCopy} > *`, {
-        opacity: 0,
-        y: 28,
-        duration: reducedMotion ? 0.01 : 0.9,
-        stagger: reducedMotion ? 0 : 0.08,
-        ease: "power3.out",
-      });
-
       if (!reducedMotion) {
         gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((item) => {
           gsap.fromTo(item, { opacity: 0.2, y: 46, scale: 0.94 }, {
@@ -391,19 +325,20 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
     >
       <CursorHint />
       <div className={styles.networkBackdrop} aria-hidden="true">
-        <LivingNetworkScene
+        {theme === 'dark' && <Suspense fallback={null}><LivingNetworkScene
           hovered={activeBranch}
           reducedMotion={reducedMotion}
           cursor={cursor}
           onAnchorChange={() => undefined}
-        />
+        /></Suspense>}
       </div>
 
       <nav className={styles.detailNav} aria-label="Neural portfolio navigation">
-        <Link className={styles.homePageLink} href="/" aria-label="Carl Shi — Home" data-cursor-hint="Main">
+        <StaticHomeLink className={styles.homePageLink} aria-label="Carl Shi — Home" data-cursor-hint="Main">
           <span className={styles.navBrandMark} aria-hidden="true"><CsLogo /></span>
-        </Link>
-        <div className={styles.navBalance}><ThemeSwitch /></div>
+          <span className={styles.homeLabel}>Home</span>
+        </StaticHomeLink>
+        <div className={styles.navBalance}><ThemeSwitch transition="circle" /></div>
       </nav>
 
       <aside className={styles.sectionRail}>
@@ -417,20 +352,6 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
         </select>
       </nav>
 
-      <header className={styles.archiveHero}>
-        <div className={styles.archiveHeroSignal} aria-hidden="true"><i /><i /><i /></div>
-        <div className={styles.archiveHeroCopy}>
-          <span>Carl Shi · Product Archive</span>
-          <h1>One practice.<br />Three connected views.</h1>
-          <p>Projects, capabilities, and identity live in one continuous field. Each project opens into a deeper case-study layer.</p>
-        </div>
-        <div className={styles.archiveIndex} aria-hidden="true">
-          <span>01</span>
-          <i />
-          <span>03</span>
-        </div>
-      </header>
-
       {branchOrder.map((chapter, chapterIndex) => {
         const detail = details[chapter];
         return (
@@ -439,8 +360,8 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
             <section className={styles.designExtension} aria-labelledby="design-experiments-title">
               <header className={styles.designExtensionIntro} data-reveal>
                 <small>Beyond the case studies</small>
-                <h2 id="design-experiments-title">Design experiments</h2>
-                <p>Two explorations in interactive and rendered media.</p>
+                <h2 id="design-experiments-title">Other Work</h2>
+                <p>Explorations in game development, 3D animation, and visual storytelling.</p>
               </header>
               <div className={styles.designExtensionGrid} ref={motionVideos}>
                 <figure data-reveal>
@@ -464,16 +385,16 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
               </div>
             </section>
           )}
-          <section className={styles.chapter} id={chapter} data-chapter={chapter}>
-            <header className={styles.chapterHeader} data-reveal>
+          <section className={`${styles.chapter} ${chapter === "projects" ? styles.projectsChapter : ""} ${chapter === "skills" || chapter === "about" ? styles.editorialChapter : ""}`} id={chapter} data-chapter={chapter}>
+            <header className={styles.chapterHeader} data-reveal={chapter === "projects" ? undefined : true}>
               <div className={styles.chapterMarker} aria-hidden="true">
                 <span>{String(chapterIndex + 1).padStart(2, "0")}</span>
                 <i />
               </div>
               <div>
-                <span>{detail.eyebrow}</span>
-                <h2>{chapter}</h2>
-                <h3>{detail.title}</h3>
+                {chapter !== "skills" && chapter !== "about" && <span>{detail.eyebrow}</span>}
+                {chapter === "projects" ? <h1><EditorialMotion text="Projects" /></h1> : <h2>{chapter}</h2>}
+                {chapter !== "skills" && chapter !== "about" && <h3>{detail.title}</h3>}
                 <p>{detail.intro}</p>
               </div>
             </header>
@@ -481,8 +402,9 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
             {chapter === "projects" && (
               <>
                 <AccordionGallery
+                  typographyMotion
                   items={detail.items.map((item, index) => ({
-                    title: item.title,
+                    title: projectSlugs[index] === "build-hope-content-operations" ? "Build Hope" : item.title,
                     category: item.signal,
                     description: item.description,
                     image: item.image!,
@@ -516,26 +438,14 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
             )}
 
             {chapter === "skills" && (
-              <div className={styles.skillConstellation} aria-label="Skill categories; hover or focus each category to reveal details">
-                <div className={styles.skillConnections} aria-hidden="true"><i /><i /><i /><i /></div>
+              <div className={styles.skillsOverview} data-skills-overview>
                 {detail.items.map((item, index) => (
-                  <article className={styles.skillNode} data-node={index} data-reveal key={item.title} tabIndex={0}>
-                    <span className={styles.skillNodeIcon} data-node={index} aria-hidden="true">{skillIcons[index]}</span>
-                    <small>{item.signal}</small>
-                    <h4>{item.title}</h4>
-                    <div className={styles.skillReveal}>
+                  <article className={styles.skillEntry} key={item.title} aria-labelledby={`skill-category-${index}`}>
+                    <h3 id={`skill-category-${index}`}>{item.title}</h3>
+                    <div className={styles.skillBody}>
                       <p>{item.description}</p>
-                      <ul
-                        aria-label={`${item.title} skills. Drag horizontally or use the arrow keys to scroll.`}
-                        tabIndex={0}
-                        onPointerDown={startSkillDrag}
-                        onPointerMove={moveSkillDrag}
-                        onPointerUp={stopSkillDrag}
-                        onPointerCancel={stopSkillDrag}
-                        onWheel={scrollSkillRailByWheel}
-                        onKeyDown={scrollSkillRailByKey}
-                      >
-                        {item.skills?.map((skill) => <li key={skill}>{skill}</li>)}
+                      <ul className={styles.skillList} aria-label={`${item.title} skills`}>
+                        {item.skills?.map((skill) => <li className={skill.startsWith('Prior exposure:') ? styles.skillQualification : undefined} key={skill}>{skill}</li>)}
                       </ul>
                     </div>
                   </article>
@@ -582,20 +492,8 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
 
             {chapter === "about" && (
               <div className={styles.aboutField}>
-                <div className={styles.aboutGrid}>
-                  {detail.items.map((item, index) => (
-                    <article data-reveal key={item.title} tabIndex={0} aria-label={`${item.title}: ${item.description}`}>
-                      <span className={styles.aboutGlyph} data-icon={index} aria-hidden="true">
-                        <AboutGlyph name={aboutIcons[index] ?? "product"} />
-                      </span>
-                      <small>{item.signal}</small>
-                      <h4>{item.title}</h4>
-                      <p>{item.description}</p>
-                    </article>
-                  ))}
-                </div>
                 <div className={styles.aboutEducation}>
-                  <h4>Education</h4>
+                  <h3>Education</h3>
                   <div>
                     <p><strong>USC Iovine and Young Academy</strong><span>M.S. Integrated Design, Business and Technology · Expected May 2028</span></p>
                     <p><strong>New York University</strong><span>B.S. Computer Science · May 2026</span></p>
@@ -615,10 +513,10 @@ export function BranchDetailPage({ branch }: { branch: SpatialBranch }) {
       })}
 
       <footer className={styles.detailFooter}>
-        <Link className={styles.homePageLink} href="/">
+        <StaticHomeLink className={styles.homePageLink}>
           <span className={styles.navBrandMark} aria-hidden="true"><CsLogo /></span>
           Return to Home Page
-        </Link>
+        </StaticHomeLink>
         <a href="#projects">Back to the beginning <span aria-hidden="true">↑</span></a>
       </footer>
     </main>

@@ -1,0 +1,44 @@
+.frame{position:absolute;left:0;top:0;width:32px;height:32px;pointer-events:none;z-index:8;opacity:0;transition:width .22s,height .22s,transform .16s,opacity .14s}.frame[data-locked=true],.frame[data-locked=cursor]{opacity:1}.frame i{position:absolute;width:13px;height:13px;border-color:#d6e5e7bc;border-style:solid}.frame i:nth-child(1){left:0;top:0;border-width:1px 0 0 1px}.frame i:nth-child(2){right:0;top:0;border-width:1px 1px 0 0}.frame i:nth-child(3){right:0;bottom:0;border-width:0 1px 1px 0}.frame i:nth-child(4){left:0;bottom:0;border-width:0 0 1px 1px}.sweep{position:absolute;left:50%;top:50%;width:46%;height:1px;background:#e8c99b88;transform-origin:0 50%;animation:scan .65s ease-out both}@keyframes scan{from{transform:rotate(-50deg);opacity:0}20%{opacity:.8}to{transform:rotate(310deg);opacity:0}}
+.veil{position:absolute;inset:0;z-index:6;background:#03070c;opacity:0;pointer-events:none;transition:opacity .2s;mask-image:radial-gradient(circle var(--scan-r,80px) at var(--scan-x,0) var(--scan-y,0),transparent 70%,#000 100%)}.veil[data-visible=true]{opacity:.32}
+:global([data-reference-scene][data-scan-open=true]) :global([data-reference-identity]){visibility:hidden;pointer-events:none}
+.preview{position:absolute;left:var(--cx,50%);top:var(--cy,50%);transform:translate(-50%,-50%);z-index:9;width:min(720px,calc(100% - 32px));max-height:calc(100svh - 150px);overflow:auto;background:#040b12f5;border:1px solid #b9c9cf26;padding:22px 24px;box-sizing:border-box;color:#eee9df;box-shadow:0 12px 40px #0003;animation:reveal .18s ease-out}
+.heading{font:400 26px/1.2 Georgia,serif;margin:0 0 18px}.collection{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}.entry{display:grid;grid-template-columns:85px 1fr;gap:14px;border-top:1px solid #cbd9df26;padding-top:16px;min-width:0}.entry img{width:85px;height:110px;display:block;object-position:top}.projectArt{object-fit:cover}.skillArt{object-fit:contain}.copy{min-width:0}.copy h3{font:400 20px/1.15 Georgia,serif;margin:0 0 9px;letter-spacing:-.02em}.summary{font:12px/1.5 Arial,sans-serif;margin:0;color:#d2dce0}.detail{font:11px/1.5 Arial,sans-serif;color:#a9bac4;margin:8px 0 0}.cta{display:inline-flex;align-items:center;min-height:44px;margin-top:4px;color:#f1e3c9;text-decoration:underline;text-underline-offset:5px;font:13px Arial,sans-serif}.preview a:focus-visible{outline:2px solid #e9d3ab;outline-offset:3px}@keyframes reveal{from{opacity:.35}to{opacity:1}}
+@media(max-width:700px){.frame{display:none}.preview{position:fixed;left:12px;right:12px;top:auto;bottom:12px;transform:none;width:auto;max-height:calc(100svh - 100px);overflow:auto;padding:18px;z-index:80}.collection{grid-template-columns:1fr;gap:14px}.heading{font-size:23px;margin-bottom:14px}.entry{grid-template-columns:70px 1fr;gap:12px;padding-top:12px}.entry img{width:70px;height:90px}.copy h3{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.frame,.veil,.preview{transition:none;animation:none}.sweep{display:none}}
+
+/* Phase 2: the scanner lifecycle is unchanged; only the project reading layout. */
+.preview { composes: system from "../editorial-layout.module.css"; }
+.preview[data-preview-kind="projects"] {
+  width: min(960px, calc(100% - 48px));
+  padding: 28px;
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+}
+.preview[data-preview-kind="projects"] .heading {
+  font-size: var(--editorial-section-title);
+  margin-bottom: 24px;
+}
+.preview[data-preview-kind="projects"] .collection { gap: 24px 28px; }
+.preview[data-preview-kind="projects"] .entry {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 18px;
+  padding-top: 20px;
+}
+.preview[data-preview-kind="projects"] .projectArt {
+  width: 100%; height: auto; aspect-ratio: 16 / 10;
+  object-fit: contain; object-position: center; background: #101a22;
+}
+.preview[data-preview-kind="projects"] .copy { display: flex; flex-direction: column; }
+.preview[data-preview-kind="projects"] .copy h3 { font-size: 24px; line-height: 1.15; margin-bottom: 12px; }
+.preview[data-preview-kind="projects"] .summary { font-size: var(--editorial-body); line-height: 1.5; }
+.preview[data-preview-kind="projects"] .cta { font-size: 15px; margin-top: auto; padding-top: 12px; flex-shrink: 0; }
+@media (min-width: 701px) and (max-width: 1000px) {
+  .preview[data-preview-kind="projects"] .entry { grid-template-columns: 1fr; gap: 16px; }
+}
+@media (max-width: 700px) {
+  .preview[data-preview-kind="projects"] { width: auto; padding: 20px; }
+  .preview[data-preview-kind="projects"] .entry { grid-template-columns: 1fr; gap: 16px; }
+  .preview[data-preview-kind="projects"] .projectArt { aspect-ratio: 16 / 9; }
+  .preview[data-preview-kind="projects"] .collection { gap: 24px; }
+  .preview[data-preview-kind="projects"] .heading { margin-bottom: 8px; }
+}

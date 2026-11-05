@@ -1,4 +1,5 @@
 "use client";
+import { usePathname } from 'next/navigation';
 
 import {
   lazy,
@@ -13,11 +14,26 @@ const PixelBlast = lazy(
 const subscribe = () => () => {};
 
 export function SiteBackground() {
+  const pathname=usePathname();
   const isClient = useSyncExternalStore(
     subscribe,
     () => true,
     () => false,
   );
+
+  // Editorial routes have their own opaque background (and Projects its own
+  // network scene). Mounting PixelBlast here downloaded Three.js and ran an
+  // invisible second renderer, even while the Light theme hid this container.
+  const route = pathname?.replace(/\/$/, '');
+  if (['/homepage-poc/projects', '/homepage-poc/projects/case-studies',
+    '/homepage-poc/skills', '/homepage-poc/about', '/homepage-poc/education',
+    '/homepage-poc/systems'].includes(route ?? '')) return null;
+
+  // This isolated SVG study owns its paper background; do not run PixelBlast behind it.
+  if (pathname === '/homepage-poc/unified-scan-v1' || pathname?.startsWith('/homepage-poc/unified-scan-v1/')) return null;
+
+  // The portfolio homepage owns its scene. Do not run an invisible PixelBlast renderer behind it.
+  if(pathname==='/'||pathname==='/homepage-poc'||pathname==='/homepage-poc/'||pathname?.startsWith('/homepage-poc/homepage-rc')||pathname?.startsWith('/homepage-poc/light-home-v2')||pathname?.startsWith('/homepage-poc/dark-reference-flow'))return null;
 
   return (
     <div

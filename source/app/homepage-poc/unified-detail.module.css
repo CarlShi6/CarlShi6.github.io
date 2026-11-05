@@ -1,4 +1,5 @@
 .detailPage {
+  composes: system from "./editorial-layout.module.css";
   --bg: #05080b;
   --bg-raised: #070a0e;
   --line: #17212a;
@@ -59,10 +60,13 @@
 
 .homePageLink {
   display: inline-flex;
-  gap: 9px;
+  gap: 12px;
+  min-height:44px;
   align-items: center;
   justify-self: start;
 }
+.homeLabel { font:520 12px/1 Arial,sans-serif; letter-spacing:.01em; }
+.detailNav .homePageLink:focus-visible { outline:2px solid currentColor; outline-offset:3px; }
 
 .homePageLink:hover,
 .homePageLink:focus-visible,
@@ -120,7 +124,7 @@
   .mobileSectionNav select:focus-visible { outline:2px solid var(--text); outline-offset:2px; }
 }
 
-.navBalance { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:54px; display:flex; justify-content:center; }
+.navBalance { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:max-content; display:flex; justify-content:center; }
 
 .archiveHero,
 .chapter,
@@ -232,6 +236,7 @@
   font: 500 11px/1 var(--font-geist-mono), monospace;
 }
 
+.chapterHeader h1,
 .chapterHeader h2 {
   margin: 18px 0 0;
   font-size: clamp(48px, 6.5vw, 88px);
@@ -338,14 +343,14 @@
   display: grid;
   grid-template-columns: minmax(240px, 0.42fr) minmax(0, 1fr);
   gap: clamp(48px, 7vw, 100px);
-  margin-top: clamp(110px, 14vw, 190px);
-  padding-top: clamp(56px, 7vw, 90px);
+  margin-top: clamp(64px, 7vw, 96px);
+  padding-top: clamp(32px, 4vw, 48px);
   border-top: 1px solid var(--line);
 }
 
-.projectMap header { padding-top: 38px; }
-.projectMap header h4 { max-width: 430px; margin: 22px 0 24px; font-size: clamp(34px, 4vw, 56px); font-weight: 520; line-height: 0.98; letter-spacing: -0.055em; }
-.projectMap header p { max-width: 390px; margin: 0; color: rgba(var(--copy-rgb), 0.58); font-size: 13px; line-height: 1.7; }
+.projectMap header { padding-top: 0; }
+.projectMap header h4 { max-width: 500px; margin: 18px 0 20px; font-size: clamp(28px, 2.4vw, 36px); font-weight: 520; line-height: 1.15; letter-spacing: -0.03em; text-wrap: balance; }
+.projectMap header p { max-width: 440px; margin: 0; color: rgba(var(--copy-rgb), 0.8); font-size: 15px; line-height: 1.65; }
 
 .quadrantMap {
   position: relative;
@@ -413,6 +418,21 @@
   background:
     radial-gradient(circle at 50% 46%, rgba(33, 53, 65, 0.24), transparent 34%),
     linear-gradient(145deg, rgba(10, 17, 22, 0.7), rgba(5, 8, 11, 0.2));
+}
+
+/* Reading-first skills: no hover gate, scroll rail or decorative card controls. */
+.skillsOverview { display: grid; gap: 34px; padding: 8px 0 20px; }
+.skillEntry { display: grid; grid-template-columns: minmax(170px, .3fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); align-items: start; }
+.skillEntry h3 { margin: 0; color: var(--text); font-size: var(--editorial-section-title); font-weight: 530; line-height: 1.2; letter-spacing: -.025em; }
+.skillBody { min-width: 0; }
+.skillBody p { max-width: 740px; margin: 0 0 12px; color: var(--text); font-size: 16px; line-height: 1.55; }
+.skillList { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0; list-style: none; color: rgba(var(--copy-rgb), .84); font-size: 15px; line-height: 1.5; }
+.skillList li { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.skillList .skillQualification { flex-basis: 100%; color: rgba(var(--copy-rgb), .7); font-size: 14px; }
+@media (max-width: 680px) {
+  .skillsOverview { gap: 32px; }
+  .skillEntry { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .skillList { gap: 6px 18px; }
 }
 
 .skillConnections { position: absolute; inset: 0; pointer-events: none; }
@@ -746,13 +766,13 @@
 
 .aboutGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-auto-flow: dense;
 }
 
 .aboutGrid article {
   position: relative;
-  min-height: 290px;
+  min-height: 0;
   padding: 24px;
   overflow: hidden;
   border-right: 1px solid var(--line);
@@ -762,9 +782,7 @@
 }
 .aboutGrid article:hover,
 .aboutGrid article:focus-visible { outline: 0; border-color: rgba(111, 143, 158, 0.58); background: rgba(15, 25, 32, 0.78); }
-.aboutGrid article p { max-height: 150px; overflow: hidden; white-space: pre-line; opacity: 0; transform: translateY(12px); transition: opacity 240ms ease, transform 360ms cubic-bezier(0.22, 1, 0.36, 1); }
-.aboutGrid article:hover p,
-.aboutGrid article:focus-visible p { max-height: 150px; opacity: 1; transform: translateY(0); }
+.aboutGrid article p { white-space: pre-line; color: rgba(var(--copy-rgb), 0.84); font-size: 16px; line-height: 1.65; }
 
 .aboutGlyph {
   display: grid;
@@ -834,7 +852,9 @@
   .detailNav { grid-template-columns:1fr auto; min-height:54px; padding:0 17px; }
   .navBrandMark { width: 34px; height: 34px; }
   .mobileSectionNav { top:54px; padding-inline:17px; gap:8px; }
-  .navBalance { display:flex; width:54px; }
+  .navBalance { display:flex; width:max-content; }
+  .detailNav .homePageLink { gap:9px; }
+  .homeLabel { font-size:11px; }
   .archiveHero, .chapter, .detailFooter { width: min(100% - 32px, 1220px); }
   .archiveHero { grid-template-columns: 24px minmax(0, 1fr); gap: 20px; min-height: 0; padding: 96px 0 48px; }
   .archiveIndex { display: none; }
@@ -843,14 +863,14 @@
   .chapter { padding-top: 48px; scroll-margin-top: 98px; }
   .chapterHeader { grid-template-columns: 22px minmax(0, 1fr); gap: 20px; margin-bottom: 28px; }
   .chapterMarker { margin-top: 28px; }
-  .chapterHeader h2 { font-size: clamp(42px, 10vw, 60px); }
+  .chapterHeader h1, .chapterHeader h2 { font-size: clamp(42px, 10vw, 60px); }
   .chapterHeader h3 { margin-top: 20px; font-size: 24px; }
   .chapterHeader p { font-size: 14px; }
   .projectGrid { grid-template-columns: 1fr; }
   .projectCard { padding: 28px 22px 44px; }
   .projectCopy { min-height: 0; max-height: none; padding-top: 34px; overflow: visible; opacity: 1; transform: none; }
   .projectCopy p { max-height: none; overflow: visible; opacity: 1; transform: none; }
-  .projectMap { margin-top: 100px; padding-top: 58px; }
+  .projectMap { margin-top: 64px; padding-top: 32px; }
   .quadrantMap { min-height: 590px; }
   .mapNode { width: min(126px, 28%); }
   .mapNode[data-project="0"] { top: 18%; left: 22%; }
@@ -890,7 +910,7 @@
 
 .designExtensionIntro { max-width: 640px; margin-bottom: 32px; }
 .designExtensionIntro small {
-  color: rgba(193, 215, 226, 0.58);
+  color: var(--rail-muted);
   font: 500 11px/1.4 var(--font-geist-mono), monospace;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -942,7 +962,7 @@
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
-.aboutEducation h4 { margin: 0 0 22px; font-size: clamp(22px, 2vw, 28px); font-weight: 540; letter-spacing: -0.03em; }
+.aboutEducation h3 { margin: 0 0 22px; font-size: var(--editorial-section-title); font-weight: 540; letter-spacing: -0.03em; }
 .aboutEducation > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .aboutEducation p { display: grid; gap: 8px; margin: 0; color: rgba(var(--copy-rgb), 0.7); font-size: 15px; line-height: 1.5; }
 .aboutEducation strong { color: var(--text); font-weight: 570; }
@@ -971,7 +991,7 @@
 :global(html[data-portfolio-theme="light"]) :is(.archiveHeroSignal i, .chapterMarker i) { background: #b99550; box-shadow: 0 0 12px rgba(215,181,109,.18); }
 :global(html[data-portfolio-theme="light"]) .archiveIndex i { background: #d9d2c3; }
 :global(html[data-portfolio-theme="light"]) :is(.archiveHeroCopy p, .chapterHeader p, .projectMap header p, .skillNode p, .aboutGrid p, .chapterClosing, .designExtensionIntro p, .designExtensionGrid p, .aboutEducation p) { color: #53677e; }
-:global(html[data-portfolio-theme="light"]) :is(.archiveHeroCopy > span, .chapterHeader > div:last-child > span, .archiveIndex, .chapterMarker span, .skillNode small, .aboutGrid small, .quadrantMap > span) { color: #657181; }
+:global(html[data-portfolio-theme="light"]) :is(.archiveHeroCopy > span, .chapterHeader > div:last-child > span, .archiveIndex, .chapterMarker span, .skillNode small, .aboutGrid small, .quadrantMap > span) { color: var(--rail-muted); }
 :global(html[data-portfolio-theme="light"]) :is(.quadrantMap, .skillConstellation) { background: radial-gradient(ellipse at 50% 46%, rgba(126,154,184,.08), transparent 60%), #f2ede2; }
 :global(html[data-portfolio-theme="light"]) .mapThumb { background: #fffaf1; border-color: #a8b4bf; box-shadow: 0 12px 28px rgba(24,32,51,.09); }
 :global(html[data-portfolio-theme="light"]) :is(.skillNode, .aboutGrid article, .educationTimeline article, .designExtensionGrid article) { background: #fffaf1; border-color: #d9d2c3; box-shadow: 0 12px 32px rgba(24,32,51,.06); }
@@ -988,3 +1008,71 @@
 :global(html[data-portfolio-theme="light"]) :is(.skillReveal ul:focus-visible, .contactActions a:focus-visible) { outline: 2px solid #527496; }
 :global(html[data-portfolio-theme="light"]) .contactActions a { color: #182033; background: #fffaf1; }
 :global(html[data-portfolio-theme="light"]) .contactActions a:hover { background: #eaf0f3; border-color: #7e9ab8; }
+
+/* One introductory block puts actual work in the first viewport. */
+.projectsChapter { padding-top: clamp(28px, 4vw, 48px); border-top: 0; }
+.projectsChapter .chapterHeader { display: block; margin-bottom: 28px; }
+.projectsChapter .chapterMarker { display: none; }
+.projectsChapter .chapterHeader h1 { margin-top: 10px; font-size: clamp(42px, 4.6vw, 64px); }
+.projectsChapter .chapterHeader h3 { margin-top: 16px; font-size: clamp(22px, 2vw, 28px); }
+.projectsChapter .chapterHeader p { max-width: 780px; margin-top: 12px; font-size: 16px; }
+
+/* One shared editorial grid for the readable Skills and About chapters. */
+.editorialChapter {
+  display: grid;
+  grid-template-columns: var(--editorial-aux) minmax(0, 1fr);
+  column-gap: var(--editorial-grid-gap);
+  width: min(100% - 2 * var(--editorial-gutter), var(--editorial-content-width));
+  padding-block: var(--editorial-section-space);
+}
+.editorialChapter > * { grid-column: 2; min-width: 0; }
+.editorialChapter > .chapterHeader {
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  gap: var(--editorial-grid-gap);
+  margin-bottom: var(--editorial-intro-gap);
+}
+.editorialChapter .chapterMarker {
+  width: auto;
+  height: auto;
+  margin: 8px 0 0;
+  background: none;
+}
+.editorialChapter .chapterMarker span {
+  position: static;
+  font-family: inherit;
+  font-size: var(--editorial-caption);
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--rail-muted);
+}
+.editorialChapter .chapterMarker i { display: none; }
+:global(html[data-portfolio-theme="light"]) .editorialChapter .chapterMarker { background: none; }
+.editorialChapter .chapterHeader h2 {
+  margin: 0;
+  font-size: var(--editorial-page-title);
+  line-height: 1.06;
+  letter-spacing: -.045em;
+}
+.editorialChapter .chapterHeader p {
+  max-width: var(--editorial-measure);
+  margin-top: var(--editorial-copy-gap);
+  font-size: var(--editorial-body);
+  line-height: var(--editorial-leading);
+}
+.editorialChapter .skillsOverview { padding: 0; gap: 32px; }
+.editorialChapter .skillEntry { column-gap: 32px; }
+.editorialChapter .aboutField { border: 0; }
+.editorialChapter .aboutEducation { padding: 0; border: 0; }
+.editorialChapter .aboutEducation p {
+  font-size: var(--editorial-body);
+  line-height: var(--editorial-leading);
+}
+.editorialChapter .chapterClosing { font-size: var(--editorial-caption); line-height: var(--editorial-leading); }
+
+@media (max-width: 760px) {
+  .editorialChapter { grid-template-columns: minmax(0, 1fr); }
+  .editorialChapter > * { grid-column: 1; }
+  .editorialChapter > .chapterHeader { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
+  .editorialChapter .chapterMarker { margin: 0; }
+}

@@ -7,6 +7,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase,
+    // Experimental routes remain available locally without becoming search
+    // landing pages. The three public entry points opt in explicitly.
+    robots: { index: false, follow: false },
     title: "Carl Shi — Technical Product, Technical Program & AI Product",
     description: "Carl Shi connects technical execution, product thinking, and implementation planning through AI and user-centered projects.",
     openGraph: {

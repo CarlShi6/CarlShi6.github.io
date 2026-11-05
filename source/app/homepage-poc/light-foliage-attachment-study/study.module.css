@@ -1,0 +1,18 @@
+.page{background:#f6f2e8;color:#263e50;min-height:100svh;font-family:Arial,sans-serif}
+.study{min-height:0}
+.caption{padding:24px 5vw 0}.caption h1{font:400 clamp(25px,3vw,38px)/1.15 Georgia,serif;margin:0 0 10px}.caption p{font-size:13px;color:#657476;margin:0}
+.stage{position:relative;height:390px;overflow:hidden}.study[data-study-mode=both] .stage{height:760px}.context{top:50%;width:min(1050px,96vw);height:auto}
+.planet :global([data-tree-art]),.planet :global([data-canopy]),.planet :global([data-canopy-support]),.planet :global([data-tree-guide]){display:none!important}
+.study[data-study-mode=single] .context{display:none;pointer-events:none}
+.single{position:absolute;inset:0 10%;}.single svg{width:100%;height:100%}
+.study :global([data-foliage-rig]){overflow:visible;position:absolute;inset:0;width:100%;height:100%}
+.study :global([data-debug]){display:none;pointer-events:none;font:5px Arial,sans-serif;fill:#a15332}
+.study :global([data-debug=anchors]) circle{fill:#ae7136}
+.study :global([data-debug=tangents]) path{stroke:#448788;stroke-width:.7;fill:none}
+.study[data-ids=true] :global([data-debug=ids]),.study[data-anchors=true] :global([data-debug=anchors]),.study[data-tangents=true] :global([data-debug=tangents]),.study[data-errors=true] :global([data-debug=errors]){display:block}
+.hidden{display:none}
+.controls{max-width:1000px;margin:0 auto;padding:18px 25px 30px;background:#ece8dd;color:#304553;font-size:13px}
+.controls label{display:flex;align-items:center;gap:12px;min-height:44px}.controls input[type=range]{flex:1;max-width:400px}.controls output{font-variant-numeric:tabular-nums}.controls fieldset{display:flex;flex-wrap:wrap;gap:0 22px;border:0;padding:8px 0}.controls legend{padding:0;font-weight:bold}.controls p{font-size:12px;line-height:1.5;color:#626e70;max-width:85ch}.metrics{display:block;line-height:1.8}
+.actions{display:flex;gap:8px}.actions button,.modes button{min-height:44px;padding:8px 15px;background:#f6f2e8;color:#304553;border:1px solid #baad93;cursor:pointer}.modes{display:flex;gap:8px;padding:18px 5vw 0}.modes button[aria-pressed=true]{background:#304553;color:#f6f2e8}
+.page button:focus-visible,.page input:focus-visible,.page a:focus-visible{outline:2px solid #376a85;outline-offset:3px}
+@media(max-width:700px){.page nav>span{display:none}.stage{height:340px}.single{inset:0 2%}.caption{padding:24px 18px 0}.caption p{line-height:1.5}.controls{padding:16px}.controls fieldset{gap:0 14px}.actions{flex-wrap:wrap}.study[data-study-mode=both] .stage{height:670px}.context{top:32%;width:100vw}.controls label{font-size:12px}}
