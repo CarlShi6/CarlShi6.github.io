@@ -1,0 +1,4 @@
+.center { position:absolute; left:50%; top:61%; width:0; height:0; pointer-events:none; }
+.planet,.branches { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:0; visibility:hidden; }
+.planet { z-index:1; transform-origin:50% 61%; }
+.branches { z-index:1; }

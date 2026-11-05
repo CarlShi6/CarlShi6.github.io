@@ -1,0 +1,24 @@
+.study { position:relative; background:#01050b; }
+.field { position:absolute; z-index:5; inset:0; pointer-events:none; }
+.field canvas { display:block; width:100%; height:100%; }
+.study[data-c-active="true"] :global([data-transition-role="dark-hole"]),
+.study[data-c-active="true"] :global([data-transition-role="dark-streams"]) { visibility:hidden!important; }
+.study[data-c-entrance="running"] :global([data-transition-role="dark-identity"]) { transition:none; }
+.study[data-c-entrance="running"] :global([data-object-id][inert]) { pointer-events:none; transition:none; }
+.inspector { position:fixed; z-index:100; bottom:12px; left:16px; width:min(360px,calc(100vw - 32px)); color:#e6e1d6; background:rgba(5,12,20,.96); border:1px solid #33414c; font:12px/1.45 system-ui,sans-serif; }
+.inspector summary { min-height:44px; padding:12px; cursor:pointer; }
+.inspector summary span { float:right; color:#b9c8d0; font-size:10px; }
+.panel { padding:0 12px 12px; max-height:65svh; overflow:auto; }
+.actions { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.actions button,.actions a,.skip { display:inline-flex; min-height:44px; align-items:center; padding:8px 10px; border:1px solid #40505b; background:#101b24; color:#fff3dc; cursor:pointer; font:inherit; }
+.actions button:disabled { opacity:.45; cursor:default; }
+.panel label { display:block; margin-top:8px; }
+.panel output { float:right; color:#a9c4d6; }
+.panel input[type="range"] { display:block; width:100%; min-height:28px; accent-color:#dcc5a0; }
+.panel .debug { display:flex; align-items:center; min-height:44px; gap:8px; }
+.panel p { color:#aebec9; margin:8px 0 0; }
+.inspector :focus-visible,.skip:focus-visible { outline:2px solid #ffe4b1; outline-offset:3px; }
+.skip { position:fixed; z-index:99; right:20px; bottom:16px; font-size:12px; }
+.fallback { position:fixed; bottom:65px; left:16px; color:#c3ced5; font-size:12px; }
+@media(max-width:900px){.field{height:600px;}.inspector{bottom:8px;} }
+@media(max-width:560px){.field{height:540px;} }

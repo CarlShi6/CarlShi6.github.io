@@ -1,0 +1,56 @@
+.root{position:absolute;inset:0;pointer-events:none;z-index:6}
+.targets{position:absolute;inset:0;pointer-events:none}
+.targets button{position:absolute;border:0;background:none;padding:0;pointer-events:auto}
+.projects{left:4%;top:1%;width:43%;height:41%;clip-path:polygon(12% 0,60% 0,100% 95%,83% 100%,17% 70%,0 26%)}
+.skills{left:59%;top:9%;width:39%;height:37%;clip-path:polygon(5% 22%,32% 0,100% 8%,100% 90%,12% 100%,0 78%)}
+.labels button{color:inherit;font:inherit;border:0;background:none;padding:8px;pointer-events:auto;min-height:44px;min-width:64px;cursor:pointer}
+.labels button:focus-visible{outline:2px solid #35577a;outline-offset:5px}
+.labels button:hover{color:#8f682c}
+.labels small{font-family:Arial,sans-serif}
+.preview{--paper:#f6f2e8;--ink:#192e40;--muted:#596c75;--gold:#aa7a35;position:fixed;inset:96px max(28px,calc((100vw - 1220px)/2)) 28px;z-index:75;color:var(--ink);font-family:Arial,sans-serif;pointer-events:none;isolation:isolate}
+.sheet{height:100%;display:flex;flex-direction:column;background:var(--paper);padding:25px 38px 18px;pointer-events:auto;overflow:auto;overscroll-behavior:contain;box-shadow:0 20px 70px #31435314}
+.preview[data-ready="false"] .sheet{pointer-events:none}
+.heading{display:flex;align-items:start;justify-content:space-between;gap:20px;flex-shrink:0}
+.heading h2{font:400 44px/.98 Georgia,'Times New Roman',serif;letter-spacing:-.04em;margin:0}
+.heading p{font-size:13px;color:var(--muted);margin:9px 0 0}
+.close{width:44px;height:44px;min-width:44px;background:none;border:0;color:var(--muted);font-size:30px;font-weight:300;cursor:pointer}
+.close:hover{color:var(--ink);background:#e9e4d8}
+.spread{display:grid;grid-template-columns:43% 57%;flex:1;min-height:0;margin-top:10px}
+.illustration{position:relative;min-height:0}
+.art{position:absolute;width:min(100%,calc((100vh - 260px)*.6667));height:auto;aspect-ratio:44/54;left:50%;top:50%;transform:translate(-50%,-50%)}
+.art img,.flight img{width:100%;height:100%;display:block;object-fit:contain}
+.connectors{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.connectors path{stroke:var(--gold);stroke-width:1;fill:none;vector-effect:non-scaling-stroke;opacity:.65}
+.connectors circle{fill:var(--gold)}
+.entries{display:grid;grid-template-rows:repeat(4,1fr);align-items:stretch;min-height:0}
+.entry{color:var(--ink);display:flex;align-items:center;gap:20px;padding:12px 0 12px 30px;text-decoration:none!important;position:relative;min-height:44px}
+.entry:hover .look,.entry:focus-visible .look{color:#805519;text-decoration:underline;text-underline-offset:4px}
+.entry:hover .thumbnail{transform:translateY(-3px)}
+.copy{flex:1;min-width:0}
+.number{position:absolute;left:0;top:calc(50% - 9px);font:12px/1.5 Georgia,serif;color:var(--gold)}
+.entry h3{font:400 clamp(19px,1.7vw,25px)/1.12 Georgia,'Times New Roman',serif;letter-spacing:-.03em;margin:0 0 8px}
+.entry p{font:15px/1.45 Arial,sans-serif;color:var(--muted);margin:0;max-width:41ch}
+.look{display:inline-flex;align-items:center;gap:9px;margin-top:8px;font-size:13px;color:#7d5d2e}
+.thumbnail{width:120px;height:80px;object-fit:cover;object-position:top;flex:none;transition:transform .2s ease;background:#e8e3d8}
+.capabilities{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px}
+.capabilities span{font:12px/1.4 Arial,sans-serif;color:#476173}
+.skill h3{font-size:25px}.skill p{max-width:55ch}.skill .look{margin-top:5px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:11px;color:var(--muted);flex-shrink:0;padding-top:8px}
+.foot a{color:var(--ink);min-height:44px;display:flex;align-items:center;gap:12px;text-decoration:underline;text-underline-offset:5px}
+.flight{position:fixed;left:0;top:0;pointer-events:none;z-index:2;visibility:hidden}
+.shoot{position:fixed;inset:0;width:100vw;height:100vh;overflow:visible;pointer-events:none;z-index:1}
+.preview a:focus-visible,.preview button:focus-visible{outline:2px solid #35577a;outline-offset:4px}
+/* The watering can is a native cursor: no extra render loop and no pointer lag. */
+@media(hover:hover) and (pointer:fine){
+ :global([data-watering="true"]){cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cg stroke='%23394d59' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M13 15C5 2 29 0 27 17' fill='none'/%3E%3Cpath d='M12 13L26 13L29 29Q19 33 11 28Z' fill='%23e9debd'/%3E%3Cpath d='M13 20L5 15L2 18L12 28' fill='%23b2c2bb'/%3E%3Cpath d='M2 15L6 13L8 17L3 20Z' fill='%23b89a55'/%3E%3Cpath d='M1 23L1 25M5 25L4 28' stroke='%23798e9b'/%3E%3C/g%3E%3C/svg%3E") 2 24,auto}
+ .targets button,.labels button{cursor:inherit}
+ :global([data-watering="true"]) a{cursor:pointer}
+}
+@media(max-height:780px) and (min-width:701px){.preview{inset:88px 30px 16px}.sheet{padding:20px 30px 10px}.heading h2{font-size:36px}.heading p{margin-top:6px}.entry{padding-top:8px;padding-bottom:8px}.entry h3{font-size:21px;margin-bottom:4px}.entry p{font-size:12px}.thumbnail{width:88px;height:64px}.look{margin-top:5px}.art{width:min(100%,calc((100vh - 235px)*.6667))}.capabilities{margin-top:5px}}
+@media(max-width:1000px){.preview{left:24px;right:24px}.sheet{padding:25px}.spread{grid-template-columns:36% 64%}.thumbnail{width:83px;height:65px}.entry{gap:12px;padding-left:25px}.entry h3{font-size:22px}.skill h3{font-size:25px}}
+@media(max-width:700px){
+ .preview{inset:84px 10px 10px}.sheet{padding:22px 20px 12px}.heading h2{font-size:34px}.heading p{font-size:12px;max-width:25ch}.spread{display:block;margin-top:0;flex:none}.illustration{height:155px;margin:8px 0 4px}.art{height:155px;width:126px}.connectors{display:none}.entries{display:block}.entry{padding:17px 0 17px 23px;gap:10px}.entry h3{font-size:22px;margin-bottom:7px}.entry p{font-size:13px}.number{top:20px}.thumbnail{width:76px;height:73px}.foot{font-size:10px;margin-top:10px}.foot>span{max-width:45%}.skill h3{font-size:24px}.capabilities span{font-size:12px}.look{min-height:24px}.flight{max-width:none}
+}
+@media(max-width:360px){.sheet{padding:18px 14px 12px}.entry{padding-left:20px}.entry h3{font-size:20px}.thumbnail{width:62px;height:68px}.heading h2{font-size:32px}}
+@media(max-width:700px){.heading{position:sticky;top:-22px;background:var(--paper);z-index:3;padding-bottom:12px}}
+@media(prefers-reduced-motion:reduce){.thumbnail{transition:none}}

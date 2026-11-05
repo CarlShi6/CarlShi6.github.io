@@ -1,0 +1,6 @@
+/* Opt-in RC2 layers. They are absent/hidden in the unchanged RC1 Light world. */
+.center { position:absolute; left:50%; top:61%; width:0; height:0; pointer-events:none; }
+.planet { clip-path:ellipse(25% 32% at 50% 60%); mask-image:radial-gradient(ellipse 25% 32% at 50% 60%,#000 88%,transparent 100%); transform-origin:50% 61%; opacity:0; visibility:hidden; }
+.branches { position:absolute; z-index:1; inset:0; width:100%; height:100%; pointer-events:none; opacity:0; visibility:hidden; }
+.controlled:global([data-light-controlled="true"]) * { transition:none!important; }
+.controlled:global([data-light-controlled="true"]) :is([data-leaf-tree],[data-fruit-tree],[data-light-energy] path,[data-tree] a) { animation:none!important; }

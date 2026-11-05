@@ -1,0 +1,23 @@
+.page{min-height:100svh;background:#080f16;color:#e8e3da;font-family:Arial,sans-serif;isolation:isolate;overflow-x:clip}
+.nav{height:78px;display:flex;justify-content:space-between;align-items:center;padding:0 3.6%;border-bottom:1px solid #343a3d;position:relative;z-index:10;background:#080f16}
+.nav a{font-size:14px;color:#ddd8ce;min-height:44px;display:inline-flex;align-items:center}.brand{gap:22px}.brand svg{width:44px;height:44px}.nav>div{display:flex;gap:44px}.nav>button{position:absolute;left:50%;transform:translateX(-50%)}
+.scene{position:relative;height:calc(100svh - 78px);min-height:630px;--cx:50.3%;--cy:49%;--radius:min(13.2vw,27.5vh)}
+.notes{position:absolute;inset:34px 3.6% auto;display:flex;justify-content:space-between;z-index:4;pointer-events:none;color:#b9b2a6;font:13px/1.4 var(--font-geist-mono),monospace;letter-spacing:.02em}
+.canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.identity{position:absolute;z-index:6;left:var(--cx);top:var(--cy);transform:translate(-50%,-50%);width:calc(var(--radius)*1.73);text-align:center;opacity:0}
+.identity>span{font:11px/1.6 var(--font-geist-mono),monospace;letter-spacing:.09em;color:#a59f94}.identity h1{font:400 clamp(48px,4.3vw,76px)/1.15 Georgia,'Times New Roman',serif;letter-spacing:-.045em;margin:12px 0 15px;color:#f7f1e5}
+.identity p{font-size:clamp(12px,.91vw,15px);line-height:1.75;color:#b9b5ad;margin:0 auto;max-width:360px}.identity>a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:16px;text-underline-offset:8px;text-decoration:underline;text-decoration-color:#b69a76;font-size:16px;color:#e9e1d4}
+.target{position:absolute;left:-300px;top:-300px;width:clamp(90px,13vw,220px);height:clamp(90px,13vw,220px);transform:translate(-50%,-50%);border-radius:50%;z-index:5;visibility:hidden}.rocks{width:clamp(70px,10vw,160px);height:clamp(70px,10vw,160px)}.small{width:clamp(70px,8vw,135px);height:clamp(70px,8vw,135px)}
+.page a:focus-visible,.page button:focus-visible,.page input:focus-visible,.page summary:focus-visible{outline:2px solid #efd5a8;outline-offset:6px}
+.target:hover{outline:1px solid #eed4aa66;outline-offset:6px}
+.skip{position:fixed;right:22px;bottom:16px;z-index:15;border:1px solid #a79372;background:#080f16;color:#e9e1d4;padding:10px 16px;min-height:44px;font-size:12px}
+.inspector{position:fixed;left:20px;bottom:14px;z-index:15;color:#bdb6a9;font-size:11px;background:#080f16;border:1px solid #30363a;padding:0 12px;max-width:300px}.inspector summary{display:flex;align-items:center;min-height:44px;cursor:pointer}.inspector label{display:flex;align-items:center;gap:12px;min-height:44px}.inspector input{width:160px}.inspector>div{display:flex;gap:14px}.inspector button,.inspector a{min-height:44px;display:inline-flex;align-items:center}
+.fallback{position:absolute;left:var(--cx);top:var(--cy);width:calc(var(--radius)*3.5);transform:translate(-50%,-50%);display:none}.fallback img{width:100%;height:auto}.scene[data-failed=true] .fallback{display:block}.scene[data-failed=true] .canvas{display:none}.scene[data-failed=true] .identity{opacity:1}
+@media(max-width:900px){.identity h1{font-size:48px}.identity p{font-size:12px}.identity>span{font-size:9px}.notes{font-size:11px}}
+@media(max-width:700px){.nav{height:70px;padding:0 20px}.brand{gap:8px}.brand svg{width:34px;height:34px}.nav a{font-size:11px}.nav>div{gap:14px}.scene{height:calc(100svh - 70px);min-height:650px;--radius:32vw;--cy:52%}.notes{inset:24px 20px auto}.notes>span:last-child{display:none}.identity{width:calc(var(--radius)*1.7)}.identity h1{font-size:42px;margin:10px 0}.identity>span{font-size:8px;letter-spacing:0}.identity p{font-size:11px;line-height:1.65}.identity>a{margin-top:6px;font-size:14px}.inspector{position:relative;left:auto;bottom:auto;margin:8px 16px;width:max-content}.skip{bottom:10px;right:10px}}
+@media(prefers-reduced-motion:reduce){.identity{opacity:1}}
+
+.center{position:absolute;left:var(--cx);top:var(--cy);width:0;height:0;pointer-events:none}
+.integrated{padding-top:76px}
+.integrated .scene{height:calc(100svh - 76px)}
+@media(max-width:700px){.integrated{padding-top:70px}.integrated .scene{height:calc(100svh - 70px)}}

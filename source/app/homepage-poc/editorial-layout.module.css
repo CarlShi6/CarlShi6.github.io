@@ -1,0 +1,27 @@
+/* Inner-page roles only: no homepage or theme-transition styling. */
+.system {
+  --editorial-display: clamp(44px, 5.2vw, 86px);
+  --editorial-page-title: clamp(40px, 4.4vw, 64px);
+  --editorial-section-title: clamp(24px, 2vw, 28px);
+  --editorial-body: 16px;
+  --editorial-caption: 13px;
+  --editorial-overline: 12px;
+  --editorial-leading: 1.6;
+  --editorial-content-width: 1220px;
+  --editorial-measure: 72ch;
+  --editorial-gutter: 24px;
+  --editorial-aux: 40px;
+  --editorial-grid-gap: 24px;
+  --editorial-section-space: clamp(48px, 5vw, 72px);
+  --editorial-intro-gap: 32px;
+  --editorial-copy-gap: 16px;
+}
+
+@media (max-width: 760px) {
+  .system {
+    --editorial-display: clamp(36px, 10vw, 56px);
+    --editorial-gutter: 16px;
+    --editorial-section-space: 32px;
+    --editorial-intro-gap: 28px;
+  }
+}

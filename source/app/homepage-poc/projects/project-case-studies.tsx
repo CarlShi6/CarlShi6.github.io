@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { StaticHomeLink } from '../static-home-link';
 import { CsLogo } from "../cs-logo";
 import { CursorHint } from "../cursor-hint";
 import { ThemeSwitch } from "../theme-switch";
+import { EditorialMotion } from "../editorial-motion";
 import { useEffect, useState } from "react";
 import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
 import styles from "./project-case-studies.module.css";
-import { BuildHopeBlueprint, BuildHopeRoadmap, BuildHopeEvidence } from "./build-hope-visuals";
+import { BuildHopeArtifactGallery, BuildHopeBlueprint, BuildHopeRoadmap, BuildHopeEvidence, BuildHopePlatformEvidence } from "./build-hope-visuals";
+import { AiPcDecisionModel } from "./ai-pc-decision-model";
 import { LuggageHelperVisual } from "./luggage-helper-visual";
 
 const projectCases = [
@@ -24,7 +27,7 @@ const projectCases = [
       ["Role", "Product Strategy & Operations Consultant"],
       ["Context", "Client engagement through USC Iovine and Young Academy"],
       ["Roadmap", "Five phases · 30 days"],
-      ["Evaluation", "~8 tools researched as a team · 3 personally tested"],
+      ["Evaluation", "8 platforms evaluated as a team · 3 personally tested"],
     ],
     system: [
       ["Problem", "A manual content process pulled time away from mission work."],
@@ -197,16 +200,18 @@ function BuildHopeCaseContent() {
       <span>04 · Solution evaluation</span>
       <h3 id="build-hope-evaluation">Choose for the operating constraints—not the longest feature list.</h3>
       <p>I helped recommend Metricool based on analytics, workflow fit, and cost. The decision connected the nonprofit’s content needs to a tool the proposed operating model could use.</p>
-      <div className={styles.hopeDecisionTable}>
-        <table><caption>Recommendation logic · Qualitative assessment from the September 2026 engagement</caption><thead><tr><th scope="col">Operational need</th><th scope="col">Evaluation focus</th><th scope="col">Why it mattered to the recommendation</th></tr></thead><tbody>
-          <tr><th scope="row">Learn from publishing</th><td data-label="Evaluation focus">Analytics</td><td data-label="Decision rationale">Engagement reporting and actionable insights supported the proposed Learn stage.</td></tr>
-          <tr><th scope="row">Make the workflow repeatable</th><td data-label="Evaluation focus">Workflow fit</td><td data-label="Decision rationale">Scheduling and cross-platform publishing connected the calendar to execution.</td></tr>
-          <tr><th scope="row">Keep the system practical</th><td data-label="Evaluation focus">Cost</td><td data-label="Decision rationale">Affordability was considered alongside analytics and workflow fit, rather than features alone.</td></tr>
+      <div className={`${styles.hopeDecisionTable} ${styles.hopePlatformMatrix}`}>
+        <table><caption>Four platforms shown in the September 2026 delivery · qualitative presence/absence matrix, not a scored ranking</caption><thead><tr><th scope="col">Verified criterion</th><th scope="col" data-recommended="true">Metricool</th><th scope="col">Monday.com</th><th scope="col">Buffer</th><th scope="col">Agorapulse</th></tr></thead><tbody>
+          <tr><th scope="row">Engagement reports and actionable insights</th><td data-label="Metricool" data-state="yes">✓</td><td data-label="Monday.com" data-state="no">—</td><td data-label="Buffer" data-state="no">—</td><td data-label="Agorapulse" data-state="yes">✓</td></tr>
+          <tr><th scope="row">Scheduling and auto-publishing</th><td data-label="Metricool" data-state="yes">✓</td><td data-label="Monday.com" data-state="no">—</td><td data-label="Buffer" data-state="yes">✓</td><td data-label="Agorapulse" data-state="yes">✓</td></tr>
+          <tr><th scope="row">AI content assistant</th><td data-label="Metricool" data-state="yes">✓</td><td data-label="Monday.com" data-state="no">—</td><td data-label="Buffer" data-state="yes">✓</td><td data-label="Agorapulse" data-state="no">—</td></tr>
+          <tr><th scope="row">Affordability</th><td data-label="Metricool" data-state="yes">✓</td><td data-label="Monday.com" data-state="yes">✓</td><td data-label="Buffer" data-state="yes">✓</td><td data-label="Agorapulse" data-state="no">—</td></tr>
         </tbody></table>
-        <p>This explains our recommendation, not a scored ranking or a claim that other tools lack these capabilities today.</p>
+        <p>The source presentation marked these four criteria as available or unavailable at the time of the engagement. It is preserved as project evidence, not presented as a current market audit.</p>
       </div>
+      <BuildHopePlatformEvidence />
       <div className={styles.hopeEvaluation}>
-        <div><span>Team research</span><strong>~8 tools</strong><p>Broader exploration of content-management options.</p></div>
+        <div><span>Team evaluation</span><strong>8 platforms</strong><p>Broader exploration of content-management options.</p></div>
         <div><span>My hands-on testing</span><strong>3 tools</strong><p>Buffer · Metricool · Monday.com</p></div>
         <div><span>Shown in final delivery</span><strong>4 platforms</strong><p>Metricool · Monday.com · Buffer · Agorapulse</p></div>
         <aside><span>Decision boundary</span><p>The engagement delivered a tool recommendation and rollout plan. Client adoption and performance after implementation were not validated.</p></aside>
@@ -214,9 +219,10 @@ function BuildHopeCaseContent() {
       <BuildHopeEvidence src="/media/build-hope-content-operations/platform-evaluation.webp" label="View original platform evaluation" />
     </section>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-model">
-      <span>05 · Operating model</span>
-      <h3 id="build-hope-model">Ideate → Plan → Publish → Learn</h3>
-      <div className={styles.hopeWide}><BuildHopeBlueprint /><BuildHopeEvidence src="/media/build-hope-content-operations/hero-operating-model.webp" label="View original operating model" /></div>
+      <span>05 · Product strategy / operating workflow</span>
+      <h3 id="build-hope-model">A seven-stage system connects assets to learning.</h3>
+      <p>Content assets → organization → review → scheduling → publishing → analytics → improvement.</p>
+      <div className={styles.hopeWide}><BuildHopeBlueprint /><BuildHopeEvidence src="/media/build-hope-content-operations/hero-operating-model.webp" label="View original operating model" note="Original project artifact · includes third-party Metricool interface references · September 2026" /></div>
     </section>
     <section className={styles.operationsNarrative} aria-labelledby="build-hope-roadmap">
       <span>06 · 30-day implementation roadmap</span>
@@ -235,21 +241,34 @@ function BuildHopeCaseContent() {
         <BuildHopeEvidence src="/media/build-hope-content-operations/feedback-loop.webp" label="View original feedback loop" />
       </div>
     </section>
+    <section className={styles.operationsNarrative} aria-labelledby="build-hope-artifacts">
+      <span>08 · Delivery evidence</span>
+      <h3 id="build-hope-artifacts">The handoff, preserved as project artifacts.</h3>
+      <p>Open each item to inspect the original presentation material. Labels separate authored deliverables from third-party interface references and reconstructed diagrams.</p>
+      <BuildHopeArtifactGallery />
+    </section>
     <section className={`${styles.operationsNarrative} ${styles.closingNarrative}`} aria-labelledby="build-hope-impact">
-      <span>08 · Proposed impact / observed follow-up</span>
+      <span>09 · Deliverables & results</span>
       <div className={styles.closingCopy}>
       <h3 id="build-hope-impact">Separate the handoff, the intended value, and the evidence.</h3>
       <div className={styles.hopeImpact}>
-        <article><span>Delivered</span><h4>A system and a practical handoff</h4><p>A five-phase, 30-day roadmap and content-management playbook.</p></article>
-        <article><span>Proposed impact</span><h4>Less administration. More consistent storytelling.</h4><p>Expected value—not measured changes in engagement, reach, productivity, or revenue.</p></article>
+        <article><span>Delivered artifacts</span><h4>A system and a practical handoff</h4><p>A five-phase, 30-day roadmap, CMS concept, content ideas, and content-management playbook.</p></article>
+        <article><span>Client feedback</span><h4>No verified quote or adoption record in the available source set.</h4><p>This case study does not infer satisfaction, implementation, or endorsement.</p></article>
+        <article><span>Proposed future outcome</span><h4>Less administration. More consistent storytelling.</h4><p>Expected value—not measured changes in engagement, reach, productivity, or revenue.</p></article>
         <article><span>Observed follow-up · October 19, 2026</span><h4>Posting activity changed after the engagement.</h4><p>I counted eight posts during October 1–19, versus six total across July (3), August (1), and September (2) on the existing social channel.</p><p><strong>Unequal observation periods; no causal attribution.</strong> This does not establish full roadmap adoption or prove the engagement caused the change.</p></article>
       </div>
       </div>
     </section>
     <section className={`${styles.operationsNarrative} ${styles.closingNarrative}`} aria-labelledby="build-hope-role">
-      <span>09 · Reflection</span>
+      <span>10 · My contribution & reflection</span>
       <div className={styles.closingCopy}>
       <h3 id="build-hope-role">Design the operating rhythm before increasing the content load.</h3>
+      <div className={styles.hopeContributionGrid}>
+        <article><span>01</span><h4>Problem reframing</h4><p>Helped translate a request for more views into an operating-capacity and workflow challenge.</p></article>
+        <article><span>02</span><h4>CMS concept</h4><p>Contributed to the structure for organizing content assets, categories, review, and publishing work.</p></article>
+        <article><span>03</span><h4>30-day roadmap</h4><p>Developed the phased rollout connecting setup, organization, planning, execution, and optimization.</p></article>
+        <article><span>04</span><h4>Stakeholder communication</h4><p>Helped present the recommendation, operating model, roadmap, and playbook as part of the four-person team.</p></article>
+      </div>
       <p>My key takeaway was to translate a request for more views into a sustainable workflow, with clear steps and signals the team could review over time.</p>
       <p>I also proposed reusing event photos and videos in recurring short-form content, evaluated through views, engagement, and follower changes. This was a proposed test—not a launched TikTok channel.</p>
       <Link href="#ai-pc-build-advisor">Next · PC Advisor <i aria-hidden="true">→</i></Link>
@@ -273,9 +292,11 @@ export function ProjectCaseStudiesPage() {
     const requested = window.location.hash.slice(1);
     let alignFrame = 0;
     let alignTimer = 0;
-    if (projectIds.includes(requested as (typeof projectIds)[number])) {
+    const requestedTarget = document.getElementById(requested);
+    const requestedProject = projectIds.find((id) => id === requested || (requestedTarget && document.getElementById(id)?.contains(requestedTarget)));
+    if (requestedTarget && requestedProject) {
       const alignRequestedProject = () => {
-        setActiveProject(requested);
+        setActiveProject(requestedProject);
         const scrollingElement = document.documentElement;
         const previousBehavior = scrollingElement.style.scrollBehavior;
         scrollingElement.style.scrollBehavior = "auto";
@@ -284,7 +305,7 @@ export function ProjectCaseStudiesPage() {
       };
       alignFrame = window.requestAnimationFrame(() => {
         alignRequestedProject();
-        alignTimer = window.setTimeout(alignRequestedProject, 180);
+        alignTimer = window.setTimeout(alignRequestedProject, 420);
       });
     }
 
@@ -332,10 +353,11 @@ export function ProjectCaseStudiesPage() {
       <div className={styles.caseBackdrop} aria-hidden="true" />
 
       <nav className={styles.caseNav} aria-label="Project case study navigation">
-        <Link className={styles.homeLink} href="/" aria-label="Carl Shi — Home" data-cursor-hint="Main">
+        <StaticHomeLink className={styles.homeLink} aria-label="Carl Shi — Home" data-cursor-hint="Main">
           <span className={styles.homeIcon} aria-hidden="true"><CsLogo /></span>
-        </Link>
-        <div className={styles.readingContext}><ThemeSwitch /></div>
+          <span className={styles.homeLabel}>Home</span>
+        </StaticHomeLink>
+        <div className={styles.readingContext}><ThemeSwitch transition="circle" /></div>
         <Link className={styles.indexLink} href="/homepage-poc/projects#projects"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5" strokeLinecap="round" strokeLinejoin="round" /></svg>All Projects</Link>
       </nav>
 
@@ -367,8 +389,8 @@ export function ProjectCaseStudiesPage() {
         const isBuildHopeCase = project.slug === "build-hope-content-operations";
         const isAiPcCase = "keyDecisions" in project;
         const isLuggageCase = project.slug === "ai-travel-assistant";
-        const heroSrc = "heroImage" in project ? project.heroImage : project.images[0][0];
-        const heroAlt = "heroAlt" in project ? project.heroAlt : project.images[0][1];
+        const heroSrc = project.heroImage;
+        const heroAlt = project.heroAlt;
         const executionImages = "executionImages" in project ? project.executionImages : project.images;
 
         return <section className={styles.caseChapter} data-build-hope={isBuildHopeCase} data-compact-media={project.slug === "interactive-music-installation"} id={project.slug} key={project.slug}>
@@ -379,20 +401,21 @@ export function ProjectCaseStudiesPage() {
             </div>
             <div className={styles.caseTitleBlock}>
               <span>{project.category}</span>
-              <h2>{project.title}</h2>
+              <h2><EditorialMotion text={project.title} /></h2>
               <p>{project.intro}</p>
-              {isBuildHopeCase && <aside className={styles.hopeContribution}><span>My contribution · Product Strategy & Operations Consultant</span><p>I clarified stakeholder goals and operational constraints, contributed to platform evaluation, and developed and presented the 30-day implementation roadmap and content-management playbook.</p><small>Five-day, four-person client engagement through USC Iovine and Young Academy · September 2026</small></aside>}
             </div>
           </header>
 
           <div className={styles.caseLead}>
-            <div className={styles.caseHeroMedia} data-build-hope={isBuildHopeCase}>
+            <div className={styles.caseHeroMedia} data-build-hope={isBuildHopeCase} data-luggage={isLuggageCase}>
               {isBuildHopeCase ? <BuildHopeBlueprint compact /> : isLuggageCase ? <LuggageHelperVisual /> : <Image src={heroSrc} alt={heroAlt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 72vw" unoptimized />}
             </div>
             <dl className={styles.caseFacts}>
               {project.facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
             </dl>
           </div>
+
+          {isBuildHopeCase && <aside className={styles.hopeContribution}><span>My contribution · Product Strategy & Operations Consultant</span><p>I clarified stakeholder goals and operational constraints, contributed to platform evaluation, and developed and presented the 30-day implementation roadmap and content-management playbook.</p><small>Five-day, four-person client engagement through USC Iovine and Young Academy · September 2026</small></aside>}
 
           {isBuildHopeCase ? <BuildHopeCaseContent /> : <>
           <section className={styles.problemSection} aria-labelledby={`${project.slug}-problem`}>
@@ -428,12 +451,7 @@ export function ProjectCaseStudiesPage() {
                 <h3 id={`${project.slug}-decisions`}>Make expert logic understandable to beginners.</h3>
               </header>
               <div className={styles.decisionLayout}>
-              <figure className={styles.decisionVisual}>
-                <div className={styles.decisionMedia}>
-                  <Image src="/media/ai-pc-build-advisor/working-recommendation-review.png" alt="Build review showing recommendation reasoning, compatibility checks, and an alternative" fill style={{ objectFit: "contain" }} sizes="(max-width: 980px) 94vw, 62vw" unoptimized />
-                </div>
-                <figcaption>Build review · Recommendation, compatibility, and alternatives in one workspace.</figcaption>
-              </figure>
+              <AiPcDecisionModel />
               <ol>
                 {project.keyDecisions.map(([title, description], index) => (
                   <li key={title}>

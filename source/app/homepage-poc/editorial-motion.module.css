@@ -1,0 +1,11 @@
+.root { position: relative; }
+.semantic { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.word { display: inline-block; position: relative; white-space: nowrap; vertical-align: baseline; }
+.reserve { visibility: hidden; }
+.output { position: absolute; left: 0; top: 0; white-space: nowrap; max-width: 100%; overflow: clip; overflow-clip-margin: 3px; }
+.root[data-effect=ink][data-motion-state=running] .output {
+  --ink: 120%; padding-block: .12em; margin-block: -.12em;
+  mask-image: linear-gradient(var(--edge,102deg),#000 calc(var(--ink) - 5%),#0008 var(--ink),transparent calc(var(--ink) + 8%)),radial-gradient(ellipse 16px 38% at calc(var(--ink) - 2%) 62%,#0007,transparent);
+  mask-repeat: no-repeat;
+}
+@media(prefers-reduced-motion:reduce) { .root[data-effect=ink] .output { mask-image: none; } }

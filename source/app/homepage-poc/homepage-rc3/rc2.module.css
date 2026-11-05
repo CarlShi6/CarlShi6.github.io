@@ -1,0 +1,35 @@
+.home { isolation:isolate; }
+.home.home nav,.home.home nav a,.home.home nav a>span,.home.home nav a svg { transition:none; }
+.loading { min-height:calc(100svh - 76px); background:#01050b; }
+/* Navigation follows requested theme immediately; the scene keeps its own phase. */
+.home.home[data-nav-theme="dark"] nav { background:rgba(8,12,16,.94); border-color:rgba(221,234,240,.1); color:#edf2f4; }
+.home.home[data-nav-theme="dark"] nav a,.home[data-nav-theme="dark"] nav a>span { color:#b7c0c6!important; }
+.home.home[data-nav-theme="dark"] nav a:first-child svg { filter:none; }
+.home.home[data-nav-theme="light"] nav { background:rgba(246,242,232,.94); border-color:#d9d2c3; color:#182033; backdrop-filter:none; }
+.home.home[data-nav-theme="light"] nav a,.home[data-nav-theme="light"] nav a>span { color:#53677e!important; }
+.home.home[data-nav-theme="light"] nav a:first-child svg { filter:brightness(0) saturate(100%) invert(11%) sepia(16%) saturate(1534%) hue-rotate(183deg) brightness(94%) contrast(95%); }
+.home nav button svg circle { transition:none; }
+.home :global([data-tree] a:focus-visible) { outline:2px solid #35577a; outline-offset:4px; border-radius:4px; }
+.home :global([data-tool]) { min-width:44px; min-height:44px; }
+@media(max-width:560px){.home.home nav>div:last-child{display:flex;gap:12px;}.home.home nav>div:last-child a{font-size:11px;min-height:44px;display:inline-flex;align-items:center;}}
+/* Short, narrow screens need clearance between the last tree label and identity. */
+@media(max-width:360px){
+ .home :global([data-light-composition]) { top:32%; }
+ .home :global([data-light-identity]) { top:calc(69% + 28px); }
+}
+.worlds { position:relative; }
+.light,.dark { position:relative; }
+.light[data-active="false"],.dark[data-active="false"] { position:absolute; inset:0; visibility:hidden; pointer-events:none; }
+.home[data-transitioning="true"] .dark { z-index:2; }
+.home[data-transitioning="true"] .light { z-index:1; }
+/* Same E.6 canvas, temporarily above DOM artwork only while the mask is active. */
+.home[data-transitioning="true"] .dark :global([data-c-active]) canvas { visibility:visible; }
+.home[data-transitioning="true"] .dark :global([data-c-active]) canvas { position:relative; }
+.home[data-rc2-mask="true"] .dark :global([aria-label="Dark gravitational portfolio system"] > div:has(> canvas)) { z-index:45; visibility:visible; }
+.home[data-transitioning="true"] .dark :global([data-c-active]) { background:transparent; }
+.home[data-transitioning="true"] .dark :global([data-c-active] section) { background:transparent; }
+.skip { position:fixed; z-index:110; right:20px; bottom:16px; min-height:44px; padding:10px 16px; background:#101b24; color:#fff3dc!important; cursor:pointer; font-size:12px!important; }
+.status { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.initialSkip { display:none; }
+.home:has(:global([data-c-entrance="running"])) .initialSkip { display:block; }
+@media(prefers-reduced-motion:reduce){.home * { scroll-behavior:auto!important; }}

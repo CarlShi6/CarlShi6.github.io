@@ -1,0 +1,4 @@
+.word{display:inline-block;white-space:nowrap}.glyph{display:inline-block;position:relative;opacity:0;animation:stamp .04s steps(1,start) var(--type-delay) forwards}.glyph::after{content:"";position:absolute;left:100%;top:.12em;width:.35em;height:.85em;background:#d7e6e9;opacity:0;pointer-events:none;animation:caret var(--type-step) linear var(--type-delay) forwards}
+@keyframes stamp{from,to{opacity:1}}@keyframes caret{0%,65%{opacity:.7}66%,100%{opacity:0}}
+.srOnly{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.glyph{animation:none;opacity:1}.glyph::after{display:none}}

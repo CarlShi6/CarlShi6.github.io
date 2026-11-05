@@ -998,6 +998,7 @@ function LivingNetworkWorld({
   onAnchorChange: (branch: SpatialBranch | null) => void;
 }) {
   const ambientMesh = useMemo(() => createAmbientMesh(), []);
+  const showLegacyAnchors = false;
 
   return (
     <>
@@ -1017,8 +1018,12 @@ function LivingNetworkWorld({
           onAnchorChange={onAnchorChange}
         />
 
-        <AnchorPulse point={NETWORK_POINTS.projects} delay={0} reducedMotion={reducedMotion} />
-        <AnchorPulse point={NETWORK_POINTS.skills} delay={0.2} reducedMotion={reducedMotion} />
+        {showLegacyAnchors ? (
+          <>
+            <AnchorPulse point={NETWORK_POINTS.projects} delay={0} reducedMotion={reducedMotion} />
+            <AnchorPulse point={NETWORK_POINTS.skills} delay={0.2} reducedMotion={reducedMotion} />
+          </>
+        ) : null}
       </group>
 
       <LivingNetworkCamera />
@@ -1043,7 +1048,7 @@ export function LivingNetworkScene({
   return (
     <Canvas
       dpr={[1, 1.35]}
-      frameloop={visible && enabled ? "always" : "demand"}
+      frameloop={visible && enabled && !reducedMotion ? "always" : "demand"}
       camera={{ position: [0, 0, 9.4], fov: 44, near: 0.1, far: 30 }}
       gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
     >

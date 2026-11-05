@@ -1,0 +1,244 @@
+.study {
+  position: relative;
+  min-height: 100svh;
+  background: #01050b;
+}
+
+.study[data-e3-mode="reference"] :global([data-object-id]),
+.study[data-e3-mode="coupled"] :global([data-object-id]) {
+  overflow: visible;
+}
+
+.study[data-e3-mode="reference"] :global([data-art]),
+.study[data-e3-mode="coupled"] :global([data-art]) {
+  z-index: 2;
+  clip-path: none !important;
+  background-size: 88% 88% !important;
+}
+
+.study[data-e3-mode="reference"]
+  :global([data-side="projects"][data-art="0"]),
+.study[data-e3-mode="coupled"]
+  :global([data-side="projects"][data-art="0"]) {
+  background-image: url("/homepage-poc/motion-e3/project-1-reference.png") !important;
+  background-size: contain !important;
+}
+
+.study[data-e3-mode="reference"]
+  :global([data-side="skills"][data-art="0"]),
+.study[data-e3-mode="coupled"]
+  :global([data-side="skills"][data-art="0"]) {
+  background-image: url("/homepage-poc/motion-e3/skill-1-reference.png") !important;
+  background-size: contain !important;
+}
+
+.study[data-e3-bounds="true"] :global([data-object-id]) {
+  outline: 1px solid rgba(255, 207, 124, 0.82);
+  outline-offset: -1px;
+  background: rgba(255, 207, 124, 0.035);
+}
+
+.study[data-e3-bounds="true"] :global([data-art]) {
+  box-shadow: inset 0 0 0 1px rgba(126, 206, 255, 0.72);
+}
+
+.debrisTrail {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+
+.debrisTrail i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 16px;
+  height: 12px;
+  border: 1px solid rgba(224, 206, 173, 0.2);
+  opacity: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+
+.debrisTrail[data-debris-material="rock"] i {
+  background: radial-gradient(circle at 68% 30%, #dfcdae 0 8%, #686661 27%, #101821 70%);
+  box-shadow: 0 0 2px #000, 0 0 6px rgba(212, 193, 158, 0.34);
+  clip-path: polygon(14% 8%, 74% 0, 100% 35%, 82% 88%, 38% 100%, 0 64%);
+}
+
+.debrisTrail[data-debris-material="metal"] i {
+  width: 14px;
+  height: 9px;
+  background: linear-gradient(135deg, #111922 5%, #b0a083 48%, #363b3f 72%, #080e15 100%);
+  box-shadow: 0 0 2px #000, 0 0 5px rgba(225, 193, 135, 0.31);
+  clip-path: polygon(0 20%, 73% 0, 100% 42%, 70% 100%, 10% 76%);
+}
+
+.inspector {
+  position: fixed;
+  z-index: 121;
+  top: 82px;
+  left: 50%;
+  width: min(760px, calc(100vw - 36px));
+  padding: 9px 11px 10px;
+  color: #e8edf0;
+  border: 1px solid rgba(115, 139, 153, 0.58);
+  background: rgba(4, 10, 17, 0.95);
+  font: 12px/1.4 system-ui, sans-serif;
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+}
+
+.inspector header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.inspector header b,
+.inspector header span {
+  display: block;
+}
+
+.inspector header b {
+  color: #fff1d6;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.inspector header span {
+  color: #aebdc7;
+}
+
+.modeSwitch {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.modeSwitch button {
+  min-height: 44px;
+  padding: 7px;
+  color: #dce7eb;
+  border: 1px solid #40505b;
+  background: #0b151d;
+  font: inherit;
+  cursor: pointer;
+}
+
+.modeSwitch button[aria-pressed="true"] {
+  color: #fff4dd;
+  border-color: #ffe0a8;
+  background: #1b2831;
+}
+
+.debrisControls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.debrisControls label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 8px;
+  color: #c7d1d7;
+}
+
+.debrisControls output {
+  color: #ffe0a8;
+}
+
+.debrisControls input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 26px;
+  accent-color: #dcc5a0;
+}
+
+.debrisControls input:disabled {
+  opacity: 0.35;
+}
+
+.boundsToggle {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.boundsToggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: #dcc5a0;
+}
+
+.inspector :focus-visible {
+  outline: 2px solid #ffe4b1;
+  outline-offset: 3px;
+}
+
+.study[data-e3-recording="true"] .inspector {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .inspector {
+    position: absolute;
+    top: 78px;
+    width: min(720px, calc(100vw - 24px));
+  }
+
+}
+
+@media (max-width: 560px) {
+  .inspector {
+    top: 76px;
+  }
+
+  .inspector header span {
+    display: none;
+  }
+
+  .modeSwitch {
+    grid-template-columns: 1fr;
+  }
+
+  .modeSwitch button {
+    min-height: 38px;
+  }
+
+  .debrisControls {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .debrisTrail {
+    display: none;
+  }
+
+  .inspector {
+    backdrop-filter: none;
+  }
+}
+
+:global(html:has(.study)) {
+  background: #01050b !important;
+}
+
+:global(body:has(.study)) {
+  background: #01050b !important;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import styles from "./project-case-studies.module.css";
 
 const stages = [
@@ -8,6 +8,16 @@ const stages = [
   ["Plan", "Shared calendar", "Select content, assign publishing dates, and review and approve before publishing.", "Story backlog and organized photos and videos", "A review-ready publishing calendar."],
   ["Publish", "Scheduled content", "Schedule through the recommended platform, coordinate channels, and monitor published content.", "Reviewed content and the publishing calendar", "Published content and performance signals to review."],
   ["Learn", "Next-cycle insights", "Review top content, compare topics and formats, and apply insights to the next content cycle.", "Views, engagement, and follower changes", "Priorities for the next content cycle."],
+] as const;
+
+const operationsStages = [
+  ["Content assets", "Photos, videos, updates, and quotes", "Bring existing story material into one visible starting point.", "A shared source library"],
+  ["Organization", "Categories and tags", "Centralize media, create content categories, and organize existing assets.", "Assets ready to select"],
+  ["Review", "Selection and approval", "Choose upcoming stories and review the content before it enters the publishing queue.", "Approved content briefs"],
+  ["Scheduling", "Calendar and Metricool", "Assign dates and coordinate the approved content in a shared publishing calendar.", "A scheduled publishing plan"],
+  ["Publishing", "Coordinated channels", "Publish across the selected social platforms from the proposed operating workflow.", "Published content to monitor"],
+  ["Analytics", "Reach and engagement signals", "Review performance signals and identify the content that generated the strongest response.", "Comparable performance evidence"],
+  ["Improvement", "Next-cycle priorities", "Compare topics and formats, then apply the learning to the next content cycle.", "An informed next plan"],
 ] as const;
 
 export function HopeStageIcon({ stage }: { stage: number }) {
@@ -54,11 +64,53 @@ export function HopeWorkflowExplorer() {
     <p className={styles.hopeInteractionHint}>Select a stage to trace how content moves through the system.</p>
     <div className={styles.hopeStageControls} role="group" aria-label="Explore content workflow">{stages.map((s,i)=><button type="button" key={s[0]} aria-pressed={active===i} aria-controls={panelId} onClick={()=>setActive(i)}><HopeStageIcon stage={i}/><span><small>0{i+1}</small>{s[0]}</span></button>)}</div>
     <div id={panelId} className={styles.hopeWorkflowPanel}>
-      <div className={styles.hopeArtFrame} key={active}><WorkflowArt stage={active}/><span>Workflow schematic · not client software</span></div>
+      <div className={styles.hopeArtFrame} key={active}><WorkflowArt stage={active}/><span>Reconstructed diagram from verified project information · not client software</span></div>
       <div className={styles.hopeStageDetail} aria-live="polite" aria-atomic="true"><span>0{active+1} · {stage[0]}</span><h4>{stage[1]}</h4><p>{stage[2]}</p><dl><div><dt>Input</dt><dd>{stage[3]}</dd></div><div><dt>Handoff</dt><dd>{stage[4]}</dd></div></dl></div>
     </div>
     <div className={styles.hopeWorkflowFooter}><span>Ideate → Plan → Publish → Learn ↶</span><button type="button" onClick={()=>setActive((active+1)%stages.length)}>{active===3?"Back to ideation":"Next stage"} <span aria-hidden="true">→</span></button></div>
   </>;
+}
+
+export function HopeOperationsExplorer() {
+  const [active, setActive] = useState(0);
+  const panelId = useId();
+  const railRef = useRef<HTMLDivElement>(null);
+  const stage = operationsStages[active];
+  const goToStage = (index: number) => setActive(Math.max(0, Math.min(operationsStages.length - 1, index)));
+  useEffect(() => {
+    railRef.current?.querySelector<HTMLButtonElement>("[aria-selected='true']")?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [active]);
+  const selectWithKeyboard = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === "Home" ? 0 : event.key === "End" ? operationsStages.length - 1 : Math.max(0, Math.min(operationsStages.length - 1, index + (event.key === "ArrowRight" ? 1 : -1)));
+    goToStage(next);
+    event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>("button")[next]?.focus();
+  };
+  return <div className={styles.hopeOperationsExplorer}>
+    <div className={styles.hopeOperationsIntro}>
+      <p className={styles.hopeInteractionHint}>Move through the seven-stage workflow with the arrows, step cards, or keyboard.</p>
+      <span>Swipe or scroll the steps <b aria-hidden="true">→</b></span>
+    </div>
+    <div ref={railRef} className={styles.hopeOperationsRail} role="tablist" aria-label="Explore the proposed content operations workflow">
+      {operationsStages.map((item, index) => <button key={item[0]} type="button" role="tab" aria-selected={active === index} aria-controls={panelId} tabIndex={active === index ? 0 : -1} onClick={() => goToStage(index)} onKeyDown={(event) => selectWithKeyboard(event, index)}><small>{String(index + 1).padStart(2, "0")}</small><span>{item[0]}</span><i aria-hidden="true">View stage</i></button>)}
+    </div>
+    <div id={panelId} className={styles.hopeOperationsPanel} role="tabpanel" aria-live="polite">
+      <span>{String(active + 1).padStart(2, "0")} / {String(operationsStages.length).padStart(2, "0")} · Proposed workflow</span>
+      <h4>{stage[0]}</h4>
+      <strong>{stage[1]}</strong>
+      <p>{stage[2]}</p>
+      <dl><dt>Handoff</dt><dd>{stage[3]}</dd></dl>
+    </div>
+    <div className={styles.hopeOperationsNav} aria-label="Workflow stage controls">
+      <span><b>{String(active + 1).padStart(2, "0")}</b> / {String(operationsStages.length).padStart(2, "0")} · {stage[0]}</span>
+      <div>
+        <button type="button" onClick={() => goToStage(active - 1)} disabled={active === 0} aria-label="Previous workflow stage"><span aria-hidden="true">←</span> Previous</button>
+        <button type="button" onClick={() => goToStage(active + 1)} disabled={active === operationsStages.length - 1} aria-label="Next workflow stage">Next <span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+    <p className={styles.hopeOperationsBoundary}>This is a recommendation—not evidence of client implementation.</p>
+  </div>;
 }
 
 const phases=[
@@ -77,6 +129,22 @@ const phaseTasks=[
   ["Identify top-performing content", "Compare topics and formats", "Apply insights to the next cycle"],
 ] as const;
 
+function RoadmapPhaseArt({ phase }: { phase: number }) {
+  const label = ["Connected channels and baseline", "Organized source library", "Review-ready calendar", "Coordinated publishing cycle", "Learning applied to the next cycle"][phase];
+  return <figure className={styles.hopePhaseVisual}>
+    <svg viewBox="0 0 620 250" role="img" aria-label={`${phases[phase].title}: ${label}`} fill="none">
+      <title>{`${phases[phase].title}: ${label}`}</title>
+      <path className={styles.hopePhaseOrbit} d="M78 126C172 36 432 34 544 126 432 220 172 216 78 126Z" />
+      {phase === 0 && <><circle cx="172" cy="126" r="42"/><circle cx="310" cy="126" r="42"/><circle cx="448" cy="126" r="42"/><path d="M214 126h54m84 0h54M172 110v32m-16-16h32M292 137l13-13 12 10 17-20M432 142v-28m16 28v-46m16 46v-18"/></>}
+      {phase === 1 && <><path d="M185 84h250v112H185zM217 84V62h82l22 22M213 119h194M213 149h126M213 173h170"/><circle cx="405" cy="149" r="13"/></>}
+      {phase === 2 && <><rect x="179" y="63" width="262" height="139" rx="4"/><path d="M179 101h262M231 49v29m158-29v29M215 126h62m34 0h94m-190 36h110m34 0h66"/><circle cx="344" cy="162" r="14"/></>}
+      {phase === 3 && <><rect x="205" y="83" width="210" height="112" rx="4"/><path d="M310 159V48m-31 33 31-33 31 33M230 111h57m-57 24h98m-98 24h45M425 88l45-25m-45 58 60 5m-60 28 47 28"/></>}
+      {phase === 4 && <><path d="M217 165v-42m62 42V91m62 74v-25m62 25V66M198 183h231"/><path d="M219 76c35-37 102-45 150-20 32 17 53 48 57 82"/><path d="m410 119 16 19 16-20"/><circle cx="219" cy="76" r="9"/></>}
+    </svg>
+    <figcaption><span>Reconstructed diagram from verified project information</span><strong>{label}</strong></figcaption>
+  </figure>;
+}
+
 export function HopeRoadmapExplorer() {
   const [day,setDay]=useState(1);
   const sliderId=useId();
@@ -89,15 +157,18 @@ export function HopeRoadmapExplorer() {
     <div className={styles.hopeGantt} role="group" aria-label="Select an implementation phase">
       <div className={styles.hopeGanttAxis} aria-hidden="true"><span>Phase</span><span>01</span><span>15</span><span>30</span></div>
       {phases.map((p,i)=><div key={p.title} className={styles.hopePhaseGroup} data-active={i===index}>
-        <button type="button" className={styles.hopeGanttRow} aria-pressed={i===index} aria-expanded={i===index} aria-controls={`${detailId}-${i}`} onClick={()=>setDay(p.start)}><span className={styles.hopeGanttLabel}><b>0{i+1} · {p.title}</b><small>Days {p.start}–{p.end}</small></span><span className={styles.hopeGanttTrack}><span className={styles.hopeGanttBar} style={{gridColumn:`${p.start} / ${p.end+1}`}}/><span className={styles.hopeGanttCursor} style={{left:`${((day-.5)/30)*100}%`}}/></span></button>
+        <button type="button" className={styles.hopeGanttRow} aria-pressed={i===index} aria-expanded={i===index} aria-controls={`${detailId}-${i}`} onClick={()=>setDay(p.start)} onKeyDown={(event)=>{ if(!["ArrowUp","ArrowDown","Home","End"].includes(event.key)) return; event.preventDefault(); const next=event.key==="Home"?0:event.key==="End"?phases.length-1:(i+(event.key==="ArrowDown"?1:-1)+phases.length)%phases.length; setDay(phases[next].start); event.currentTarget.closest(`.${styles.hopeGantt}`)?.querySelectorAll<HTMLButtonElement>(`.${styles.hopeGanttRow}`)[next]?.focus(); }}><span className={styles.hopeGanttLabel}><b>0{i+1} · {p.title}</b><small>Days {p.start}–{p.end}</small></span><span className={styles.hopeGanttTrack}><span className={styles.hopeGanttBar} style={{gridColumn:`${p.start} / ${p.end+1}`}}/><span className={styles.hopeGanttCursor} style={{left:`${((day-.5)/30)*100}%`}}/></span></button>
         <div id={`${detailId}-${i}`} className={styles.hopeInlinePhase} hidden={i!==index} role="region" aria-label={`${p.title} phase details`}>
-          <span className={styles.hopeInlineEyebrow}>In this phase · Proposed tasks</span>
-          <ol className={styles.hopeInlineTasks}>{phaseTasks[i].map((task,j)=><li key={task}><span aria-hidden="true">0{j+1}</span><p>{task}</p></li>)}</ol>
-          <div className={styles.hopeInlineOutput}><span aria-hidden="true">↳</span><p><small>Intended output</small>{p.output}</p></div>
+          <RoadmapPhaseArt phase={i}/>
+          <div className={styles.hopeInlinePlan}>
+            <span className={styles.hopeInlineEyebrow}>In this phase · Proposed tasks</span>
+            <ol className={styles.hopeInlineTasks}>{phaseTasks[i].map((task,j)=><li key={task}><span aria-hidden="true">0{j+1}</span><p>{task}</p></li>)}</ol>
+            <div className={styles.hopeInlineOutput}><span aria-hidden="true">↳</span><p><small>Intended output</small>{p.output}</p></div>
+          </div>
         </div>
       </div>)}
     </div>
     <p className={styles.hopeSelectionStatus} role="status" aria-live="polite" aria-atomic="true">{`Day ${day}: ${phase.title}. ${phase.description} Intended output: ${phase.output}.`}</p>
-    <p className={styles.hopeRoadmapNote}>The marker explores the proposed schedule. It does not indicate implementation progress or completed work.</p>
+    <p className={styles.hopeRoadmapNote}>Conceptual implementation plan · The marker explores the proposed schedule. It does not indicate implementation progress or completed work.</p>
   </div>;
 }

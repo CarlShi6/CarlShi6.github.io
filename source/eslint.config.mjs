@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    ".vinext/**",
+    "**/*.portfolio-release.tsx",
+    // Downloaded browser executables/runtime files are QA tooling, not application source.
+    "artifacts/phase5/browsers/**",
   ]),
 ]);
 

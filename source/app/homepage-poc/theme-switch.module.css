@@ -3,7 +3,60 @@
 .planet { fill:#bccdd6; stroke-width:0; transition:transform .4s ease,fill .4s ease; }
 .toggle:hover { color:#fff; }
 .toggle:focus-visible { outline:2px solid currentColor; outline-offset:2px; border-radius:6px; }
-:global(html[data-portfolio-theme="light"]) .toggle { color:#527496; }
-:global(html[data-portfolio-theme="light"]) .planet { fill:#ba8b35; transform:translateX(24px); }
-:global(html[data-portfolio-theme="light"]) .toggle:hover { color:#182033; }
+.toggle[data-theme="light"] { color:#527496; }
+.toggle[data-theme="light"] .planet { fill:#ba8b35; transform:translateX(24px); }
+.toggle[data-theme="light"]:hover { color:#182033; }
 @media(prefers-reduced-motion:reduce) { .planet { transition:none; } }
+
+.segments{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid #485159;border-radius:999px;background:#0b1118;color:#aab3bd;flex:none}
+.segments .segment{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:64px;min-height:44px;padding:0 15px;border:1px solid transparent;border-radius:999px;background:transparent;color:inherit;font:500 12px/1 Arial,sans-serif;letter-spacing:.02em;cursor:pointer;touch-action:manipulation}
+.segments .segment:hover{color:#fff7e7;background:#ffffff0a}
+.segments .segment[aria-pressed="true"]{background:#e8dfce;color:#17212b;border-color:#f6ebd5}
+.segments .segment:focus-visible{outline:2px solid #d9b47b;outline-offset:4px;z-index:1}
+.segments[data-theme="light"]{background:#eee8dc;border-color:#c7bcab;color:#5c6775}
+.segments[data-theme="light"] .segment:hover{background:#ffffff60;color:#17212b}
+.segments[data-theme="light"] .segment[aria-pressed="true"]{background:#fffaf0;border-color:#d4c7b0;color:#182033}
+.segments[data-theme="light"] .segment:focus-visible{outline-color:#35577a}
+@media(max-width:600px){.segments{gap:0;padding:2px}.segments .segment{min-width:44px;padding:0 8px;font-size:11px;letter-spacing:0}}
+
+/* Blur Circle concept: https://theme-toggle.rdsx.dev/ . Opt-in reading pages only.
+   Feather the alpha mask, never the actual text or product screenshots. */
+@property --theme-mask-radius {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: -24px;
+}
+:global(html[data-theme-transition="circle"]::view-transition-group(root)) { animation: none; }
+:global(html[data-theme-transition="circle"]::view-transition-old(root)),
+:global(html[data-theme-transition="circle"]::view-transition-new(root)) {
+  mix-blend-mode: normal;
+  height: 100%;
+  animation: none;
+  filter: none;
+}
+:global(html[data-theme-transition="circle"]::view-transition-old(root)) { z-index: 1; }
+:global(html[data-theme-transition="circle"][data-theme-direction="light"]::view-transition-new(root)),
+:global(html[data-theme-transition="circle"][data-theme-direction="dark"]::view-transition-old(root)) {
+  z-index: 2;
+  mask-image: radial-gradient(circle at var(--theme-reveal-x) var(--theme-reveal-y),
+    #000 calc(var(--theme-mask-radius) - 18px), transparent calc(var(--theme-mask-radius) + 18px));
+  mask-repeat: no-repeat;
+  animation: themeIvoryBloom var(--theme-motion-duration,740ms) cubic-bezier(.4,0,.2,1) both;
+}
+:global(html[data-theme-transition="circle"][data-theme-direction="dark"]::view-transition-new(root)) { z-index: 1; }
+:global(html[data-theme-transition="circle"][data-theme-direction="dark"]::view-transition-old(root)) {
+  animation-name: themeGravityReveal;
+}
+:global(html[data-theme-transition="circle"]::view-transition) { pointer-events: none; }
+@keyframes themeIvoryBloom {
+  from { --theme-mask-radius: -24px; }
+  to { --theme-mask-radius: var(--theme-reveal-radius); }
+}
+@keyframes themeGravityReveal {
+  from { --theme-mask-radius: var(--theme-reveal-radius); }
+  to { --theme-mask-radius: -24px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  :global(html[data-theme-transition="circle"]::view-transition-new(root)),
+  :global(html[data-theme-transition="circle"]::view-transition-old(root)) { animation: none; mask-image:none; }
+}

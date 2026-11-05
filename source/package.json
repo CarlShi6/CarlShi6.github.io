@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vinext build",
+    "build": "node scripts/build-production.mjs",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "test": "npm run build && npm run test:unit",
+    "test:unit": "node scripts/test-production.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },

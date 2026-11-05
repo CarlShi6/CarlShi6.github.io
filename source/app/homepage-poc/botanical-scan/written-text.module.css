@@ -1,0 +1,9 @@
+.word{display:inline-block;white-space:nowrap}.ink{display:inline-block;animation:ink .24s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--ink-delay)}
+/* Overlapping ink strokes read as a continuous handwritten wash rather than
+   a mechanical character stamp. Existing text order and wrapping stay intact. */
+@keyframes ink{0%{clip-path:inset(0 100% 0 0);opacity:0}65%{clip-path:inset(0 8% 0 0);opacity:.72}100%{clip-path:inset(0);opacity:1}}
+.srOnly{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.ink{animation:none;clip-path:none;opacity:1}}
+@media(hover:hover) and (pointer:fine){
+ :global([data-pen-preview=true]),:global([data-pen-preview=true]) :is(button,a){cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cg stroke='%23334c58' stroke-width='1.1' stroke-linejoin='round'%3E%3Cpath d='M7 24L24 3Q26 1 29 4L31 6Q32 8 30 10L13 29Z' fill='%23536d77'/%3E%3Cpath d='M7 24L3 33L13 29Z' fill='%23e9d3a2'/%3E%3Cpath d='M3 33L8 28' stroke='%23243743'/%3E%3Cpath d='M23 5L29 10M9 23L14 27' stroke='%23c4a469' stroke-width='2'/%3E%3Cpath d='M26 5L12 23' stroke='%23ced6cf' stroke-width='.8'/%3E%3C/g%3E%3C/svg%3E") 3 33,pointer}
+}
