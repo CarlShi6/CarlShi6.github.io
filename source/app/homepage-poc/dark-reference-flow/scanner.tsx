@@ -12,7 +12,7 @@ import styles from './scanner.module.css';
 export function ReferenceScanner({sceneRef}:{sceneRef:RefObject<HTMLElement|null>}){
  const [reduced,setReduced]=useState(true),[fine,setFine]=useState(false);
  const origin=useRef<HTMLElement|null>(null),restore=useRef(false),touch=useRef(false),timer=useRef<ReturnType<typeof setTimeout>|null>(null);
- const frame=useRef<HTMLDivElement>(null),panel=useRef<HTMLElement>(null),latest=useRef({id:null as string|null,open:false});
+ const panel=useRef<HTMLElement>(null),latest=useRef({id:null as string|null,open:false});
  const keyboard=useRef(false);
  const scan=useSpecimenScan(reduced,()=>{restore.current=true;queueMicrotask(()=>{restore.current=false;});return origin.current;});
  const {dismiss,inspect,select:selectScan}=scan;
@@ -49,10 +49,9 @@ export function ReferenceScanner({sceneRef}:{sceneRef:RefObject<HTMLElement|null
   const targets=Array.from(scene.querySelectorAll<HTMLElement>('[data-reference-target]')),cleanups:(()=>void)[]=[];
   const enabled=(el:HTMLElement)=>!el.inert&&!scene.closest('[inert]')&&getComputedStyle(el).visibility==='visible';
   const lock=()=>{
-   const target=origin.current,node=frame.current;if(!node)return;
-   if(!latest.current.id||!target||!enabled(target)){node.dataset.locked='false';return;}
-   const r=target.getBoundingClientRect(),s=scene.getBoundingClientRect(),pad=9;
-   node.style.transform=`translate(${r.left-s.left-pad}px,${r.top-s.top-pad}px)`;node.style.width=`${r.width+pad*2}px`;node.style.height=`${r.height+pad*2}px`;node.dataset.locked='true';
+   const target=origin.current;
+   if(!latest.current.id||!target||!enabled(target))return;
+   const r=target.getBoundingClientRect(),s=scene.getBoundingClientRect();
    scene.style.setProperty('--scan-x',`${r.left-s.left+r.width/2}px`);scene.style.setProperty('--scan-y',`${r.top-s.top+r.height/2}px`);scene.style.setProperty('--scan-r',`${r.width*.65}px`);
   };
   targets.forEach(target=>{
@@ -72,15 +71,12 @@ export function ReferenceScanner({sceneRef}:{sceneRef:RefObject<HTMLElement|null
    target.addEventListener('pointerenter',enter);target.addEventListener('pointerleave',leave);target.addEventListener('pointerdown',down);target.addEventListener('focus',focus);target.addEventListener('blur',blur);target.addEventListener('click',click,true);
    cleanups.push(()=>{target.removeEventListener('pointerenter',enter);target.removeEventListener('pointerleave',leave);target.removeEventListener('pointerdown',down);target.removeEventListener('focus',focus);target.removeEventListener('blur',blur);target.removeEventListener('click',click,true);target.removeAttribute('data-scan-boundary');for(const[key,value]of Object.entries(old)){const attr=key==='label'?'aria-label':key==='expanded'?'aria-expanded':'aria-controls';if(value===null)target.removeAttribute(attr);else target.setAttribute(attr,value);}});
   });
-  const move=(e:PointerEvent)=>{if(e.pointerType!=='mouse'||!fine||latest.current.id||!frame.current||scene.closest('[inert]'))return;const r=scene.getBoundingClientRect(),node=frame.current;node.style.transform=`translate(${e.clientX-r.left-16}px,${e.clientY-r.top-16}px)`;node.style.width='32px';node.style.height='32px';node.dataset.locked='cursor';};
-  const exit=()=>{if(frame.current&&!latest.current.id)frame.current.dataset.locked='false';leave();};
-  const observer=new ResizeObserver(lock);observer.observe(scene);scene.addEventListener('portfolio:reference-frame',lock);scene.addEventListener('pointermove',move);scene.addEventListener('pointerleave',exit);window.addEventListener('scroll',lock,true);
-  lock();return()=>{clear();observer.disconnect();cleanups.forEach(fn=>fn());scene.removeEventListener('portfolio:reference-frame',lock);scene.removeEventListener('pointermove',move);scene.removeEventListener('pointerleave',exit);window.removeEventListener('scroll',lock,true);};
- },[sceneRef,dismiss,inspect,selectScan,leave,clear,fine]);
+  const observer=new ResizeObserver(lock);observer.observe(scene);scene.addEventListener('portfolio:reference-frame',lock);scene.addEventListener('pointerleave',leave);window.addEventListener('scroll',lock,true);
+  lock();return()=>{clear();observer.disconnect();cleanups.forEach(fn=>fn());scene.removeEventListener('portfolio:reference-frame',lock);scene.removeEventListener('pointerleave',leave);window.removeEventListener('scroll',lock,true);};
+ },[sceneRef,dismiss,inspect,selectScan,leave,clear]);
  useEffect(()=>{sceneRef.current?.dispatchEvent(new Event('portfolio:reference-frame'));},[scan.id,sceneRef]);
  return <>
   <div className={styles.veil} data-visible={visible} aria-hidden="true"/>
-  <div ref={frame} className={styles.frame} data-dark-scanner data-locked="false" data-reduced={reduced} aria-hidden="true"><i/><i/><i/><i/>{scan.id&&<span key={scan.id} className={styles.sweep}/>}</div>
   {visible&&item&&<aside ref={panel} id="reference-scanner-preview" className={styles.preview} data-preview-kind={project?'projects':'skills'} aria-label={project?'Projects preview':'Skills preview'} data-scan-boundary onPointerEnter={e=>{if(e.pointerType==='mouse')keyboard.current=false;clear();}} onPointerLeave={leave} onFocusCapture={e=>{keyboard.current=e.target.matches(':focus-visible');clear();}} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget))leave();}}>
    <h2 className={styles.heading}>{typed(heading,0)}</h2>
    <div className={styles.collection}>{collection.map((entry,i)=>{const start=heading.length+entryText.slice(0,i).flat().join('').length;return <article className={styles.entry} key={entry.id}>

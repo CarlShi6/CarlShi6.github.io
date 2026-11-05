@@ -20,9 +20,9 @@ export function ReferenceWorld({root,canvas,failed,integrated=false,scanner=fals
     <p>I build at the intersection of AI, product, design, and technology. Currently exploring Product, Technical PM, and AI Product opportunities.</p>
     <Link href="/carl-shi-resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</Link>
    </div>
-   <Link className={styles.target} data-reference-target="projects" href="/homepage-poc/projects#projects" aria-label="Explore Carl Shi's projects"/>
-   <Link className={`${styles.target} ${styles.rocks}`} data-reference-target="capabilities" href="/homepage-poc/projects#skills" aria-label="Explore skills and capabilities"/>
-   <Link className={`${styles.target} ${styles.small}`} data-reference-target="skills" href="/homepage-poc/projects#skills" aria-label="Explore the skills collection"/>
+   <Link className={styles.target} data-reference-target="projects" href="/homepage-poc/projects#projects" aria-label="Explore Carl Shi's projects"><span className={styles.targetFrame} aria-hidden="true"><i/><i/><i/><i/></span><span className={styles.targetHint}>Projects</span></Link>
+   <Link className={`${styles.target} ${styles.rocks}`} data-reference-target="capabilities" href="/homepage-poc/projects#skills" aria-label="Explore skills and capabilities"><span className={styles.targetFrame} aria-hidden="true"><i/><i/><i/><i/></span></Link>
+   <Link className={`${styles.target} ${styles.small}`} data-reference-target="skills" href="/homepage-poc/projects#skills" aria-label="Explore the skills collection"><span className={styles.targetFrame} aria-hidden="true"><i/><i/><i/><i/></span><span className={styles.targetHint}>Skills</span></Link>
    {scanner&&<ReferenceScanner sceneRef={root}/>}
   </section>
  );

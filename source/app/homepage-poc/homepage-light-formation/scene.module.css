@@ -2,6 +2,13 @@
 .center{position:absolute;left:49.378%;top:58.932%;width:0;height:0;pointer-events:none}
 .labels a{pointer-events:auto;display:inline-flex;flex-direction:column;justify-content:center;min-height:44px;min-width:64px}
 .scene a:focus-visible{outline:2px solid #35577a!important;outline-offset:4px}
+.collectionHints{position:absolute;inset:0;pointer-events:none;z-index:5}
+.collectionHints>span{position:absolute;right:97%;top:25%;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:4px 8px;color:#3f566a;font:18px/1.4 Georgia,serif;white-space:nowrap}
+.collectionHints>span:last-child{right:auto;left:97%;top:32%;flex-direction:row-reverse}
+.collectionHints svg{width:30px;height:12px;fill:none;stroke:#8a7047;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.collectionHints>span:last-child svg{transform:rotate(180deg)}
+@media(max-width:1200px){.collectionHints>span{right:79%;top:39%}.collectionHints>span:last-child{left:82%;top:42%}}
+@media(max-width:700px){.collectionHints>span{right:65%;top:-7%;font-size:15px;flex-direction:column;gap:4px}.collectionHints>span:last-child{left:66%;top:-7%;flex-direction:column}.collectionHints svg,.collectionHints>span:last-child svg{width:18px;transform:rotate(90deg)}}
 .scene[data-attached-foliage=true] :global([data-tree-art]),.scene[data-attached-foliage=true] :global([data-canopy]),.scene[data-attached-foliage=true] :global([data-canopy-support]){display:none}
 .scene :global([data-foliage-rig]){position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 @media(max-width:600px){.scene{padding-top:70px}}
