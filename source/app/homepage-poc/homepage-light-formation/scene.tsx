@@ -51,6 +51,10 @@ export function FormationScene({controllerRef,interactive=false,active=true,unif
    <div className={`${base.composition} ${world.composition}`} data-light-composition>
     <div className={base.world}><FormationArtwork/><span className={styles.center} data-light-center aria-hidden="true"/><PortfolioIdentity/></div>
     {interactive&&rig&&<FoliageRig branches={rig.branches} leaves={rig.leaves} mode="both" interactive/>}
+    {unifiedScan&&<div className={styles.collectionHints}>
+     <span>Projects<svg viewBox="0 0 36 12" aria-hidden="true"><path d="M1 6H33M28 1L33 6L28 11"/></svg></span>
+     <span>Skills<svg viewBox="0 0 36 12" aria-hidden="true"><path d="M1 6H33M28 1L33 6L28 11"/></svg></span>
+    </div>}
     {interactive&&active&&hydrated&&rig?(unifiedScan?<HomepageBotanicalScan sceneRef={root}/>:<BotanicalPreview sceneRef={root} active={active}/>):unifiedScan?<noscript><nav aria-label="Portfolio collections"><Link href="/homepage-poc/projects#projects">Explore my work</Link>{' · '}<Link href="/homepage-poc/projects#skills">Explore my toolbox</Link></nav></noscript>:<div className={`${base.labels} ${world.labels} ${styles.labels}`}>
      <span><Link href="/homepage-poc/projects#projects">Projects<small>Explore my work</small></Link></span>
      <span><Link href="/homepage-poc/projects#skills">Skills<small>Explore my toolbox</small></Link></span>
