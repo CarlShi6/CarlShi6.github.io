@@ -31,6 +31,7 @@ const EXPANDED_SHARE = 0.36;
 // The travel crop holds the complete left-hand phone; the dog crop follows the subject.
 const focalPoints: Record<string, string> = {
   "/media/ai-pc-build-advisor/working-build-needs.png": "20% 48%",
+  "/media/ai-pc-build-advisor/v3/studio-overview.jpg": "46% 50%",
   "/media/dog-behavior-camera/case-study/detection-moving-frame.png": "76% 50%",
   "/media/luggage-helper/app-showcase-flow.png": "0% 50%",
 };
