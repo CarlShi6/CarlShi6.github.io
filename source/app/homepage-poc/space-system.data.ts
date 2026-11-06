@@ -1,3 +1,4 @@
+import { aiPcPreview } from './projects/ai-pc-content';
 export type SpaceSystemItem = {
   id: string;
   title: string;
@@ -15,14 +16,14 @@ export const projectPlanets: readonly SpaceSystemItem[] = [
   {
     id: "ai-pc-build-advisor",
     title: "AI PC Build Advisor",
-    eyebrow: "AI product · Working prototype",
-    summary: "From ambiguous build goals to an explainable, purchase-ready configuration.",
-    detail: "Requirements · comparison · compatibility · recommendation rationale",
+    eyebrow: "AI product · Image-to-build · Local beta",
+    summary: aiPcPreview.summary,
+    detail: aiPcPreview.detail,
     href: "/homepage-poc/projects/case-studies#ai-pc-build-advisor",
-    status: "MVP interaction",
+    status: "Local beta",
     phase: "mvp",
     visual: "planet",
-    image: "/media/ai-pc-build-advisor/working-recommendation-review.png",
+    image: aiPcPreview.image,
   },
   {
     id: "dog-behavior-camera",

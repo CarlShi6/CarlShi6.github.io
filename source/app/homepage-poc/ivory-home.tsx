@@ -10,7 +10,7 @@ import { SkillObject, skillObjects } from "./skill-objects";
 const layerRoot = "/media/ivory-cosmos/tree-growth";
 const worlds = [
   { title: "Build Hope", image: "/media/build-hope-content-operations/hero-operating-model.webp", slug: "build-hope-content-operations" },
-  { title: "AI PC Build Advisor", image: "/media/ai-pc-build-advisor/working-build-needs.png", slug: "ai-pc-build-advisor" },
+  { title: "AI PC Build Advisor", image: "/media/ai-pc-build-advisor/v3/studio-overview.jpg", slug: "ai-pc-build-advisor" },
   { title: "Dog Behavior Camera", image: "/media/dog-behavior-camera/case-study/detection-moving-frame.png", slug: "dog-behavior-camera" },
   { title: "Luggage Helper", image: "/media/luggage-helper/app-home-screen.png", slug: "ai-travel-assistant" },
   { title: "Music Pulse", image: "/media/music-pulse/participant-view.png", slug: "interactive-music-installation" },

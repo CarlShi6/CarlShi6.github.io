@@ -11,7 +11,8 @@ import { useEffect, useState } from "react";
 import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
 import styles from "./project-case-studies.module.css";
 import { BuildHopeArtifactGallery, BuildHopeBlueprint, BuildHopeRoadmap, BuildHopeEvidence, BuildHopePlatformEvidence } from "./build-hope-visuals";
-import { AiPcDecisionModel } from "./ai-pc-decision-model";
+import { aiPcCase } from "./ai-pc-content";
+import { AiPcCaseContent } from "./ai-pc-case-content";
 import { LuggageHelperVisual } from "./luggage-helper-visual";
 
 const projectCases = [
@@ -45,48 +46,7 @@ const projectCases = [
       ["/media/build-hope-content-operations/feedback-loop.webp", "Learning feedback loop", "Create, publish, measure, learn, improve, and repeat turns content delivery into an operating rhythm."],
     ],
   },
-  {
-    slug: "ai-pc-build-advisor",
-    navLabel: "PC Advisor",
-    title: "AI PC Build Advisor",
-    category: "AI product · Decision support",
-    intro: "Defined and tested an AI-assisted PC-building product through five user interviews, three prototype tests, and iterative development across 37 merged pull requests.",
-    problem: "Choosing PC parts is still overwhelming for beginners. Specifications are difficult to interpret, similar components are hard to compare, compatibility and price risks are easy to miss, and advice across different sources often conflicts.",
-    facts: [
-      ["Role", "Technical Product Lead · AI-Assisted Prototype"],
-      ["Status", "Functional prototype · Summer 2026 · Not publicly launched"],
-      ["Research", "5 user interviews · 3 prototype testers"],
-      ["Iteration", "37 merged PRs · June–August 2026"],
-      ["Core flow", "Need → Recommendation → Review → Purchase"],
-      ["Prototype scope", "Guided advisor · Comparison · Compatibility · Handoff"],
-    ],
-    system: [
-      ["Understand", "A chat-based intake captures budget, games, software, aesthetic preferences, brand preferences, and performance needs."],
-      ["Generate", "The advisor converts those needs into a complete component set with budget and performance context."],
-      ["Guard", "Compatibility rules check CPU socket, motherboard support, GPU and cooling clearance, PSU wattage, and case fit."],
-      ["Handoff", "The selected configuration carries its parts and updated total into a purchase reference list. Retailer integrations were deferred."],
-    ],
-    keyDecisions: [
-      ["Needs before specs", "Start with budget, workload, and style—not hardware terminology."],
-      ["Rule-based compatibility", "AI explains; explicit rules check sockets, power, clearance, and fit."],
-      ["See the trade-off", "Show price and performance changes before replacing a part."],
-      ["Prepare a parts list", "Keep component choices and the updated total visible; retailer integrations remained outside MVP scope."],
-    ],
-    heroImage: "/media/ai-pc-build-advisor/working-build-needs.png",
-    heroAlt: "AI PC Build Advisor needs and recommendation workspace",
-    executionImages: [
-      ["/media/ai-pc-build-advisor/working-build-needs.png", "Guided needs and recommendation workspace", "The advisor turns a conversational budget and use case into persistent build requirements."],
-      ["/media/ai-pc-build-advisor/working-alternatives.png", "Recommended component alternatives", "Alternatives display price, specifications, and compatibility context before replacement."],
-      ["/media/ai-pc-build-advisor/working-replacement-drawer.png", "Compatibility-aware replacement drawer", "A flagged motherboard choice is connected directly to compatible replacement options."],
-    ],
-    finalExperience: "The prototype keeps use-case-based recommendations, comparisons of up to three components, replacement flows, compatibility warnings, and recalculated build totals in one workspace. I directed AI-assisted implementation, reviewed generated code, and manually tested core flows; I did not personally handwrite the full React/TypeScript codebase. Repository history records 37 merged PRs: 16 in June, 17 in July, and 4 in August 2026.",
-    finalImages: [
-      ["/media/ai-pc-build-advisor/working-recommendation-review.png", "Recommendation review panel", "The review panel explains the build goal, recommendation logic, compatibility issue, and a lower-cost alternative."],
-      ["/media/ai-pc-build-advisor/working-comparison.png", "Side-by-side component comparison", "A beginner-readable comparison keeps price, performance, power, and the current baseline visible."],
-      ["/media/ai-pc-build-advisor/working-purchase-references.png", "Purchase reference list", "The selected configuration shows parts and prices for purchase planning; it is not an integrated retailer checkout."],
-    ],
-    outcome: "A functional, testable prototype and a concrete research finding: three testers liked the speed of receiving a complete configuration but questioned why the AI recommended certain components. Explanation clarity and recommendation trust remain priorities for further testing—not validated solutions. The product was not publicly launched; no conversion or adoption improvement is claimed.",
-  },
+  aiPcCase,
   {
     slug: "dog-behavior-camera",
     navLabel: "Dog Camera",
@@ -387,11 +347,11 @@ export function ProjectCaseStudiesPage() {
 
       {projectCases.map((project, projectIndex) => {
         const isBuildHopeCase = project.slug === "build-hope-content-operations";
-        const isAiPcCase = "keyDecisions" in project;
+        const isAiPcCase = project.slug === "ai-pc-build-advisor";
         const isLuggageCase = project.slug === "ai-travel-assistant";
         const heroSrc = project.heroImage;
         const heroAlt = project.heroAlt;
-        const executionImages = "executionImages" in project ? project.executionImages : project.images;
+        const executionImages = project.images;
 
         return <section className={styles.caseChapter} data-build-hope={isBuildHopeCase} data-compact-media={project.slug === "interactive-music-installation"} id={project.slug} key={project.slug}>
           <header className={styles.caseOpening}>
@@ -417,19 +377,19 @@ export function ProjectCaseStudiesPage() {
 
           {isBuildHopeCase && <aside className={styles.hopeContribution}><span>My contribution · Product Strategy & Operations Consultant</span><p>I clarified stakeholder goals and operational constraints, contributed to platform evaluation, and developed and presented the 30-day implementation roadmap and content-management playbook.</p><small>Five-day, four-person client engagement through USC Iovine and Young Academy · September 2026</small></aside>}
 
-          {isBuildHopeCase ? <BuildHopeCaseContent /> : <>
+          {isBuildHopeCase ? <BuildHopeCaseContent /> : isAiPcCase ? <AiPcCaseContent /> : <>
           <section className={styles.problemSection} aria-labelledby={`${project.slug}-problem`}>
             <span>01 · Problem</span>
             <h3 id={`${project.slug}-problem`}>{isLuggageCase ? "Know the allowance before deciding what to pack." : "What the product needs to make clear."}</h3>
             <div className={styles.problemCopy}>
               <p>{project.problem}</p>
-              {isAiPcCase && <p>I interviewed five prospective users and reviewed competing PC shopping and configuration experiences to identify pain points and establish MVP priorities. I prioritized use-case-based recommendations, comparisons of up to three components, replacement flows, compatibility warnings, and recalculated totals; retailer integrations stayed outside the MVP.</p>}
+
             </div>
           </section>
 
           <section className={styles.systemSection} aria-labelledby={`${project.slug}-system`}>
             <header>
-              <span>02 · {isAiPcCase ? "System" : "Project system"}</span>
+              <span>02 · Project system</span>
               <h3 id={`${project.slug}-system`}>The logic inside this project.</h3>
             </header>
             <ol>
@@ -444,30 +404,10 @@ export function ProjectCaseStudiesPage() {
             </ol>
           </section>
 
-          {isAiPcCase && (
-            <section className={styles.decisionSection} aria-labelledby={`${project.slug}-decisions`}>
-              <header>
-                <span>03 · Key decisions</span>
-                <h3 id={`${project.slug}-decisions`}>Make expert logic understandable to beginners.</h3>
-              </header>
-              <div className={styles.decisionLayout}>
-              <AiPcDecisionModel />
-              <ol>
-                {project.keyDecisions.map(([title, description], index) => (
-                  <li key={title}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <div><h4>{title}</h4><p>{description}</p></div>
-                  </li>
-                ))}
-              </ol>
-              </div>
-            </section>
-          )}
-
           <section className={styles.evidenceSection} aria-labelledby={`${project.slug}-evidence`}>
             <header>
-              <span>{isAiPcCase ? "04 · Execution" : "03 · Evidence"}</span>
-              <h3 id={`${project.slug}-evidence`}>{isAiPcCase ? "From guided intake to component replacement." : isLuggageCase ? "The original prototype, from trip setup to phone testing." : "The system made visible."}</h3>
+              <span>03 · Evidence</span>
+              <h3 id={`${project.slug}-evidence`}>{isLuggageCase ? "The original prototype, from trip setup to phone testing." : "The system made visible."}</h3>
             </header>
             <div className={styles.storySequence}>
               {executionImages.map(([src, alt, caption], index) => (
@@ -483,30 +423,8 @@ export function ProjectCaseStudiesPage() {
             </div>
           </section>
 
-          {isAiPcCase && (
-            <section className={styles.finalExperienceSection} aria-labelledby={`${project.slug}-final-experience`}>
-              <header>
-                <span>05 · Final experience</span>
-                <h3 id={`${project.slug}-final-experience`}>One workspace from recommendations to purchase planning.</h3>
-                <p>{project.finalExperience}</p>
-              </header>
-              <div className={styles.storySequence}>
-                {project.finalImages.map(([src, alt, caption], index) => (
-                  <figure data-reverse={index % 2 === 1} key={src}>
-                    <div className={styles.storyMedia}><Image src={src} alt={alt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 90vw, (max-width: 1028px) 45vw, 458px" unoptimized /></div>
-                    <figcaption>
-                      <span>{String(index + 1).padStart(2, "0")} · Final state</span>
-                      <h4>{alt}</h4>
-                      <p>{caption}</p>
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            </section>
-          )}
-
           <section className={styles.outcomeSection} aria-labelledby={`${project.slug}-outcome`}>
-            <span>{isAiPcCase ? "06 · Outcome" : "04 · Outcome"}</span>
+            <span>04 · Outcome</span>
             <h3 id={`${project.slug}-outcome`}>{project.outcome}</h3>
             <Link href={projectIndex === projectCases.length - 1 ? "#ai-pc-build-advisor" : `#${projectCases[projectIndex + 1].slug}`}>
               {projectIndex === projectCases.length - 1 ? "Back to first project" : `Next · ${projectCases[projectIndex + 1].navLabel}`} <i aria-hidden="true">→</i>

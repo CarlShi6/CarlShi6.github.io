@@ -1,10 +1,11 @@
+import { aiPcPreview } from '../projects/ai-pc-content';
 import {projectPlanets,skillSpacecraft} from '../space-system.data';
 import {skillObjects} from '../skill-objects';
 export const projectFacts: Record<string, { what: string; role: string; deliverable: string }> = {
   "ai-pc-build-advisor": {
-    what: "Explainable PC configuration decisions from ambiguous build goals.",
-    role: "AI product strategy Â· interaction prototyping",
-    deliverable: "Working recommendation and review prototype",
+    what: aiPcPreview.summary,
+    role: aiPcPreview.role,
+    deliverable: aiPcPreview.deliverable,
   },
   "dog-behavior-camera": {
     what: "A camera-to-actuation concept calibrated through real-dog trials.",

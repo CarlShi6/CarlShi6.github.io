@@ -97,6 +97,17 @@ test("server-renders the final project index and case-study routes", async () =>
   const casesHtml = await casesResponse.text();
   assert.match(casesHtml, /Project Case Studies — Carl Shi/);
   assert.match(casesHtml, /id="ai-pc-build-advisor"/);
+  // Keep the new local-beta evidence separate from earlier prototype research.
+  const aiPcChapter = casesHtml.split('id="ai-pc-build-advisor"')[1]?.split('id="dog-behavior-camera"')[0] ?? '';
+  for (const image of ['photo-entry', 'exploded-build', 'inspect-and-swap', 'shopping-plan']) {
+    assert.ok(aiPcChapter.includes(`/media/ai-pc-build-advisor/v3/${image}.jpg`));
+  }
+  assert.match(aiPcChapter, /Local beta · Not publicly launched/);
+  assert.match(aiPcChapter, /proportions estimated/);
+  assert.match(aiPcChapter, /One real photo/);
+  assert.match(aiPcChapter, /not a general accuracy benchmark/);
+  assert.match(aiPcChapter, /Earlier prototype · June–August 2026/);
+  assert.match(aiPcChapter, /not validation of the new photo-to-build flow/);
   assert.match(casesHtml, /id="dog-behavior-camera"/);
   assert.match(casesHtml, /id="ai-travel-assistant"/);
   assert.match(casesHtml, /id="interactive-music-installation"/);

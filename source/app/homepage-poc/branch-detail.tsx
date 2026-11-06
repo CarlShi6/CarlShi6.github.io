@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { aiPcPreview } from './projects/ai-pc-content';
 import Image from "next/image";
 import { StaticHomeLink } from './static-home-link';
 import { Fragment, lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -50,9 +51,9 @@ const details: Record<SpatialBranch, BranchDetail> = {
       },
       {
         title: "AI PC Build Advisor",
-        description: "Defined and tested an AI-assisted PC-building prototype through five user interviews, three prototype tests, and iterative development across 37 merged pull requests.",
-        signal: "AI product prototyping · User research · Compatibility",
-        image: "/media/ai-pc-build-advisor/working-build-needs.png",
+        description: aiPcPreview.summary,
+        signal: "Photo-to-build · 3D editing · Local beta",
+        image: aiPcPreview.image,
       },
       {
         title: "Dog Behavior Camera",
