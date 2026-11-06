@@ -15,9 +15,23 @@ const feedback = [
   { label: '+ PC check in parallel', seconds: 2.5 },
 ];
 
+const photoReadFrames = [
+  { image: 'photo-read-outlines.jpg', title: 'Reading the visible parts.', description: 'Dashed outlines hold space for visible components. CPU, storage and power supply remain open for the user to add.' },
+  { image: 'photo-read-arrival.jpg', title: 'Useful feedback before the read is complete.', description: 'The case, GPU and cooler appear while the motherboard and memory are still being read. The Studio remains available to explore.' },
+  { image: 'photo-read-complete.jpg', title: 'A visual draft, with uncertainty still visible.', description: 'The completed read labels proportions as estimated and offers five parts for optional model matching. These are matching opportunities, not five confirmed identifications.' },
+];
+
+function EvidenceImage({ file, alt }: { file: string; alt: string }) {
+  const image = `/media/ai-pc-build-advisor/v3/${file}`;
+  return <a className={styles.imageLink} href={image} target="_blank" rel="noreferrer" aria-label={`Open original screenshot: ${alt} (new tab)`}>
+    <Image src={image} alt={alt} width={1080} height={675} unoptimized />
+    <span aria-hidden="true">View original ↗</span>
+  </a>;
+}
+
 export function AiPcCaseContent() {
   return <div className={styles.case}>
-    <p className={styles.note}>Local beta screenshots · Showcase sample · Illustrative 3D model; proportions estimated.</p>
+    <p className={styles.note}>Local beta · The four experience moments use a showcase sample; the decision evidence below uses a recorded real-photo read. Illustrative 3D model; proportions estimated.</p>
 
     <section className={styles.section} aria-labelledby="aipc-opportunity">
       <span className={styles.eyebrow}>01 · Product framing</span>
@@ -56,6 +70,10 @@ export function AiPcCaseContent() {
             <div><dt>What the user confirms</dt><dd>Candidate model, hidden parts and final choices → the build and shopping plan.</dd></div>
           </dl>
           <p className={styles.note}>In the same-photo replay, the motherboard went from no close match to 2 candidates, and the cooler to 3 screen-pump AIOs. Ties were shown, never automatically selected. Unknown prices stay blank; incomplete checks remain “not checked”.</p>
+          <figure className={styles.matchEvidence}>
+            <EvidenceImage file="photo-read-matching.jpg" alt="Real-photo read replay: optional part matching with AI guesses, visible text and no automatically selected model" />
+            <figcaption><strong>Suggestions are an invitation to check.</strong><p>AI guesses and visible text are marked “may be misread”. The user chooses whether to match a part to a model; no candidate is automatically selected.</p></figcaption>
+          </figure>
         </div>
       </article>
 
@@ -74,10 +92,23 @@ export function AiPcCaseContent() {
         <header><span className={styles.eyebrow}>Decision 03 · Responsiveness</span><h4>Make the wait part of the Studio experience.</h4></header>
         <div className={styles.decisionBody}>
           <p>A 20–35 second spinner kept people outside the product. I moved reading into the Studio: an empty case and “Reading…” outlines become parts as the photo is interpreted.</p>
+          <p>People can rotate, zoom and choose parts while the read continues. Later results do not overwrite their selections.</p>
           <p>A fast appearance read now runs alongside the full read, with the PC check in parallel. This brings the first useful visual feedback forward without pretending the analysis is complete.</p>
           <figure className={styles.timing}><figcaption>Seconds until the first 3D part appears · Same real-photo test</figcaption><ol>{feedback.map(item => <li key={item.label}><span>{item.label}</span><div><i style={{ width: `${item.seconds / 10.8 * 100}%` }} aria-hidden="true" /><b>{item.seconds} s</b></div></li>)}</ol></figure>
           <p className={styles.note}>The full read still finishes at approximately 16 seconds in the background. Disagreements are labeled “Adjusted after full read”. Cost rose from about $0.033 to $0.041 per photo in exchange for earlier feedback.</p>
         </div>
+        <section className={styles.readEvidence} aria-labelledby="aipc-real-photo-read">
+          <span className={styles.eyebrow}>Recorded real-photo read · UI evidence</span>
+          <h4 id="aipc-real-photo-read">Watch the draft become useful, step by step.</h4>
+          <p>Three captured states show the move from waiting to working. Replayed at the original pace from a recorded response, without new AI calls.</p>
+          <div className={styles.readFrames}>
+            {photoReadFrames.map((frame, index) => <figure key={frame.image}>
+              <EvidenceImage file={frame.image} alt={`Real-photo read replay — ${frame.title}`} />
+              <figcaption><span className={styles.eyebrow}>Stage 0{index + 1}</span><h5>{frame.title}</h5><p>{frame.description}</p></figcaption>
+            </figure>)}
+          </div>
+          <p className={styles.note}>These frames document interface states, not a separate live performance measurement. The timing comparison above reports the first part appearing, not completion of every visible part.</p>
+        </section>
       </article>
     </section>
 

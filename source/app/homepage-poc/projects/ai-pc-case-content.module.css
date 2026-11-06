@@ -44,3 +44,16 @@
 .case a:focus-visible, .history summary:focus-visible, .tableWrap:focus-visible { outline: 2px solid var(--rail-muted); outline-offset: 4px; }
 @media (max-width: 1028px) { .decision { grid-template-columns: 1fr; gap: 20px; } .tour { grid-template-columns: 1fr; } .imageLink { max-width: 800px; } }
 @media (max-width: 600px) { .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); } .flow li { border-bottom: 1px solid var(--line); padding: 14px 8px; font-size: 13px; } .case h4 { font-size: 21px; } .decision { padding: 28px 0; } .tableWrap th, .tableWrap td { padding: 10px 6px; } .tableWrap table { min-width: 320px; } }
+.matchEvidence { margin: 28px 0 0; }
+.matchEvidence figcaption { padding-top: 14px; font-size: 16px; line-height: 1.5; }
+.matchEvidence figcaption p { margin-top: 8px; font-size: 14px; }
+.readEvidence { grid-column: 1 / -1; min-width: 0; padding-top: 28px; border-top: 1px solid var(--line); }
+.readFrames { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 28px; margin-top: 28px; }
+.readFrames figure { min-width: 0; margin: 0; }
+.readFrames figure:last-child { grid-column: 1 / -1; }
+.readFrames figcaption { padding-top: 16px; }
+.readFrames h5 { margin: 8px 0 0; font-size: 20px; font-weight: 520; letter-spacing: -.02em; line-height: 1.3; }
+.readFrames figcaption p { margin-top: 10px; }
+.readEvidence .imageLink { max-width: none; }
+.readEvidence h4 { scroll-margin-top: 110px; }
+@media (max-width: 1028px) { .readFrames { grid-template-columns: 1fr; gap: 32px; } }
