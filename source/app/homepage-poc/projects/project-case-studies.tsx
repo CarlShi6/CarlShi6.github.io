@@ -12,6 +12,7 @@ import { LineSidebar } from "@/src/components/react-bits/LineSidebar";
 import styles from "./project-case-studies.module.css";
 import { BuildHopeArtifactGallery, BuildHopeBlueprint, BuildHopeRoadmap, BuildHopeEvidence, BuildHopePlatformEvidence } from "./build-hope-visuals";
 import { aiPcCase } from "./ai-pc-content";
+import { AiPcLiveLink } from './ai-pc-live-link';
 import { AiPcCaseContent } from "./ai-pc-case-content";
 import { LuggageHelperVisual } from "./luggage-helper-visual";
 
@@ -363,6 +364,7 @@ export function ProjectCaseStudiesPage() {
               <span>{project.category}</span>
               <h2><EditorialMotion text={project.title} /></h2>
               <p>{project.intro}</p>
+              {isAiPcCase && <AiPcLiveLink />}
             </div>
           </header>
 

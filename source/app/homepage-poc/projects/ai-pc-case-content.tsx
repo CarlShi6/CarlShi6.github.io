@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { aiPcCase, aiPcTour } from './ai-pc-content';
+import { AiPcLiveLink } from './ai-pc-live-link';
 import styles from './ai-pc-case-content.module.css';
 
 const modelComparison = [
@@ -31,7 +32,7 @@ function EvidenceImage({ file, alt }: { file: string; alt: string }) {
 
 export function AiPcCaseContent() {
   return <div className={styles.case}>
-    <p className={styles.note}>Local beta · The four experience moments use a showcase sample; the decision evidence below uses a recorded real-photo read. Illustrative 3D model; proportions estimated.</p>
+    <p className={styles.note}>Development evidence · The four experience moments use a showcase sample; the decision evidence below uses a recorded real-photo read. Illustrative 3D model; proportions estimated.</p>
 
     <section className={styles.section} aria-labelledby="aipc-opportunity">
       <span className={styles.eyebrow}>01 · Product framing</span>
@@ -114,9 +115,11 @@ export function AiPcCaseContent() {
 
     <section className={styles.section} aria-labelledby="aipc-current-state">
       <span className={styles.eyebrow}>04 · Current state</span>
-      <h3 id="aipc-current-state">A local beta, ready for broader learning.</h3>
+      <h3 id="aipc-current-state">Try the early-access product.</h3>
       <p>{aiPcCase.outcome}</p>
-      <p>I owned the product scope, specifications, model and cost decisions, acceptance criteria, and review of AI-assisted implementation. The next step is public beta feedback on the path from photo upload to saving or exporting a build.</p>
+      <AiPcLiveLink />
+      <p className={styles.note}>Opens in a new tab. On the product page, choose “Try the white showcase sample” to explore without uploading a photo.</p>
+      <p>I owned the product scope, specifications, model and cost decisions, acceptance criteria, and review of AI-assisted implementation. The next step is feedback on the path from photo upload to saving or exporting a build.</p>
       <details className={styles.history}><summary>Earlier prototype · June–August 2026</summary><p>The earlier guided-advisor version included five user interviews, three prototype testers and 37 merged pull requests. Testers valued the speed of receiving a configuration but questioned the recommendation rationale. These are earlier-version findings, not validation of the new photo-to-build flow.</p><a href="/media/ai-pc-build-advisor/working-recommendation-review.png" target="_blank" rel="noreferrer">View the earlier recommendation workspace ↗</a></details>
       <p className={styles.note}>Source: AIPC case study supplied by Carl · November 2026. Product status and evaluation figures reflect that local development snapshot.</p>
       <Link className={styles.next} href="#dog-behavior-camera">Next · Dog Camera <span aria-hidden="true">→</span></Link>

@@ -7,6 +7,7 @@ import {projectFacts} from '../light-home-v2/data';
 import {WaterLens} from './water-lens';
 import {WrittenText} from './written-text';
 import {useSpecimenScan} from './interaction';
+import {AiPcLiveLink} from '../projects/ai-pc-live-link';
 import styles from './objects.module.css';
 export function ProjectPaper({project,kind='project',scan,reduced,fine,penPreview=false,editorialPreview=false}:{project:SpaceSystemItem;kind?:'project'|'skill';scan:ReturnType<typeof useSpecimenScan>;reduced:boolean;fine:boolean;penPreview?:boolean;editorialPreview?:boolean}){
  const id='paper-'+project.id,paperSvg=useRef<SVGSVGElement>(null),button=useRef<HTMLButtonElement>(null),facts=projectFacts[project.id];
@@ -41,7 +42,7 @@ export function ProjectPaper({project,kind='project',scan,reduced,fine,penPrevie
     {project.image&&<Image src={project.image} alt={`${project.title} — original project artifact`} width={400} height={225} unoptimized className={styles.projectImage}/>}
     <dl className={styles.projectFacts}><div><dt>{write(2)}</dt><dd>{write(3)}</dd></div><div><dt>{write(4)}</dt><dd>{write(5)}</dd></div><div><dt>{write(6)}</dt><dd>{write(7)}</dd></div></dl>
    </div>:kind==='project'?<dl><dt>{write(2)}</dt><dd>{write(3)}</dd><dt>{write(4)}</dt><dd>{write(5)}</dd><dt>{write(6)}</dt><dd>{write(7)}</dd></dl>:<><p>{write(2)}</p><dl><dt>{write(3)}</dt><dd>{write(4)}</dd></dl></>}
-   <Link href={project.href}>{kind==='project'?'Look Closer':'Explore skill'} <span aria-hidden="true">↗</span></Link>
+   <div className={styles.tagActions}><Link href={project.href}>{kind==='project'?'Look Closer':'Explore skill'} <span aria-hidden="true">↗</span></Link>{project.id==='ai-pc-build-advisor'&&<AiPcLiveLink compact/>}</div>
   </div>
  </div>;
 }

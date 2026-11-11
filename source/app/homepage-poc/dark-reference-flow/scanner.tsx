@@ -6,6 +6,7 @@ import {projectPlanets,skillSpacecraft} from '../space-system.data';
 import {projectFacts} from '../light-home-v2/data';
 import {useSpecimenScan} from '../botanical-scan/interaction';
 import {TypedText} from './typed-text';
+import {AiPcLiveLink} from '../projects/ai-pc-live-link';
 import styles from './scanner.module.css';
 
 /** Native hit targets follow the renderer's existing capture poses; no extra canvas. */
@@ -81,7 +82,7 @@ export function ReferenceScanner({sceneRef}:{sceneRef:RefObject<HTMLElement|null
    <h2 className={styles.heading}>{typed(heading,0)}</h2>
    <div className={styles.collection}>{collection.map((entry,i)=>{const start=heading.length+entryText.slice(0,i).flat().join('').length;return <article className={styles.entry} key={entry.id}>
     <Image src={project?entry.image!:`/homepage-poc/webgl-v4/skill-${i+1}.webp`} alt={project?`${entry.title} — original project artifact`:''} width={400} height={250} loading="eager" unoptimized className={project?styles.projectArt:styles.skillArt}/>
-    <div className={styles.copy}><h3>{typed(entry.title,start)}</h3><p className={styles.summary}>{typed(entry.summary,start+entry.title.length)}</p>{!project&&<p className={styles.detail}>{typed(entry.detail,start+entry.title.length+entry.summary.length)}</p>}<Link href={entry.href} className={styles.cta} aria-label={`Look closer: ${entry.title}`}>Look Closer.</Link></div>
+    <div className={styles.copy}><h3>{typed(entry.title,start)}</h3><p className={styles.summary}>{typed(entry.summary,start+entry.title.length)}</p>{!project&&<p className={styles.detail}>{typed(entry.detail,start+entry.title.length+entry.summary.length)}</p>}<div className={styles.actions}><Link href={entry.href} className={styles.cta} aria-label={`Look closer: ${entry.title}`}>Look Closer.</Link>{entry.id==='ai-pc-build-advisor'&&<AiPcLiveLink compact/>}</div></div>
    </article>;})}</div>
   </aside>}
  </>;

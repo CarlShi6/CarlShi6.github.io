@@ -1,12 +1,14 @@
 /** November 2026 case-study PDF supplied by Carl. Images are embedded originals,
  * not generated reconstructions. Evaluation figures below are single-photo results. */
+export const aiPcLiveUrl = 'https://ai-pc-build-advisor.ai-pc-build-advisor-carl.workers.dev/';
+
 export const aiPcPreview = {
   title: 'AI PC Build Advisor',
   summary: 'Turn a PC photo into an editable 3D build, with user-confirmed parts and a sourced shopping plan.',
   detail: 'Photo-based drafts · 3D editing · User confirmation · Sourced shopping plans',
   image: '/media/ai-pc-build-advisor/v3/studio-overview.jpg',
   role: 'Product owner · Solo, directing AI-assisted development',
-  deliverable: 'Local beta: 3D Studio, part swaps, and shopping-plan export.',
+  deliverable: 'Early-access preview: 3D Studio, part swaps, and shopping-plan export.',
 };
 
 export const aiPcTour = [
@@ -20,18 +22,18 @@ export const aiPcCase = {
   slug: 'ai-pc-build-advisor',
   navLabel: 'AIPC',
   title: 'AIPC — From photo to editable 3D build',
-  category: 'AI product · Image-to-build · Local beta',
+  category: 'AI product · Image-to-build · Early access',
   intro: 'Start with a PC photo, explore an editable 3D draft, and choose parts for a shopping plan with visible sources and unknowns.',
   problem: 'A photo captures a look, but cannot prove every component inside the case. The product needs to turn visual inspiration into useful choices without treating guesses as confirmed parts.',
   facts: [
     ['Role', 'Product owner & builder · Solo, directing an AI coding agent'],
     ['Timeline', 'Oct–Nov 2026 · v3 image-to-build rebuild'],
-    ['Status', 'Local beta · Not publicly launched'],
+    ['Status', 'Live preview · Early access'],
     ['Focus', 'Photo interpretation · 3D editing · Decision transparency'],
   ],
   system: [],
   heroImage: aiPcPreview.image,
   heroAlt: 'AIPC local beta showcase sample: labeled components in the editable 3D Build Studio',
   images: aiPcTour.map(item => [item.image, item.title, item.description]),
-  outcome: 'The local beta connects photo-based drafts, user-confirmed parts, 3D editing and shopping-plan export. Public beta testing and broader evaluation are next; adoption and recognition accuracy at scale are not yet established.',
+  outcome: 'An early-access preview is now available online. The case study documents the photo-to-build workflow, user-confirmed parts and shopping-plan export. Broader user evaluation is next; adoption and recognition accuracy at scale are not yet established.',
 };
