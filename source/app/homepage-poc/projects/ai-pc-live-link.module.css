@@ -1,0 +1,5 @@
+.primary, .compact { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; box-sizing: border-box; color: inherit; font: inherit; font-size: 15px; line-height: 1.4; text-decoration: none; }
+.primary { border: 1px solid currentColor; padding: 10px 18px; margin-top: 20px; }
+.compact { text-decoration: underline; text-underline-offset: 5px; }
+.primary:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
+.primary:focus-visible, .compact:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }

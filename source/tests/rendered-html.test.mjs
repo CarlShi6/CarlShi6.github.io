@@ -102,7 +102,10 @@ test("server-renders the final project index and case-study routes", async () =>
   for (const image of ['photo-entry', 'exploded-build', 'inspect-and-swap', 'shopping-plan']) {
     assert.ok(aiPcChapter.includes(`/media/ai-pc-build-advisor/v3/${image}.jpg`));
   }
-  assert.match(aiPcChapter, /Local beta · Not publicly launched/);
+  assert.match(aiPcChapter, /Live preview · Early access/);
+  assert.doesNotMatch(aiPcChapter, /Not publicly launched/);
+  assert.match(aiPcChapter, /href="https:\/\/ai-pc-build-advisor.ai-pc-build-advisor-carl.workers.dev\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(aiPcChapter, /Try live app/);
   assert.match(aiPcChapter, /proportions estimated/);
   assert.match(aiPcChapter, /One real photo/);
   assert.match(aiPcChapter, /not a general accuracy benchmark/);
@@ -111,7 +114,7 @@ test("server-renders the final project index and case-study routes", async () =>
   assert.match(casesHtml, /id="dog-behavior-camera"/);
   assert.match(casesHtml, /id="ai-travel-assistant"/);
   assert.match(casesHtml, /id="interactive-music-installation"/);
-  assert.match(casesHtml, /Not publicly launched/);
+  assert.match(casesHtml, /Live preview · Early access/);
   assert.match(casesHtml, /8 platforms evaluated as a team/);
   assert.match(casesHtml, /Metricool/);
   assert.match(casesHtml, /Content assets/);

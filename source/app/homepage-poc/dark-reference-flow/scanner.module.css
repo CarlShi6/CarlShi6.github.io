@@ -41,3 +41,6 @@
   .preview[data-preview-kind="projects"] .collection { gap: 24px; }
   .preview[data-preview-kind="projects"] .heading { margin-bottom: 8px; }
 }
+
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; margin-top: auto; padding-top: 12px; }
+.preview[data-preview-kind="projects"] .actions .cta { margin-top: 0; padding-top: 0; }

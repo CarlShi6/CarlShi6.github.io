@@ -52,7 +52,7 @@ const details: Record<SpatialBranch, BranchDetail> = {
       {
         title: "AI PC Build Advisor",
         description: aiPcPreview.summary,
-        signal: "Photo-to-build · 3D editing · Local beta",
+        signal: "Photo-to-build · 3D editing · Early access",
         image: aiPcPreview.image,
       },
       {

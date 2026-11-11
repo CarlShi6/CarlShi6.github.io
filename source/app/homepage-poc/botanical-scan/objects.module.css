@@ -55,3 +55,6 @@
   .projectFacts { gap: 10px 12px; }
   .projectImage { aspect-ratio: 5 / 2; }
 }
+
+.tagActions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 16px; flex-shrink: 0; }
+.paper[data-editorial-project=true] .tagActions a { margin: 0; font-size: calc(15px / var(--object-scale, 1)); }

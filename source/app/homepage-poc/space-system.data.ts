@@ -16,11 +16,11 @@ export const projectPlanets: readonly SpaceSystemItem[] = [
   {
     id: "ai-pc-build-advisor",
     title: "AI PC Build Advisor",
-    eyebrow: "AI product · Image-to-build · Local beta",
+    eyebrow: "AI product · Image-to-build · Early access",
     summary: aiPcPreview.summary,
     detail: aiPcPreview.detail,
     href: "/homepage-poc/projects/case-studies#ai-pc-build-advisor",
-    status: "Local beta",
+    status: "Early access",
     phase: "mvp",
     visual: "planet",
     image: aiPcPreview.image,
