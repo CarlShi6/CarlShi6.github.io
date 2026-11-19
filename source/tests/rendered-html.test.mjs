@@ -58,6 +58,23 @@ test("server-renders the accessible Light homepage without a hidden Dark runtime
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
+test("server-renders Denture Preview with synthetic evidence and accessible, opt-in playback", async () => {
+  const [indexResponse, caseResponse] = await Promise.all([render('/homepage-poc/projects/'), render('/homepage-poc/projects/case-studies/')]);
+  const index = await indexResponse.text();
+  const cases = await caseResponse.text();
+  assert.match(index, /href="\/homepage-poc\/projects\/case-studies#denture-preview"/);
+  assert.match(index, /Six systems\. One product practice\./);
+  const chapter = cases.split('id="denture-preview"')[1]?.split('<footer')[0] ?? '';
+  assert.match(chapter, /current adopted draft/);
+  assert.match(chapter, /Clinical suitability and printed texture remain open questions/);
+  assert.match(chapter, /Original synthetic 3D model/);
+  assert.match(chapter, /<video[^>]*controls=""[^>]*playsInline=""[^>]*preload="none"/i);
+  assert.doesNotMatch(chapter, /<video[^>]*(?:autoplay|loop)/i);
+  assert.match(chapter, /kind="captions"[^>]*src="\/media\/denture-preview\/denture-preview.en.vtt"/);
+  assert.match(chapter, /src="\/media\/denture-preview\/denture-preview.mp4" type="video\/mp4"/);
+  assert.match(chapter, /Withdraw|Withdrawing/);
+});
+
 test("server-renders the final project index and case-study routes", async () => {
   const [projectsResponse, casesResponse] = await Promise.all([
     render("/homepage-poc/projects/"),

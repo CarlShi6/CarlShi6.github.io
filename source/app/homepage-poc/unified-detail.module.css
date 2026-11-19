@@ -377,6 +377,7 @@
 .mapNode[data-project="2"] { top: 38%; left: 79%; }
 .mapNode[data-project="3"] { top: 67%; left: 28%; }
 .mapNode[data-project="4"] { top: 76%; left: 73%; }
+.mapNode[data-project="5"] { top: 46%; left: 48%; }
 
 .mapThumb { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid rgba(127, 153, 165, 0.46); background: #0a0f13; clip-path: polygon(4% 4%, 96% 0, 100% 88%, 91% 100%, 0 95%, 0 12%); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28); }
 .mapThumb img { object-fit: cover; filter: saturate(0.78) contrast(1.05); }
@@ -878,6 +879,7 @@
   .mapNode[data-project="2"] { top: 48%; left: 27%; }
   .mapNode[data-project="3"] { top: 65%; left: 73%; }
   .mapNode[data-project="4"] { top: 82%; left: 30%; }
+  .mapNode[data-project="5"] { top: 85%; left: 74%; }
   .skillConstellation { display: block; min-height: 0; padding: 18px; }
   .skillConnections { display: none; }
   .skillNode, .skillNode[data-node] { margin: 0 0 14px; min-height: 0; }

@@ -1,0 +1,29 @@
+.walkthrough { margin: 0; min-width: 0; }
+.walkthrough video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #10191e; object-fit: contain; }
+.walkthrough video:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+.walkthrough figcaption { padding: 16px 20px; color: var(--rail-muted); font-size: var(--editorial-caption, 13px); line-height: 1.6; }
+.case { color: var(--text); }
+.section { margin-top: var(--editorial-section-space, 64px); padding-top: 28px; border-top: 1px solid var(--line); }
+.eyebrow { color: var(--rail-muted); font: 500 var(--editorial-overline, 12px)/1.5 var(--font-geist-mono), monospace; letter-spacing: .035em; }
+.section h3 { max-width: 27ch; margin: 12px 0 24px; font-size: clamp(28px, 3vw, 40px); font-weight: 520; line-height: 1.15; letter-spacing: -.035em; }
+.section p { max-width: var(--editorial-measure, 72ch); margin: 16px 0 0; color: var(--rail-muted); font-size: var(--editorial-body, 16px); line-height: 1.65; }
+.section strong { color: var(--text); font-weight: 550; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); list-style: none; margin: 32px 0; padding: 0; border-block: 1px solid var(--bright-line); }
+.flow li { padding: 22px 18px; border-right: 1px solid var(--line); font-size: 16px; line-height: 1.5; }
+.flow li:last-child { border: 0; }
+.flow span { display: block; margin-bottom: 12px; font: 12px var(--font-geist-mono), monospace; color: var(--rail-muted); }
+.comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 28px 0 0; border-block: 1px solid var(--bright-line); }
+.comparison div { padding: 24px; background: var(--raised); }
+.comparison div + div { border-left: 1px solid var(--line); }
+.comparison dt { font-size: 20px; font-weight: 550; }
+.comparison dd { margin: 12px 0 0; color: var(--rail-muted); font-size: 16px; line-height: 1.65; }
+.back { display: inline-flex; min-height: 44px; align-items: center; margin-top: 28px; color: var(--text); text-decoration: underline; text-underline-offset: 5px; }
+.back:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+@media (max-width: 760px) {
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow li { border-bottom: 1px solid var(--line); padding: 18px 12px; }
+  .comparison { grid-template-columns: 1fr; }
+  .comparison div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .comparison div { padding: 20px; }
+  .walkthrough figcaption { padding: 12px 14px; }
+}
