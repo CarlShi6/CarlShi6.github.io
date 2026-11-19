@@ -15,6 +15,8 @@ import { aiPcCase } from "./ai-pc-content";
 import { AiPcLiveLink } from './ai-pc-live-link';
 import { AiPcCaseContent } from "./ai-pc-case-content";
 import { LuggageHelperVisual } from "./luggage-helper-visual";
+import { denturePreviewCase } from './denture-preview-content';
+import { DenturePreviewContent, DenturePreviewVideo } from './denture-preview';
 
 const projectCases = [
   {
@@ -130,6 +132,7 @@ const projectCases = [
       ["/media/music-pulse/device-front.png", "One compact public interface", "A central screen, floor-level controls, and combined speaker/recycling units bring participation and everyday park functions into one object."],
     ],
   },
+  denturePreviewCase,
 ] as const;
 
 const projectIds = projectCases.map((project) => project.slug);
@@ -341,23 +344,24 @@ export function ProjectCaseStudiesPage() {
 
       <header className={styles.caseArchiveHero}>
         <span>Third layer · Project case studies</span>
-        <h1>Five projects.<br />Five distinct systems.</h1>
+        <h1>Six projects.<br />Six distinct systems.</h1>
         <p>Each chapter follows one product from its problem and system logic into execution evidence and outcome.</p>
-        <div className={styles.heroCounter} aria-hidden="true"><b>01</b><i /><b>05</b></div>
+        <div className={styles.heroCounter} aria-hidden="true"><b>01</b><i /><b>{String(projectCases.length).padStart(2, '0')}</b></div>
       </header>
 
       {projectCases.map((project, projectIndex) => {
         const isBuildHopeCase = project.slug === "build-hope-content-operations";
         const isAiPcCase = project.slug === "ai-pc-build-advisor";
         const isLuggageCase = project.slug === "ai-travel-assistant";
+        const isDentureCase = project.slug === 'denture-preview';
         const heroSrc = project.heroImage;
         const heroAlt = project.heroAlt;
         const executionImages = project.images;
 
-        return <section className={styles.caseChapter} data-build-hope={isBuildHopeCase} data-compact-media={project.slug === "interactive-music-installation"} id={project.slug} key={project.slug}>
+        return <section className={styles.caseChapter} data-build-hope={isBuildHopeCase} data-denture={isDentureCase || undefined} data-compact-media={project.slug === "interactive-music-installation"} id={project.slug} key={project.slug}>
           <header className={styles.caseOpening}>
             <div className={styles.caseIndex}>
-              <span>{String(projectIndex + 1).padStart(2, "0")} / 05</span>
+              <span>{String(projectIndex + 1).padStart(2, "0")} / {String(projectCases.length).padStart(2, '0')}</span>
               <i />
             </div>
             <div className={styles.caseTitleBlock}>
@@ -370,7 +374,7 @@ export function ProjectCaseStudiesPage() {
 
           <div className={styles.caseLead}>
             <div className={styles.caseHeroMedia} data-build-hope={isBuildHopeCase} data-luggage={isLuggageCase}>
-              {isBuildHopeCase ? <BuildHopeBlueprint compact /> : isLuggageCase ? <LuggageHelperVisual /> : <Image src={heroSrc} alt={heroAlt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 72vw" unoptimized />}
+              {isDentureCase ? <DenturePreviewVideo /> : isBuildHopeCase ? <BuildHopeBlueprint compact /> : isLuggageCase ? <LuggageHelperVisual /> : <Image src={heroSrc} alt={heroAlt} fill style={{ objectFit: "contain" }} sizes="(max-width: 760px) 94vw, 72vw" unoptimized />}
             </div>
             <dl className={styles.caseFacts}>
               {project.facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
@@ -379,7 +383,7 @@ export function ProjectCaseStudiesPage() {
 
           {isBuildHopeCase && <aside className={styles.hopeContribution}><span>My contribution · Product Strategy & Operations Consultant</span><p>I clarified stakeholder goals and operational constraints, contributed to platform evaluation, and developed and presented the 30-day implementation roadmap and content-management playbook.</p><small>Five-day, four-person client engagement through USC Iovine and Young Academy · September 2026</small></aside>}
 
-          {isBuildHopeCase ? <BuildHopeCaseContent /> : isAiPcCase ? <AiPcCaseContent /> : <>
+          {isDentureCase ? <DenturePreviewContent /> : isBuildHopeCase ? <BuildHopeCaseContent /> : isAiPcCase ? <AiPcCaseContent /> : <>
           <section className={styles.problemSection} aria-labelledby={`${project.slug}-problem`}>
             <span>01 · Problem</span>
             <h3 id={`${project.slug}-problem`}>{isLuggageCase ? "Know the allowance before deciding what to pack." : "What the product needs to make clear."}</h3>

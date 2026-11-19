@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { aiPcPreview } from './projects/ai-pc-content';
+import { denturePreviewCase, denturePreviewSummary } from './projects/denture-preview-content';
 import Image from "next/image";
 import { StaticHomeLink } from './static-home-link';
 import { Fragment, lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -39,7 +40,7 @@ type BranchDetail = {
 const details: Record<SpatialBranch, BranchDetail> = {
   projects: {
     eyebrow: "Project archive",
-    title: "Five systems. One product practice.",
+    title: "Six systems. One product practice.",
     intro: "A visual index of client work, working prototypes, and design concepts that make complex decisions easier to understand.",
     items: [
       {
@@ -72,6 +73,13 @@ const details: Record<SpatialBranch, BranchDetail> = {
         description: "An interactive park installation concept that turns music and movement into a shared visual experience in Brooklyn.",
         signal: "Interactive installation · Public space · Music",
         image: "/media/music-pulse/device-front.png",
+        compactMedia: true,
+      },
+      {
+        title: denturePreviewCase.title,
+        description: denturePreviewSummary,
+        signal: denturePreviewCase.category,
+        image: denturePreviewCase.heroImage,
         compactMedia: true,
       },
     ],
@@ -199,6 +207,7 @@ const projectSlugs = [
   "dog-behavior-camera",
   "ai-travel-assistant",
   "interactive-music-installation",
+  "denture-preview",
 ] as const;
 
 function useReducedMotion() {

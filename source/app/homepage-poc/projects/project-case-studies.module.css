@@ -688,6 +688,7 @@
 .caseHeroMedia:not([data-build-hope=true]) { min-height: 0; aspect-ratio: 16 / 10; }
 /* The remote Travel hero is native content, not a fixed-ratio screenshot. */
 .caseHeroMedia[data-luggage=true] { aspect-ratio: auto; }
+.caseChapter[data-denture=true] .caseHeroMedia { aspect-ratio: auto; }
 .caseHeroMedia img { object-position: center top; }
 .caseFacts { grid-template-rows: none; }
 .caseFacts div { padding: 16px 20px; }
